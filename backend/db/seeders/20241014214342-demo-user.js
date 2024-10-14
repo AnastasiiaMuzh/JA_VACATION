@@ -14,26 +14,36 @@ module.exports = {
     await User.bulkCreate(
       [
         {
+          firstName: "Freddy",
+          lastName: "Muzh",
           email: "freddy@user.io",
           username: "freddyTheDragon1",
           hashedPassword: bcrypt.hashSync("UnleashTheDragon777#*"),
         },
         {
+          firstName: "Bartholomeow",
+          lastName: "Allen",
           email: "bartholomeow@user.io",
           username: "impulseFlash3",
           hashedPassword: bcrypt.hashSync("ZoomMustDie333*#"),
         },
         {
+          firstName: "Anastasiia",
+          lastName: "Muzh",
           email: "nastya_moose@user.io",
           username: "NazzieMoose7",
           hashedPassword: bcrypt.hashSync("MashaAnekaMila137***"),
         },
         {
+          firstName: "Barry",
+          lastName: "Allen",
           email: "barry_bee@user.io",
           username: "BarryBee23",
           hashedPassword: bcrypt.hashSync("BuzzOff13#*"),
         },
         {
+          firstName: "Johnny",
+          lastName: "P",
           email: "johnny_p@user.io",
           username: "JohnnyPeace12",
           hashedPassword: bcrypt.hashSync("PeaceLove&Chicken1324***"),
@@ -61,4 +71,3 @@ module.exports = {
       },{});
   },
 };
-

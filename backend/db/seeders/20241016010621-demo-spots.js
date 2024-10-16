@@ -1,3 +1,4 @@
+//Seeders Spots
 "use strict";
 
 const { Spot } = require("../models");

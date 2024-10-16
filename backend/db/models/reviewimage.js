@@ -1,3 +1,4 @@
+//Model SpotImages
 'use strict';
 const {
   Model

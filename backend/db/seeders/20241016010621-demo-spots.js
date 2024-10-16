@@ -27,7 +27,7 @@ module.exports = {
           price: 123,
         },
         {
-          ownerId: 49,
+          ownerId: 2,
           address: "2100 Black diamond",
           city: "Colorado Springs",
           state: "Colorado",
@@ -39,7 +39,7 @@ module.exports = {
           price: 777,
         },
         {
-          ownerId: 49,
+          ownerId: 3,
           address: "2100 White diamond",
           city: "Cloud Springs",
           state: "Colorado",
@@ -51,7 +51,7 @@ module.exports = {
           price: 177,
         },
         {
-          ownerId: 9,
+          ownerId: 4,
           address: "2720 Black Cloud",
           city: "Denver",
           state: "Colorado",
@@ -63,7 +63,7 @@ module.exports = {
           price: 333,
         },
         {
-          ownerId: 11,
+          ownerId: 5,
           address: "2345 Strange street",
           city: "Pueblo",
           state: "Colorado",
@@ -75,7 +75,7 @@ module.exports = {
           price: 200,
         },
         {
-          ownerId: 12,
+          ownerId: 5,
           address: "2340 Captains Drive",
           city: "Arlington",
           state: "Texas",
@@ -87,7 +87,7 @@ module.exports = {
           price: 350,
         },
         {
-          ownerId: 13,
+          ownerId: 2,
           address: "556 Widow Ln",
           city: "Webb",
           state: "New Hampshire",
@@ -99,7 +99,7 @@ module.exports = {
           price: 450,
         },
         {
-          ownerId: 11,
+          ownerId: 2,
           address: "223 Speedway Ln",
           city: "Central City",
           state: "Texas",
@@ -111,7 +111,7 @@ module.exports = {
           price: 1000,
         },
         {
-          ownerId: 11,
+          ownerId: 1,
           address: "2100 Dragon Dr",
           city: "Dragon City",
           state: "Colorado",
@@ -123,7 +123,7 @@ module.exports = {
           price: 175,
         },
         {
-          ownerId: 11,
+          ownerId: 3,
           address: "1234 Moose Cr",
           city: "Anna",
           state: "Texas",

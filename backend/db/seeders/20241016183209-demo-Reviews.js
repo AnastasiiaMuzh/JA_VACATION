@@ -43,94 +43,95 @@ module.exports = {
       // Reviews for Spot 2 - Awesome spot
       {
         spotId: 2,
-        userId: 6,
+        userId: 1,
         review: "Amazing place, highly recommend!",
         stars: 5,
       },
       {
         spotId: 2,
-        userId: 7,
+        userId: 2,
         review: "Had a great time, would come again.",
         stars: 4,
       },
       {
         spotId: 2,
-        userId: 8,
+        userId: 3,
         review: "Could have been better.",
         stars: 3,
       },
       {
         spotId: 2,
-        userId: 9,
+        userId: 4,
         review: "Beautiful spot, very comfortable.",
         stars: 5,
       },
       {
         spotId: 2,
-        userId: 10,
+        userId: 5,
         review: "The location is perfect!",
         stars: 5,
       },
-      // Reviews for Spot 2 - Awesome spot
+      // Reviews for Spot 3 - Great spot
       {
-        spotId: 2,
-        userId: 6,
-        review: "Amazing place, highly recommend!",
-        stars: 5,
-      },
-      {
-        spotId: 2,
-        userId: 7,
-        review: "Had a great time, would come again.",
+        spotId: 3,
+        userId: 1,
+        review: "A wonderful place to relax.",
         stars: 4,
       },
       {
-        spotId: 2,
-        userId: 8,
-        review: "Could have been better.",
-        stars: 3,
-      },
-      {
-        spotId: 2,
-        userId: 9,
-        review: "Beautiful spot, very comfortable.",
+        spotId: 3,
+        userId: 2,
+        review: "Clean and well-maintained.",
         stars: 5,
       },
       {
-        spotId: 2,
-        userId: 10,
-        review: "The location is perfect!",
+        spotId: 3,
+        userId: 3,
+        review: "Loved the atmosphere, very cozy.",
+        stars: 4,
+      },
+      {
+        spotId: 3,
+        userId: 4,
+        review: "Pretty nice, would come again.",
+        stars: 4,
+      },
+      {
+        spotId: 3,
+        userId: 5,
+        review: "Great views and peaceful area.",
         stars: 5,
       },
+
 
       // Reviews for Spot 4 - Amazing spot
       {
         spotId: 4,
-        userId: 6,
+        userId: 1,
         review: "Amazing people and vibes!",
         stars: 5,
       },
       {
         spotId: 4,
-        userId: 7,
+        userId: 2,
         review: "Nice, but a bit noisy.",
         stars: 3,
       },
       {
         spotId: 4,
-        userId: 8,
+        userId: 3,
         review: "Would recommend for the price.",
         stars: 4,
       },
       {
         spotId: 4,
-        userId: 9,
+        userId: 4,
         review: "Super friendly staff.",
         stars: 5,
       },
       {
         spotId: 4,
-        userId: 10,
+        userId: 5,
         review: "Loved it, definitely coming back.",
         stars: 5,
       },
@@ -170,66 +171,35 @@ module.exports = {
       // Reviews for Spot 6 - Caps House
       {
         spotId: 6,
-        userId: 6,
+        userId: 1,
         review: "Best spot ever, highly recommend!",
         stars: 5,
       },
       {
         spotId: 6,
-        userId: 7,
+        userId: 2,
         review: "Had a great time, awesome house.",
         stars: 5,
       },
       {
         spotId: 6,
-        userId: 8,
+        userId: 3,
         review: "Perfect for a weekend getaway.",
         stars: 4,
       },
       {
         spotId: 6,
-        userId: 9,
+        userId: 4,
         review: "A cozy and comfortable stay.",
         stars: 4,
       },
       {
         spotId: 6,
-        userId: 10,
+        userId: 5,
         review: "Amazing decor and ambiance.",
         stars: 5,
       },
 
-      // Reviews for Spot 6 - Caps House
-      {
-        spotId: 6,
-        userId: 6,
-        review: "Best spot ever, highly recommend!",
-        stars: 5,
-      },
-      {
-        spotId: 6,
-        userId: 7,
-        review: "Had a great time, awesome house.",
-        stars: 5,
-      },
-      {
-        spotId: 6,
-        userId: 8,
-        review: "Perfect for a weekend getaway.",
-        stars: 4,
-      },
-      {
-        spotId: 6,
-        userId: 9,
-        review: "A cozy and comfortable stay.",
-        stars: 4,
-      },
-      {
-        spotId: 6,
-        userId: 10,
-        review: "Amazing decor and ambiance.",
-        stars: 5,
-      },
       // Reviews for Spot 7 - The Web
       {
         spotId: 7,
@@ -265,31 +235,31 @@ module.exports = {
       // Reviews for Spot 8 - The SpeedForce
       {
         spotId: 8,
-        userId: 6,
+        userId: 1,
         review: "Fastest service I've ever had!",
         stars: 5,
       },
       {
         spotId: 8,
-        userId: 7,
+        userId: 2,
         review: "Zoomed right through my expectations.",
         stars: 4,
       },
       {
         spotId: 8,
-        userId: 8,
+        userId: 3,
         review: "Could barely keep up, it was that good!",
         stars: 5,
       },
       {
         spotId: 8,
-        userId: 9,
+        userId: 4,
         review: "Great service but a bit rushed.",
         stars: 3,
       },
       {
         spotId: 8,
-        userId: 10,
+        userId: 5,
         review: "Lightning fast, loved it.",
         stars: 5,
       },
@@ -329,31 +299,31 @@ module.exports = {
       // Reviews for Spot 10 - The Moose Castle
       {
         spotId: 10,
-        userId: 6,
+        userId: 1,
         review: "Moose-tastic! Best place ever.",
         stars: 5,
       },
       {
         spotId: 10,
-        userId: 7,
+        userId: 2,
         review: "Moose everywhere, loved it.",
         stars: 5,
       },
       {
         spotId: 10,
-        userId: 8,
+        userId: 3,
         review: "Great place, moose-themed and fun.",
         stars: 4,
       },
       {
         spotId: 10,
-        userId: 9,
+        userId: 4,
         review: "Moose Castle is a must-see!",
         stars: 5,
       },
       {
         spotId: 10,
-        userId: 10,
+        userId: 5,
         review: "Loved the moose, the castle was epic.",
         stars: 5,
       },

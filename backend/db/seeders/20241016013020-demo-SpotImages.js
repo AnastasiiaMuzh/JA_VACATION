@@ -1,3 +1,4 @@
+//seeders spotImages
 'use strict';
 
 let options = {};

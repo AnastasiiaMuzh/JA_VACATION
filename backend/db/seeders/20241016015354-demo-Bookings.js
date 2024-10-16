@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('Bookings', [
+    await queryInterface.bulkInsert("Bookings", [
       {
         spotId: 1,
         userId: 1,
@@ -36,7 +36,7 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('Bookings', options), {};
+    await queryInterface.bulkDelete("Bookings", options), {};
   }
 };
 

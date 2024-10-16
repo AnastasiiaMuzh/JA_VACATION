@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === "production") {
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    options.tableName = 'spotimages';
+    options.tableName = 'SpotImages';
     await queryInterface.bulkInsert(options, [
       {
         spotId: 1,
@@ -35,7 +35,7 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    options.tableName = 'spotimages';
+    options.tableName = 'SpotImages';
     await queryInterface.bulkDelete(options, null, {});
   }
 };

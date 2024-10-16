@@ -8,7 +8,7 @@ if (process.env.NODE_ENV === "production") {
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert("SpotImages", [
+    await queryInterface.bulkInsert('"SpotImages"', [
       {
         spotId: 1,
         url: 'https://example.com/spot1-image1.jpg',
@@ -33,7 +33,7 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete("SpotImages", options, {});
+    await queryInterface.bulkDelete('"SpotImages"', options, {});
   }
 };
 

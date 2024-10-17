@@ -5,10 +5,11 @@ let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;
 }
+options.tableName = "Bookings";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('Bookings', [
+    await queryInterface.bulkInsert(options, [
       {
         spotId: 1,
         userId: 1,
@@ -33,11 +34,11 @@ module.exports = {
         startDate: new Date('2024-12-01'),
         endDate: new Date('2024-12-05'),
       }
-    ], options, {});
+    ]);
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete('Bookings', options), {};
+    await queryInterface.bulkDelete(options), {};
   }
 };
 

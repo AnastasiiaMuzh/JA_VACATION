@@ -4,11 +4,12 @@ let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
+options.tableName = "Reviews";
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.bulkInsert("Reviews", [
+    await queryInterface.bulkInsert(options, [
       // Reviews for Spot 1 - App Academy
       {
         spotId: 1,
@@ -331,6 +332,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete("Reviews", options);
+    await queryInterface.bulkDelete(options);
   }
 };

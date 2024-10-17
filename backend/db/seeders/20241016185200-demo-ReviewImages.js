@@ -4,10 +4,11 @@ let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;
 }
+options.tableName = "ReviewImages";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert("ReviewImages", [
+    await queryInterface.bulkInsert(options, [
       {
         reviewId: 1,
         url: 'https://example.com/review-image1.jpg',
@@ -52,6 +53,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkDelete("ReviewImages", options);
+    await queryInterface.bulkDelete(options);
   }
 };

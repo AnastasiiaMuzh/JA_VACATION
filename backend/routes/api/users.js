@@ -49,5 +49,7 @@ router.post("/", validateSignup, async (req, res) => {
     });
 });
 
+// for login we have in session.js
+
 
 module.exports = router;

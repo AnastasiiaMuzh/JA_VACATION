@@ -1,9 +1,10 @@
 // backend/routes/api/index.js
 const router = require('express').Router();
 const { setTokenCookie } = require('../../utils/auth.js');
-const { User } = require('../../db/models');
+const { User, Spot } = require('../../db/models');
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
+const spotsRouter = require('./spots.js');
 
 
 // GET /api/set-token-cookie
@@ -53,6 +54,7 @@ router.get(
 // If current user session is not valid, set req.user to null
 router.use('/session', sessionRouter);
 router.use('/users', usersRouter);
+router.use('/spots', spotsRouter);
 
 
 router.post('/test', function (req, res) {

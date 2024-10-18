@@ -44,12 +44,11 @@ router.post("/", validateSignup, async (req, res) => {
 
     await setTokenCookie(res, safeUser);
 
-    return res.json({
+    return res.status(201).json({
         user: safeUser,
     });
 });
 
-// for login we have in session.js
 
 
 module.exports = router;

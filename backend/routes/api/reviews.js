@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Spot, SpotImage, Review, ReviewImage } = require('../../db/models');
 const { where, Model } = require('sequelize');
+const { validateReview, validateSpot } = require('../../utils/validation');
 
 const router = express.Router();
 
@@ -76,6 +77,92 @@ router.get('/current', requireAuth, async (req, res) => {
 
 //Create a Review for a Spot based on the Spot's id
 // in spots.js
+
+//Add an Image to a Review based on the Review's id
+
+router.post('/:reviewId/images', requireAuth, async (req, res) => {
+    const { reviewId } = req.params;
+    const { url } = req.body;
+    const userId = req.user.id;
+
+    const review = await Review.findByPk(reviewId);// we find review
+
+    if (!review) {
+        return res.status(404).json({ "message": "Review couldn't be found" });
+    };
+
+    if (review.userId !== userId) { //check belong to the user
+        return res.status(403).json({ message: "Authentication required" });
+    }
+
+    const reviewImages = await ReviewImage.findAll({
+        where: { reviewId },
+    });
+    const numImages = reviewImages.length;
+    if (numImages > 10) {
+        return res.status(403).json({ "message": "Maximum number of images for this resource was reached" });
+    }
+
+    const createImage = await ReviewImage.create({
+        reviewId: review.id,
+        url,
+    })
+
+    return res.status(201).json({
+        id: createImage.id,
+        url: createImage.url,
+    });
+});
+
+//Edit a Review
+
+router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
+    const { review, stars } = req.body;
+    const { reviewId } = req.params;
+    const userId = req.user.id;
+
+    const existingReview = await Review.findByPk(reviewId);
+
+    if (!existingReview) {
+        return res.status(404).json({ "message": "Review couldn't be found" });
+    };
+
+    if (existingReview.userId !== userId) {
+        return res.status(403).json({ message: "Authentication required" });
+    }
+
+    const updateReview = await existingReview.update({ review, stars });
+
+    return res.status(200).json({
+        id: existingReview.id,
+        userId: existingReview.userId,
+        spotId: existingReview.spotId,
+        review: existingReview.review,
+        stars: existingReview.stars,
+        createdAt: existingReview.createdAt,
+        updatedAt: existingReview.updatedAt,
+    });
+});
+
+//Delete a Review
+router.delete('/:reviewId', requireAuth, async (req, res) => {
+    const { reviewId } = req.params;
+    const userId = req.user.id;
+
+    const review = await Review.findByPk(reviewId);
+
+    if (!review) {
+        return res.status(404).json({ "message": "Review couldn't be found" });
+    };
+
+    if (review.userId !== userId) {
+        return res.status(403).json({ message: "Authentication required" });
+    }
+
+    return res.status(200).json({
+        "message": "Successfully deleted"
+    })
+})
 
 
 

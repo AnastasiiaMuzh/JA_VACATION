@@ -2,7 +2,7 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Spot, SpotImage, Review, ReviewImage } = require('../../db/models');
-const { where } = require('sequelize');
+const { where, Model } = require('sequelize');
 
 const router = express.Router();
 
@@ -71,6 +71,28 @@ router.get('/current', requireAuth, async (req, res) => {
     return res.json({ Reviews: formattedReviews });
 });
 
+//Get all Reviews by a Spot's id
+router.get('/:spotId/reviews', async (req, res) => {
+    const { spotId } = req.params;
+
+    const spot = await Spot.findByPk(spotId);
+    if (!spot) return res.status(404).json({ message: "Spot couldn't be found" });
+
+    const reviews = await Review.findAll({
+        where: { spotId },
+        include: [
+            {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName'],
+            },
+            {
+                model: ReviewImage,
+                attributes: ['id', 'url'],
+            }
+        ]
+    })
+    res.json({Review: reviews});
+});
 
 
 module.exports = router;

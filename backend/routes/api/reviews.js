@@ -94,5 +94,9 @@ router.get('/:spotId/reviews', async (req, res) => {
     res.json({Review: reviews});
 });
 
+//Create a Review for a Spot based on the Spot's id
+
+router 
+
 
 module.exports = router;

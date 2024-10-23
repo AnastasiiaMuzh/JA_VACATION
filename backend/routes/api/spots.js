@@ -7,6 +7,191 @@ const { validateReview, validateSpot } = require('../../utils/validation');
 
 const router = express.Router();
 
+// //Add Query Filters to Get All Spots
+// router.get('/', async (req, res) => {
+//     const { page = 1, size = 20, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+
+//     pageNum = parseInt(page);
+//     sizeNum = parseInt(size);
+
+//     const errors = {};
+//     if (!pageNum || pageNum < 1) errors.pageNum = "Page must be greater than or equal to 1";
+//     if (!sizeNum || sizeNum < 1 || sizeNum > 20) errors.sizeNum = "Size must be between 1 and 20";
+//     if (maxLat > 90) errors.maxLat = "Maximum latitude is invalid"
+//     if (minLat < -90) errors.minLat = "Minimum latitude is invalid"
+//     if (maxLng > 180) errors.maxLng = "Maximum longitude is invalid";
+//     if (minLng < -180) errors.minLng = "Minimum longitude is invalid";
+//     if (minPrice < 0) errors.minPrice = "Minimum price must be greater than or equal to 0";
+//     if (maxPrice < 0) errors.maxPrice = "Maximum price must be greater than or equal to 0";
+
+//     if (Object.keys(errors).length > 0) {
+//         return res.status(400).json({
+//             "message": "Validation error",
+//             "errors": errors
+//         })
+//     }
+
+
+//     const where = {};
+//     if (minLat) where.lat = { [Op.gte]: parseFloat(minLat) };
+//     if (maxLat) where.lat = { ...where.lat, [Op.lte]: parseFloat(maxLat) };
+//     if (minLng) where.lng = { [Op.gte]: parseFloat(minLng) };
+//     if (maxLng) where.lng = { ...where.lng, [Op.lte]: parseFloat(maxLng) };
+//     if (minPrice) where.price = { [Op.gte]: parseFloat(minPrice) };
+//     if (maxPrice) where.price = { ...where.price, [Op.lte]: parseFloat(maxPrice) };
+
+//     const limit = Math.min(sizeNum, 20);
+//     const offset = (pageNum - 1) * limit;
+
+//     const spot = await Spot.findAll({
+//         where,
+//         limit,
+//         offset,
+//         include: [
+//             {
+//                 model: SpotImage,
+//                 as: "SpotImages",
+//                 where: { preview: true },
+//                 required: false,
+//                 attributes: ["url"],
+//             },
+//             {
+//                 model: Review,
+//                 attributes: [],
+//             },
+//         ],
+//         // attributes: {
+//         //     include: [
+//         //         [sequelize.fn("AVG", sequelize.col("Reviews.stars")), "avgRating"],
+//         //     ],
+//         // },
+//         group: ["Spot.id"],
+//         subQuery: false,
+//     }) await ((spots) => {
+//         const reviews = await Review.findAll({
+//             where: { spotId }
+//         });
+//         const numReviews = reviews.length;
+//         const avgRating = numReviews > 0
+//             ? reviews.reduce((sum, review) => sum + review.stars, 0) / numReviews
+//             : 0; 
+//         const result = spots.map((spot) => ({
+//             id: spot.id,
+//             ownerId: spot.ownerId,
+//             address: spot.address,
+//             city: spot.city,
+//             state: spot.state,
+//             country: spot.country,
+//             lat: spot.lat,
+//             lng: spot.lng,
+//             name: spot.name,
+//             description: spot.description,
+//             price: spot.price,
+//             createdAt: spot.createdAt,
+//             updatedAt: spot.updatedAt,
+//             avgRating: spot.dataValues.avgRating
+//                 ? parseFloat(spot.dataValues.avgRating).toFixed(1)
+//                 : null,
+//             previewImage: spot.SpotImages.length > 0 ? spot.SpotImages[0].url : null,
+//         }));
+
+//         res.json({
+//             Spots: result,
+//             page: pageNum,
+//             size: limit,
+//         });
+//     });
+// });
+
+// Add Query Filters to Get All Spots
+router.get('/', async (req, res) => {
+    const { page = 1, size = 20, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+
+    const pageNum = parseInt(page);
+    const sizeNum = parseInt(size);
+
+    const errors = {};
+    if (!page || page < 1) errors.page = "Page must be greater than or equal to 1";
+    if (!size || size < 1 || size > 20) errors.size = "Size must be between 1 and 20";
+    if (maxLat > 90) errors.maxLat = "Maximum latitude is invalid"
+    if (minLat < -90) errors.minLat = "Minimum latitude is invalid"
+    if (maxLng > 180) errors.maxLng = "Maximum longitude is invalid";
+    if (minLng < -180) errors.minLng = "Minimum longitude is invalid";
+    if (minPrice < 0) errors.minPrice = "Minimum price must be greater than or equal to 0";
+    if (maxPrice < 0) errors.maxPrice = "Maximum price must be greater than or equal to 0";
+
+    if (Object.keys(errors).length > 0) {
+        return res.status(400).json({
+            "message": "Validation error",
+            "errors": errors
+        });
+    }
+
+    const where = {};
+    if (minLat) where.lat = { [Op.gte]: parseFloat(minLat) };
+    if (maxLat) where.lat = { ...where.lat, [Op.lte]: parseFloat(maxLat) };
+    if (minLng) where.lng = { [Op.gte]: parseFloat(minLng) };
+    if (maxLng) where.lng = { ...where.lng, [Op.lte]: parseFloat(maxLng) };
+    if (minPrice) where.price = { [Op.gte]: parseFloat(minPrice) };
+    if (maxPrice) where.price = { ...where.price, [Op.lte]: parseFloat(maxPrice) };
+
+    const limit = Math.min(sizeNum, 20);
+    const offset = (pageNum - 1) * limit;
+
+    const spots = await Spot.findAll({
+        where,
+        limit,
+        offset,
+        include: [
+            {
+                model: SpotImage,
+                as: "SpotImages",
+                where: { preview: true },
+                required: false,
+                attributes: ["url"],
+            },
+            {
+                model: Review,
+                attributes: [],
+            },
+        ],
+        group: ["Spot.id"],
+        subQuery: false,
+    });
+
+    const result = spots.map((spot) => {
+        const numReviews = spot.Reviews ? spot.Reviews.length : 0;
+        const avgRating = numReviews > 0
+            ? spot.Reviews.reduce((sum, review) => sum + review.stars, 0) / numReviews
+            : 0;
+        return {
+            id: spot.id,
+            ownerId: spot.ownerId,
+            address: spot.address,
+            city: spot.city,
+            state: spot.state,
+            country: spot.country,
+            lat: spot.lat,
+            lng: spot.lng,
+            name: spot.name,
+            description: spot.description,
+            price: spot.price,
+            createdAt: spot.createdAt,
+            updatedAt: spot.updatedAt,
+            avgRating: avgRating.toFixed(1),
+            previewImage: spot.SpotImages.length > 0 ? spot.SpotImages[0].url : null,
+        };
+    });
+
+    res.json({
+        Spots: result,
+        page: pageNum,
+        size: limit,
+    });
+});
+
+
+
 // Get all Spots
 router.get('/', async (req, res) => {
     const spots = await Spot.findAll();
@@ -205,6 +390,8 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
     return res.status(201).json(newReview);
 
 });
+
+
 
 
 

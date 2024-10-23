@@ -6,7 +6,7 @@ const { validationResult } = require('express-validator');
 const handleValidationErrors = (req, res, next) => {
   const validationErrors = validationResult(req);
 
-  if (!validationErrors.isEmpty()) { 
+  if (!validationErrors.isEmpty()) {
     const errors = {};
     validationErrors
       .array()
@@ -36,10 +36,10 @@ const validateSpot = (req, res, next) => {
   if (price <= 0) errors.price = "Price per day must be a positive number";
 
   if (Object.keys(errors).length > 0) {
-      return res.status(400).json({
-          "message": "Validation error",
-          "errors": errors
-      })
+    return res.status(400).json({
+      "message": "Validation error",
+      "errors": errors
+    })
   }
   next();
 }
@@ -51,16 +51,39 @@ const validateReview = (req, res, next) => {
   if (!stars || stars < 1 || stars > 5) errors.stars = "Stars must be an integer from 1 to 5";
 
   if (Object.keys(errors).length > 0) {
-      return res.status(400).json({
-          "message": "Validation error",
-          "errors": errors
-      })
+    return res.status(400).json({
+      "message": "Validation error",
+      "errors": errors
+    })
   }
   next();
 }
 
+// const validateQueryParams = (req, res, next) => {
+//   const { page, size, maxLat, minLat, maxLng, minLng, minPrice, maxPrice } = req.query;
+//   const errors = {};
+//   if (!page || page < 1) errors.page = "Page must be greater than or equal to 1";
+//   if (!size || size < 1 || size > 20) errors.size = "Size must be between 1 and 20";
+//   if (maxLat > 90) errors.maxLat = "Maximum latitude is invalid"
+//   if (minLat < -90) errors.minLat = "Minimum latitude is invalid"
+//   if (maxLng > 180) errors.maxLng = "Maximum longitude is invalid";
+//   if (minLng < -180) errors.minLng = "Minimum longitude is invalid";
+//   if (minPrice < 0) errors.minPrice = "Minimum price must be greater than or equal to 0";
+//   if (maxPrice < 0) errors.maxPrice = "Maximum price must be greater than or equal to 0";
+
+//   if (Object.keys(errors).length > 0) {
+//     return res.status(400).json({
+//       "message": "Validation error",
+//       "errors": errors
+//     })
+//   }
+//   next();
+// }
+
 module.exports = {
-  handleValidationErrors, 
+  handleValidationErrors,
   validateReview,
   validateSpot
+  //validateQueryParams
+
 };

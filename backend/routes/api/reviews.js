@@ -92,7 +92,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
     };
 
     if (review.userId !== userId) { //check belong to the user
-        return res.status(403).json({ message: "Authentication required" });
+        return res.status(403).json({ message: "Forbidden" });
     }
 
     const reviewImages = await ReviewImage.findAll({
@@ -128,7 +128,7 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
     };
 
     if (existingReview.userId !== userId) {
-        return res.status(403).json({ message: "Authentication required" });
+        return res.status(403).json({ message: "Forbidden" });
     }
 
     const updateReview = await existingReview.update({ review, stars });
@@ -156,9 +156,10 @@ router.delete('/:reviewId', requireAuth, async (req, res) => {
     };
 
     if (review.userId !== userId) {
-        return res.status(403).json({ message: "Authentication required" });
+        return res.status(403).json({ message: "Forbidden" });
     }
 
+   await review.destroy();
     return res.status(200).json({
         "message": "Successfully deleted"
     })

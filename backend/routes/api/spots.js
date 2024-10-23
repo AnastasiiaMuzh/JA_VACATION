@@ -97,7 +97,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
     };
 
     if (spot.ownerId !== userId) {
-        return res.status(403).json({ message: "Authentication required" });
+        return res.status(403).json({ message: "Forbidden" });
     }
 
     const createImage = await SpotImage.create({
@@ -127,7 +127,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
     };
 
     if (spot.ownerId !== userId) {
-        return res.status(403).json({ message: "Authentication required" });
+        return res.status(403).json({ message: "Forbidden" });
     }
 
     const updateSpot = await spot.update({ address, city, state, country, lat, lng, name, description, price });
@@ -147,9 +147,10 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
     };
 
     if (spot.ownerId !== userId) {
-        return res.status(403).json({ message: "Authentication required" });
+        return res.status(403).json({ message: "Forbidden" });
     }
 
+    await spot.destroy();
     return res.status(200).json({
         "message": "Successfully deleted"
     })

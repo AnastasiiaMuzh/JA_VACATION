@@ -32,6 +32,7 @@ fetch('/api/set-token-cookie?username="*yourUsername*"')
 // GET /api/restore-user
 const { restoreUser } = require('../../utils/auth.js');
 const spotimage = require('../../db/models/spotimage.js');
+const { where } = require('sequelize');
 router.use(restoreUser);
 
 router.get(
@@ -56,26 +57,52 @@ router.delete('/spot-images/:imageId', requireAuth, async (req, res) => {
   const { imageId } = req.params;
   const userId = req.user.id;
 
-  const image = await SpotImage.findByPk(imageId, { //find image from imageId
-    include: {
+  const image = await SpotImage.findByPk(imageId, { //find image by its Id
+    include: { //// include the Spot model to find the relationship between the image and the spot
       model: Spot,
-      attributes: ['ownerId']
+      attributes: ['ownerId'] // retrieve only the ownerId of the spot associated with the image
     }
   });
 
   if (!image) {
-      return res.status(404).json({ message: "Spot Image couldn't be found" });
+    return res.status(404).json({ message: "Spot Image couldn't be found" });
   };
 
   if (image.Spot.ownerId !== userId) {
-      return res.status(403).json({ message: "Authentication required" });
+    return res.status(403).json({ message: "Forbidden" });
   }
 
+  await image.destroy();
   return res.status(200).json({
-      "message": "Successfully deleted"
+    "message": "Successfully deleted"
   })
 })
 
+//Delete a Review Image
+router.delete('/review-images/:imageId', requireAuth, async (req, res) => {
+  const { imageId } = req.params;
+  const userId = req.user.id;
+
+  const image = await ReviewImage.findByPk(imageId, { //find image by its Id
+    include: { //// include the Spot model to find the relationship between the image and the spot
+      model: Review,
+      attributes: ['userId'] // retrieve only the ownerId of the spot associated with the image
+    }
+  });
+
+  if (!image) {
+    return res.status(404).json({ message: "Review Image couldn't be found" });
+  };
+
+  if (image.Review.userId !== userId) {
+    return res.status(403).json({ message: "Forbidden" });
+  }
+
+  await image.destroy();
+  return res.status(200).json({
+    "message": "Successfully deleted"
+  })
+})
 
 // Connect restoreUser middleware to the API router
 // If current user session is valid, set req.user to the user in the database

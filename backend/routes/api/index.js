@@ -1,7 +1,7 @@
 // backend/routes/api/index.js
 const router = require('express').Router();
-const { setTokenCookie } = require('../../utils/auth.js');
-const { User, Spot, Review } = require('../../db/models');
+const { setTokenCookie, requireAuth } = require('../../utils/auth.js');
+const { User, Spot, Review, SpotImage, ReviewImage } = require('../../db/models');
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const spotsRouter = require('./spots.js');
@@ -31,6 +31,7 @@ fetch('/api/set-token-cookie?username="*yourUsername*"')
 
 // GET /api/restore-user
 const { restoreUser } = require('../../utils/auth.js');
+const spotimage = require('../../db/models/spotimage.js');
 router.use(restoreUser);
 
 router.get(
@@ -41,7 +42,7 @@ router.get(
 );
 
 // GET /api/require-auth
-const { requireAuth } = require('../../utils/auth.js');
+
 router.get(
   '/require-auth',
   requireAuth,
@@ -49,6 +50,32 @@ router.get(
     return res.json(req.user);
   }
 );
+
+//Delete a Spot Image
+router.delete('/spot-images/:imageId', requireAuth, async (req, res) => {
+  const { imageId } = req.params;
+  const userId = req.user.id;
+
+  const image = await SpotImage.findByPk(imageId, { //find image from imageId
+    include: {
+      model: Spot,
+      attributes: ['ownerId']
+    }
+  });
+
+  if (!image) {
+      return res.status(404).json({ message: "Spot Image couldn't be found" });
+  };
+
+  if (image.Spot.ownerId !== userId) {
+      return res.status(403).json({ message: "Authentication required" });
+  }
+
+  return res.status(200).json({
+      "message": "Successfully deleted"
+  })
+})
+
 
 // Connect restoreUser middleware to the API router
 // If current user session is valid, set req.user to the user in the database
@@ -58,9 +85,9 @@ router.use('/users', usersRouter);
 router.use('/spots', spotsRouter);
 router.use('/reviews', reviewRouter);
 
-
 router.post('/test', function (req, res) {
   res.json({ requestBody: req.body });
 });
+
 
 module.exports = router;

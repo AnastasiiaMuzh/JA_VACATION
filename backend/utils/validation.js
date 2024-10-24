@@ -15,7 +15,8 @@ const handleValidationErrors = (req, res, next) => {
     const err = Error("Bad Request");
     err.errors = {
       "credential": "Email or username is required",
-      "password": "Password is required"
+      "password": "Password is required",
+      "username": "Username is required"
     }
     err.status = 400;
     //err.title = "Bad request.";
@@ -63,13 +64,13 @@ const validateReview = (req, res, next) => {
 }
 
 const validateUserBody = (req, res, next) => {
-  const { email, userName, firstName, lastName } = req.body;
+  const { email, username, firstName, lastName } = req.body;
   const error = {};
   if (!email || !/\S+@\S+\.\S+/.test(email)) {
     error.email = 'Invalid email';
   }
-  if (!userName || userName.trim() === '') {
-    error.userName = "Username is required";
+  if (!username || username.trim() === '') {
+    error.username = "Username is required";
   }
   if (!firstName || firstName.trim() === '') {
     error.firstName = "First Name is required";

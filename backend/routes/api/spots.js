@@ -75,14 +75,17 @@ router.get('/', async (req, res) => {
             city: spot.city,
             state: spot.state,
             country: spot.country,
-            lat: spot.lat,
-            lng: spot.lng,
+            lat: spot.lat ? parseFloat(spot.lat) : null,
+            lng: spot.lng ? parseFloat(spot.lng) : null,
             name: spot.name,
             description: spot.description,
-            price: spot.price,
+            price: spot.price ? parseFloat(spot.price) : null,
             createdAt: spot.createdAt,
             updatedAt: spot.updatedAt,
-            avgRating: avgRating.toFixed(1),
+            avgRating: spot.dataValues.avgRating
+                ? parseFloat(spot.dataValues.avgRating).toFixed(1)
+                : null,
+
             previewImage: spot.SpotImages.length > 0 ? spot.SpotImages[0].url : null,
         };
     });

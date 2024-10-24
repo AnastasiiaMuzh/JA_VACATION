@@ -86,6 +86,7 @@ const validateUserBody = (req, res, next) => {
   next();
 }
 
+
 // const validateQueryParams = (req, res, next) => {
 //   const { page, size, maxLat, minLat, maxLng, minLng, minPrice, maxPrice } = req.query;
 //   const errors = {};

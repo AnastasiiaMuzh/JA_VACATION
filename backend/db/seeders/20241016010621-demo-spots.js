@@ -12,6 +12,10 @@ if (process.env.NODE_ENV === "production") {
 module.exports = {
   async up(queryInterface, Sequelize) {
     options.tableName = "Spots";
+    await queryInterface.bulkDelete('Spots', null, {});
+    if (queryInterface.sequelize.options.dialect === 'postgres') {
+      await queryInterface.sequelize.query('ALTER SEQUENCE "Spots_id_seq" RESTART WITH 1');
+    }
     await queryInterface.bulkInsert(
       options,
       [

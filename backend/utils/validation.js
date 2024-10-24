@@ -62,6 +62,30 @@ const validateReview = (req, res, next) => {
   next();
 }
 
+const validateUserBody = (req, res, next) => {
+  const { email, userName, firstName, lastName } = req.body;
+  const error = {};
+  if (!email || !/\S+@\S+\.\S+/.test(email)) {
+    error.email = 'Invalid email';
+  }
+  if (!userName || userName.trim() === '') {
+    error.userName = "Username is required";
+  }
+  if (!firstName || firstName.trim() === '') {
+    error.firstName = "First Name is required";
+  }
+  if(!lastName || lastName.trim() === '') {
+    error.lastName = "Last Name is required";
+  }
+  if (Object.keys(errors).length > 0) {
+    return res.status(400).json({
+      message: 'Bad Request',
+      error
+    });
+  }
+  next();
+}
+
 // const validateQueryParams = (req, res, next) => {
 //   const { page, size, maxLat, minLat, maxLng, minLng, minPrice, maxPrice } = req.query;
 //   const errors = {};
@@ -86,7 +110,8 @@ const validateReview = (req, res, next) => {
 module.exports = {
   handleValidationErrors,
   validateReview,
-  validateSpot
+  validateSpot,
+  validateUserBody
   //validateQueryParams
 
 };

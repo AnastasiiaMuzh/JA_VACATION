@@ -12,8 +12,11 @@ const handleValidationErrors = (req, res, next) => {
       .array()
       .forEach(error => errors[error.path] = error.msg);
 
-    const err = Error("Bad request.");
-    err.errors = errors;
+    const err = Error("Bad request");
+    err.errors = {
+      "credential": "Email or username is required",
+      "password": "Password is required"
+    }
     err.status = 400;
     //err.title = "Bad request.";
     next(err);

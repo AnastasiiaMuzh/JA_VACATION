@@ -77,7 +77,7 @@ const validateUserBody = (req, res, next) => {
   if(!lastName || lastName.trim() === '') {
     error.lastName = "Last Name is required";
   }
-  if (Object.keys(errors).length > 0) {
+  if (Object.keys(error).length > 0) {
     return res.status(400).json({
       message: 'Bad Request',
       error

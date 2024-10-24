@@ -64,7 +64,6 @@ const validateSignup = [
 router.post("/", validateSignup, async (req, res) => {
     const { firstName, lastName, email, password, username } = req.body;
 
-
     const existingUser = await User.findOne({
         where: {
             [Op.or]: [{ email }, { username }]

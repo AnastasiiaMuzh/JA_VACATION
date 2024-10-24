@@ -111,9 +111,51 @@ router.get('/current', requireAuth, async (req, res) => {
     const spots = await Spot.findAll({
         where: {
             ownerId: userId // Adjust this to match your Spot model's user association
-        }
-    })
-    return res.json({ Spots: spots });
+        },
+        include: [
+            {
+                model: SpotImage,
+                as: "SpotImages",
+                where: { preview: true },
+                required: false,
+                attributes: ["url"],
+            },
+            {
+                model: Review,
+                attributes: [],
+            },
+        ],
+        group: ["Spot.id", "SpotImages.id"],
+        subQuery: false,
+    });
+
+    const result = spots.map((spot) => {
+        const numReviews = spot.Reviews ? spot.Reviews.length : 0;
+        const avgRating = numReviews > 0
+            ? spot.Reviews.reduce((sum, review) => sum + review.stars, 0) / numReviews
+            : 0;
+        return {
+            id: spot.id,
+            ownerId: spot.ownerId,
+            address: spot.address,
+            city: spot.city,
+            state: spot.state,
+            country: spot.country,
+            lat: spot.lat ? parseFloat(spot.lat) : null,
+            lng: spot.lng ? parseFloat(spot.lng) : null,
+            name: spot.name,
+            description: spot.description,
+            price: spot.price ? parseFloat(spot.price) : null,
+            createdAt: spot.createdAt,
+            updatedAt: spot.updatedAt,
+            avgRating: spot.dataValues.avgRating
+                ? parseFloat(spot.dataValues.avgRating).toFixed(1)
+                : null,
+
+            previewImage: spot.SpotImages.length > 0 ? spot.SpotImages[0].url : null,
+        };
+    });
+    return res.status(200).json({ Spots: result });
 });
 
 //Get details of a Spot from an SpotId

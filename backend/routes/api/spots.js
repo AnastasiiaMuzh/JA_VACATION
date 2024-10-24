@@ -96,11 +96,11 @@ router.get('/', async (req, res) => {
 
 
 
-// Get all Spots
-router.get('/', async (req, res) => {
-    const spots = await Spot.findAll();
-    return res.json({ Spots: spots });
-})
+// // Get all Spots
+// router.get('/', async (req, res) => {
+//     const spots = await Spot.findAll();
+//     return res.json({ Spots: spots });
+// })
 
 //Get all Spots owned by the Current User
 router.get('/current', requireAuth, async (req, res) => {

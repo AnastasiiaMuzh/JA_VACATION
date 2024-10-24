@@ -42,6 +42,16 @@ router.post("/", validateSignup, async (req, res) => {
         username: user.username,
     };
 
+    if (email.user.id || username.user.id) {
+        return res.status(500).json( {
+            "message": "User already exists",
+            "errors": {
+              "email": "User with that email already exists",
+              "username": "User with that username already exists"
+            }
+          })
+    }
+
     await setTokenCookie(res, safeUser);
 
     return res.status(201).json({

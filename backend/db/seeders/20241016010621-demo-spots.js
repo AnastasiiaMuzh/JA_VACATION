@@ -1,4 +1,4 @@
-//Seeders Spots
+//Seeders Spot
 "use strict";
 
 const { Spot } = require("../models");
@@ -12,33 +12,6 @@ if (process.env.NODE_ENV === "production") {
 module.exports = {
   async up(queryInterface, Sequelize) {
     options.tableName = "Spots";
-
-    let tableExists;
-    if (queryInterface.sequelize.options.dialect === 'sqlite') {
-      tableExists = await queryInterface.sequelize.query(`
-        SELECT name FROM sqlite_master WHERE type='table' AND name='${options.tableName}';
-      `);
-    } else if (queryInterface.sequelize.options.dialect === 'postgres') {
-      tableExists = await queryInterface.sequelize.query(`
-        SELECT to_regclass('${options.schema ? `${options.schema}.` : ''}Spots')
-      `);
-    }
-
-    // Если таблица существует, очищаем её и сбрасываем автоинкремент
-    if (tableExists && (tableExists[0].length > 0 || (tableExists[0][0] && tableExists[0][0].to_regclass))) {
-      await queryInterface.bulkDelete(options, null, {});
-
-      // Сброс автоинкремента для SQLite
-      if (queryInterface.sequelize.options.dialect === 'sqlite') {
-        await queryInterface.sequelize.query('DELETE FROM sqlite_sequence WHERE name="Spots";');
-      }
-
-      // Сброс автоинкремента для PostgreSQL
-      if (queryInterface.sequelize.options.dialect === 'postgres') {
-        await queryInterface.sequelize.query(`ALTER SEQUENCE "${options.schema ? `${options.schema}.` : ''}Spots_id_seq" RESTART WITH 1`);
-      }
-    }
-
     await queryInterface.bulkInsert(
       options,
       [

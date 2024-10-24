@@ -115,17 +115,18 @@ router.get('/current', requireAuth, async (req, res) => {
         include: [
             {
                 model: SpotImage,
-                as: "SpotImages",
+                attributes: ["url"],
+                //as: "SpotImages",
                 where: { preview: true },
                 required: false,
-                attributes: ["url"],
+                
             },
             {
                 model: Review,
                 attributes: [],
             },
         ],
-        group: ["Spot.id", "SpotImages.id"],
+        group: ["Spot.id", "SpotImage.id"],
         subQuery: false,
     });
 

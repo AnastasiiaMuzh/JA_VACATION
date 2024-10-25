@@ -87,28 +87,6 @@ const validateUserBody = (req, res, next) => {
   next();
 }
 
-
-// const validateQueryParams = (req, res, next) => {
-//   const { page, size, maxLat, minLat, maxLng, minLng, minPrice, maxPrice } = req.query;
-//   const errors = {};
-//   if (!page || page < 1) errors.page = "Page must be greater than or equal to 1";
-//   if (!size || size < 1 || size > 20) errors.size = "Size must be between 1 and 20";
-//   if (maxLat > 90) errors.maxLat = "Maximum latitude is invalid"
-//   if (minLat < -90) errors.minLat = "Minimum latitude is invalid"
-//   if (maxLng > 180) errors.maxLng = "Maximum longitude is invalid";
-//   if (minLng < -180) errors.minLng = "Minimum longitude is invalid";
-//   if (minPrice < 0) errors.minPrice = "Minimum price must be greater than or equal to 0";
-//   if (maxPrice < 0) errors.maxPrice = "Maximum price must be greater than or equal to 0";
-
-//   if (Object.keys(errors).length > 0) {
-//     return res.status(400).json({
-//       "message": "Validation error",
-//       "errors": errors
-//     })
-//   }
-//   next();
-// }
-
 module.exports = {
   handleValidationErrors,
   validateReview,

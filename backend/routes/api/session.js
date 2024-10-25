@@ -67,9 +67,7 @@ router.delete(
 );
 
 // Restore session user
-router.get(
-    '/',
-    (req, res) => {
+router.get('/', async (req, res, done) => {
         const { user } = req;
         if (user) {
             const safeUser = {
@@ -79,10 +77,12 @@ router.get(
                 email: user.email,
                 username: user.username,
             };
-            return res.json({
+             res.json({
                 user: safeUser
             });
-        } else return res.json({ user: null });
+            return done();
+        } else res.json({ user: null });
+        return done();
     }
 );
 

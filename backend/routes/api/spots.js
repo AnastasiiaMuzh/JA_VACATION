@@ -17,8 +17,8 @@ router.get('/', async (req, res) => {
     const errors = {};
     if (!page || page < 1) errors.page = "Page must be greater than or equal to 1";
     if (!size || size < 1 || size > 20) errors.size = "Size must be between 1 and 20";
-    if (maxLat > 90) errors.maxLat = "Maximum latitude is invalid"
-    if (minLat < -90) errors.minLat = "Minimum latitude is invalid"
+    if (maxLat > 90) errors.maxLat = "Maximum latitude is invalid";
+    if (minLat < -90) errors.minLat = "Minimum latitude is invalid";
     if (maxLng > 180) errors.maxLng = "Maximum longitude is invalid";
     if (minLng < -180) errors.minLng = "Minimum longitude is invalid";
     if (minPrice < 0) errors.minPrice = "Minimum price must be greater than or equal to 0";
@@ -225,7 +225,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
     const { url, preview } = req.body;
     const userId = req.user.id;
 
-    const spot = await Spot.findByPk(spotId);// we find spot
+    const spot = await Spot.findByPk(Number(spotId));// we find spot
 
     if (!spot) {
         return res.status(404).json({ "message": "Spot couldn't be found" });

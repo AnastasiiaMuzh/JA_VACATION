@@ -119,7 +119,7 @@ router.get('/current', requireAuth, async (req, res) => {
                 //as: "SpotImages",
                 where: { preview: true },
                 required: false,
-                
+
             },
             {
                 model: Review,
@@ -216,7 +216,21 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
     const ownerId = req.user.id;
     const spot = await Spot.create({ ownerId, address, city, state, country, lat, lng, name, description, price });
 
-    return res.status(201).json({ spot });
+    return res.status(201).json({
+        id: spot.id,
+        ownerId: spot.ownerId,
+        address: spot.address,
+        city: spot.city,
+        state: spot.state,
+        country: spot.country,
+        lat: spot.lat ? parseFloat(spot.lat) : null,
+        lng: spot.lng ? parseFloat(spot.lng) : null,
+        name: spot.name,
+        description: spot.description,
+        price: spot.price ? parseFloat(spot.price) : null,
+        createdAt: spot.createdAt,
+        updatedAt: spot.updatedAt,
+    });
 });
 
 // Add an Image to a Spot based on the Spot's id

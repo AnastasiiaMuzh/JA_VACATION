@@ -33,15 +33,15 @@ const validateSpot = (req, res, next) => {
   if (!city) errors.city = "City is required";
   if (!state) errors.state = "State is required";
   if (!country) errors.country = "Country is required";
-  if (lat < -90 || lat > 90) errors.lat = "Latitude must be within -90 and 90";
-  if (lng < -180 || lng > 180) errors.lng = "Longitude must be within -180 and 180";
+  if (!lat || lat < -90 || lat > 90) errors.lat = "Latitude must be within -90 and 90";
+  if (!lng || lng < -180 || lng > 180) errors.lng = "Longitude must be within -180 and 180";
   if (!name || name.length > 50) errors.name = "Name must be less than 50 characters";
   if (!description) errors.description = "Description is required";
-  if (price <= 0) errors.price = "Price per day must be a positive number";
+  if (!price || price <= 0) errors.price = "Price per day must be a positive number";
 
   if (Object.keys(errors).length > 0) {
     return res.status(400).json({
-      "message": "Validation error",
+      "message": "Bad Request",
       "errors": errors
     })
   }

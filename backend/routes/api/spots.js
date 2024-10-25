@@ -4,6 +4,7 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Spot, SpotImage, Review, ReviewImage } = require('../../db/models');
 const { where } = require('sequelize');
 const { validateReview, validateSpot } = require('../../utils/validation');
+const { Op } = require("sequelize");
 
 const router = express.Router();
 
@@ -325,7 +326,27 @@ router.get('/:spotId/reviews', async (req, res) => {
             }
         ]
     })
-    res.json({ Review: reviews });
+    const formattedReviews = reviews.map(review => {
+        return {
+            id: review.id,
+            userId: review.userId,
+            spotId: review.spotId,
+            review: review.review,
+            stars: review.stars,
+            createdAt: review.createdAt,
+            updatedAt: review.updatedAt,
+            User: {
+                id: review.User.id,
+                firstName: review.User.firstName,
+                lastName: review.User.lastName
+            },
+            ReviewImages: review.ReviewImages.map(image => ({
+                id: image.id,
+                url: image.url
+            }))
+        };
+    });
+    return res.json({ Reviews: formattedReviews });
 });
 
 //Create a Review for a Spot based on the Spot's id

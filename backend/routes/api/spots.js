@@ -126,8 +126,8 @@ router.get('/current', requireAuth, async (req, res) => {
                 attributes: [],
             },
         ],
-        group: ["Spot.id", "SpotImage.id"],
-        subQuery: false,
+        //group: ["Spot.id", "SpotImage.id"],
+        //subQuery: false,
     });
 
     const result = spots.map((spot) => {

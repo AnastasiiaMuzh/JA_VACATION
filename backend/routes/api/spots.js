@@ -255,7 +255,7 @@ router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
     const { spotId } = req.params;
     const userId = req.user.id;
 
-    const spot = await Spot.findByPk(spotId);
+    const spot = await Spot.findByPk(Number(spotId));
 
     if (!spot) {
         return res.status(404).json({ "message": "Spot couldn't be found" });
@@ -275,7 +275,7 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
     const { spotId } = req.params;
     const userId = req.user.id;
 
-    const spot = await Spot.findByPk(spotId);
+    const spot = await Spot.findByPk(Number(spotId));
 
     if (!spot) {
         return res.status(404).json({ "message": "Spot couldn't be found" });
@@ -295,7 +295,7 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
 router.get('/:spotId/reviews', async (req, res) => {
     const { spotId } = req.params;
 
-    const spot = await Spot.findByPk(spotId);
+    const spot = await Spot.findByPk(Number(spotId));
     if (!spot) return res.status(404).json({ "message": "Spot couldn't be found" });
 
     const reviews = await Review.findAll({
@@ -320,7 +320,7 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
     const { review, stars } = req.body;
     const userId = req.user.id;
 
-    const spot = await Spot.findByPk(spotId);
+    const spot = await Spot.findByPk(Number(spotId));
     if (!spot) {
         return res.status(404).json({
             message: "Spot couldn't be found"

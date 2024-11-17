@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Spot, SpotImage, Review, ReviewImage } = require('../../db/models');
+const { User, Spot, SpotImage, Review, ReviewImage, Booking } = require('../../db/models');
 const { where } = require('sequelize');
 const { validateReview, validateSpot } = require('../../utils/validation');
 const { Op } = require("sequelize");
@@ -376,7 +376,77 @@ router.post('/:spotId/reviews', requireAuth, validateReview, async (req, res) =>
 
 });
 
+//Get all Bookings for a Spot based on the Spot's id
+router.get('/:spotId/bookings', requireAuth, async (req, res) => {
+    const { spotId } = req.params;
+    const userId = req.user.id;
 
+    const spot = await Spot.findByPk(spotId);
+    if (!spot) return res.status(404).json({ message: "Spot couldn't be found" });
+
+    if (spot.ownerId === userId) {
+        const bookings = await Booking.findAll({
+            where: { spotId },
+            include: [
+                {
+                    model: User,
+                    attributes: ['id', 'firstName', 'lastName'],
+                },]
+        })
+    } else {
+        const bookings = await Booking.findAll({
+            where: { spotId },
+        })
+        return res.status(200).json({ Bookings: bookings });
+    }
+});
+
+//Create a Booking from a Spot based on the Spot's id
+router.post('/:spotId/bookings', requireAuth, async (req, res) => {
+    const { spotId } = req.params;
+    const userId = req.user.id;
+    const { startDate, endDate } = req.body;
+
+    const spot = await Spot.findByPk(spotId);
+    if (!spot) {
+        return res.status(404).json({ message: "Spot couldn't be found" });
+    };
+
+    const bookConf = await Booking.findOne({
+        where: spotId,
+        [Op.or]: [{
+            startDate: {
+                [Op.gte]: startDate,
+                [Op.lte]: endDate
+            },
+            endDate:{
+                [Op.lte]: endDate,
+                [Op.gte]: startDate
+            }
+        }]
+    })
+    
+
+    // const existsReview = await Review.findOne({
+    //     where: { spotId, userId },
+    // });
+    // if (existsReview) {
+    //     return res.status(500).json({ message: "User already has a review for this spot" });
+    // };
+
+    // const newReview = await Review.create({
+    //     userId, spotId, review, stars,
+    // });
+    return res.status(201).json(newReview);
+
+
+
+
+
+
+
+
+})
 
 
 

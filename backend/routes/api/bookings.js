@@ -4,7 +4,7 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Spot, SpotImage, Review, ReviewImage, Booking } = require('../../db/models');
 const { where } = require('sequelize');
 const { validateReview, validateSpot } = require('../../utils/validation');
-const router = require('express/lib/router');
+const router = express.Router();
 
 
 //Get all of the Current User's Bookings
@@ -16,15 +16,17 @@ router.get('/current', requireAuth, async (req, res) => {
         },
         include: [
             {
-                model: SpotImage,
-                attributes: ["url"],
-                where: { preview: true },
-                required: false,
-            },
-            {
                 model: Spot,
-                attributes: ['id','ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price', 'description'],
-            }
+                attributes: ['id', 'ownerId', 'address', 'city', 'state', 'country', 'lat', 'lng', 'name', 'price', 'description'],
+                include: [
+                    {
+                        model: SpotImage,
+                        attributes: ["url"],
+                        where: { preview: true },
+                        required: false,
+                    }
+                ]
+            },
         ],
     });
 

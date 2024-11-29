@@ -38,17 +38,36 @@ export const login = (user) => async (dispatch) => {
     return response;
 };
 
-const initialState = { user: null };
+//Добавить signup Thunk
+export const signup = (user) => async (dispatch) => {
+    const { username, firstName, lastName, email, password } = user;
+    const response = await csrfFetch("/api/users", {
+      method: "POST",
+      body: JSON.stringify({
+        username,
+        firstName,
+        lastName,
+        email,
+        password,
+      }),
+    });
+    const data = await response.json();
+    dispatch(setUser(data.user)); // Устанавливаем пользователя в Redux Store
+    return response;
+  };
+  
+
+const initialState = { user: null }; // Начальное состояние
 
 //Создаем редюсер для управления состоянием:
 const sessionReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_USER:
-            return { ...state, user: action.payload };
+            return { ...state, user: action.payload }; // Добавляем пользователя
         case REMOVE_USER:
             return { ...state, user: null };
         default:
-            return state;
+            return state;  // По умолчанию возвращаем текущее состояние
     }
 };
 

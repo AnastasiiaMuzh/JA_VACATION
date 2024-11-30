@@ -11,6 +11,7 @@ const { environment } = require('./config');
 const isProduction = environment === 'production';
 const app = express(); //Initialize the Express application:
 const { ValidationError } = require('sequelize');
+
 //Connect the `morgan` middleware for logging information about requests and responses:
 app.use(morgan('dev'));
 //middleware for parsing cookies and the `express.json` middleware for parsing JSON bodies of requests with `Content-Type` of "application/json"`.
@@ -67,19 +68,6 @@ app.use((err, _req, _res, next) => {
     next(err);
 });
 
-// Process sequelize errors
-app.use((err, _req, _res, next) => {
-    // check if error is a Sequelize error:
-    if (err instanceof ValidationError) {
-        let errors = {};
-        for (let error of err.errors) {
-            errors[error.path] = error.message;
-        }
-        err.title = 'Validation error';
-        err.errors = errors;
-    }
-    next(err);
-});
 
 // Error formatter
 app.use((err, _req, res, _next) => {

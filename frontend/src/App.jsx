@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { Outlet, createBrowserRouter, RouterProvider } from 'react-router-dom';
-//import LoginFormModel from './components/LoginFormModal/LoginFormModel';
-import SignupFormPage from './components/SignupFormPage/SignupFormPage';
-import Navigation from './components/Navigation/Navigation';
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import Navigation from './components/Navigation/Navigation'
 import * as sessionActions from './store/session';
 
 function Layout() {
@@ -11,8 +9,9 @@ function Layout() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    // Восстанавливаем пользователя из сессии=
-    dispatch(sessionActions.restoreUser()).then(() => { setIsLoaded(true) });
+    dispatch(sessionActions.restoreUser()).then(() => {
+      setIsLoaded(true)
+    });
   }, [dispatch]);
 
   return (
@@ -23,7 +22,6 @@ function Layout() {
   );
 }
 
-
 const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -31,14 +29,6 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <h1>Welcome!</h1>
-      },
-      // {
-      //   path: "login",
-      //   element: <LoginFormModel />
-      // },
-      {
-        path: "signup",
-        element: <SignupFormPage />
       }
     ]
   }
@@ -49,4 +39,3 @@ function App() {
 }
 
 export default App;
-

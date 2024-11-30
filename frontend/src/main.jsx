@@ -6,6 +6,8 @@ import './index.css';
 import configureStore from './store';
 import { restoreCSRF, csrfFetch } from './store/csrf';
 import * as sessionActions from './store/session';
+import { Modal, ModalProvider } from './context/Modal';
+
 
 
 const store = configureStore(); // Создаём Store
@@ -20,8 +22,11 @@ if (import.meta.env.MODE !== 'production') {
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <ModalProvider>
     <Provider store={store}> {/* Подключаем Store */}
       <App />
+      <Modal />
     </Provider>
+    </ModalProvider>
   </React.StrictMode>
 );

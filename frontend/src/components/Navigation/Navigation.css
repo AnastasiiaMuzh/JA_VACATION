@@ -1,34 +1,187 @@
- ul {
-     list-style-type: none;
-     padding: 10;
-     margin: 50;
-     display: flex;
-     gap: 15px;
- }
+/*
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
 
- /* li {
-    display: inline;
-}  */
+.nav-left {
+    display: flex;
+    align-items: center;
+}
 
- a {
-     text-decoration: none;
-     color: #7f1010;
- }
+.nav-left .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
 
- a:hover {
-     text-decoration: underline;
- }
+.nav-left .logo img {
+    width: 40px;
+    /* Размер логотипа 
+    height: auto;
+    margin-right: 10px;
+}
 
- .profile-dropdown {
-    position:relative;
-    background-color: rgb(240, 235, 235);
-    border: 1px solid #ccc;
+.nav-left .logo span {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff385c;
+}
+
+.menu-right {
+    display: flex;
+    align-items: center;
+}
+
+.profile-dropdown {
+    position: absolute;
+    right: 20px;
+    top: 50px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 200px;
     padding: 10px;
-    margin: 0;
-    /* display:flex; */
-    /* flex-direction: column; */
-} 
- 
- .hidden {
-     display: none;
- }
+    z-index: 1000;
+}
+
+.profile-dropdown li {
+    list-style: none;
+    padding: 10px 5px;
+    cursor: pointer;
+}
+
+.profile-dropdown li:hover {
+    background-color: #f7f7f7;
+}
+
+.hidden {
+    display: none;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+    */
+
+    /* --- Основные стили для навигации --- */
+nav {
+    display: flex; /* Flexbox для горизонтального расположения элементов */
+    justify-content: space-between; /* Распределяем элементы по краям */
+    align-items: center; /* Центрируем элементы по вертикали */
+    padding: 10px 20px; /* Отступы для внутреннего пространства */
+    background-color: #fff; /* Белый фон для навигации */
+    border-bottom: 1px solid #ddd; /* Тонкая граница снизу */
+}
+
+/* --- Логотип (левая часть навигации) --- */
+.nav-left {
+    display: flex; /* Flexbox для группировки элементов слева */
+    align-items: center; /* Центрирование по вертикали */
+    margin-left: 25px;
+}
+
+.nav-left .logo {
+    display: flex; /* Flexbox для логотипа */
+    align-items: center; /* Центрирование текста и изображения логотипа */
+    text-decoration: none; /* Убираем подчеркивание текста */
+}
+
+.nav-left .logo img {
+    width: 40px; /* Размер логотипа */
+    height: auto; /* Сохраняем пропорции */
+    margin-right: 10px; /* Отступ между логотипом и текстом */
+}
+
+.nav-left .logo span {
+    font-size: 20px; /* Размер текста логотипа */
+    font-weight: bold; /* Жирный текст */
+    color: #ff385c; /* Цвет в стиле Airbnb */
+}
+
+/* --- Правая часть навигации --- */
+.menu-right {
+    display: flex; /* Flexbox для правой части навигации */
+    align-items: center; /* Центрирование элементов по вертикали */
+    margin-right: 25px;
+}
+
+/* Стили для кнопки профиля */
+.profile-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    padding: 5px 15px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    width: 120px;
+    height: 60px;
+   
+}
+
+/* Полоски меню */
+.menu-icon {
+    font-size: 20px;
+    color: #747079; /* Более светлый цвет полосок */
+    margin-left: 10px; /* Добавляем отступ слева */
+}
+
+/* Иконка пользователя */
+.user-icon {
+    font-size: 45px;
+    color: #747079; /* Более светлый цвет иконки пользователя */
+    margin-left:15px; /* Добавляем отступ слева */
+}
+
+
+/* Эффект наведения на кнопку */
+.profile-button:hover {
+    background-color: #f7f7f7;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+
+/* --- Выпадающее меню --- */
+.profile-dropdown {
+    position: absolute; /* Абсолютное позиционирование для меню */
+    right: 20px; /* Расположено справа */
+    top: 50px; /* Расположено чуть ниже кнопки */
+    background-color: white; /* Белый фон */
+    border: 1px solid #ddd; /* Светло-серая рамка */
+    border-radius: 4px; /* Лёгкое закругление углов */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Лёгкая тень */
+    width: 200px; /* Ширина выпадающего меню */
+    padding: 10px; /* Внутренний отступ */
+    z-index: 1000; /* Уровень слоя для отображения поверх всего */
+}
+
+/* --- Элементы внутри меню --- */
+.profile-dropdown li {
+    list-style: none; /* Убираем маркеры у списка */
+    padding: 10px 5px; /* Внутренние отступы */
+    cursor: pointer; /* Указатель при наведении */
+}
+
+/* --- Эффект наведения на элементы меню --- */
+.profile-dropdown li:hover {
+    background-color: #f7f7f7; /* Лёгкий серый фон при наведении */
+}
+
+/* --- Скрытие меню, когда оно не активно --- */
+.hidden {
+    display: none; /* Скрываем меню */
+}
+
+
+  

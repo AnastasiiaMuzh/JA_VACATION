@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { FaUserCircle } from 'react-icons/fa';
+import { FaUserCircle, FaBars } from 'react-icons/fa';
 import * as sessionActions from '../../store/session';
 //import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import LoginFormModal from '../LoginFormModal/LoginFormModal';
@@ -44,13 +44,16 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={toggleMenu}>
-        <FaUserCircle />
+      {/*Button profile*/}
+      <button className="profile-button" onClick={toggleMenu}>
+        <FaBars className='menu-icon'/> {/**icon menu*/}
+        <FaUserCircle className='user-icon' /> {/**icon user*/}
       </button>
+      {/**dropdown menu*/}
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
+            <li>{user.username}</li> {/**Maybe put Hello, {user.user}?? */}
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
             <li>

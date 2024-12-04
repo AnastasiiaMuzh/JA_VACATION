@@ -1,0 +1,70 @@
+.spots-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 карточки в ряду */
+    gap: 20px; /* Расстояние между карточками */
+    padding: 50px;
+  }
+  
+  .spot-box {
+    display: flex;
+    flex-direction: column; /* Располагаем элементы вертикально */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: left;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
+    margin-right: 25px;
+    margin-left: 25px;
+  }
+  
+  .spot-box:hover {
+    transform: scale(1.05); /* Зум при наведении */
+  }
+  
+  .spot-box img {
+    width: 100%; /* Изображение занимает всю ширину */
+    height: 200px; /* Фиксированная высота для всех картинок */
+    object-fit: cover; /* Сохраняем пропорции и обрезаем лишнее */
+  }
+  
+  .spot-details {
+    padding: 10px; /* Отступы внутри блока */
+  }
+  
+  .spot-details .spot-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .spot-details .spot-title:hover {
+    color: #ff385c; /* Цвет при наведении */
+  }
+  
+  .spot-details .spot-location {
+    font-size: 14px;
+    color: #666;
+    margin-top: 5px;
+  }
+  
+  .spot-details .spot-rating {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #ff385c;
+    margin-top: 5px;
+  }
+  
+  .spot-details .spot-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-top: 10px;
+  }
+  .fa-star {
+    color: gold;
+  }
+  

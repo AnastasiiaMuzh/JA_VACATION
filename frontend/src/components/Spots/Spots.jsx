@@ -9,7 +9,7 @@ function Spots() {
     const dispatch = useDispatch();
 
     // Получаем список объектов из Redux store
-    const spots = useSelector((state) => Object.values(state.spots.spots));
+    const spots = useSelector((state) => state.spots.spots);
 
     useEffect(() => {
         dispatch(getSpots()); //Загружаем объекты при монтировании компонента
@@ -24,7 +24,7 @@ function Spots() {
                         <img src={spot.previewImage} alt={spot.name} />
 
                         {/* Детали под изображением */}
-                        <div className="spots-details">
+                        <div className="spot-details">
                             <div className="spot-title">{spot.name}</div>
                             <div className="spot-location">
                                 {spot.city}, {spot.state}

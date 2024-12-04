@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
-import Navigation from './components/Navigation/Navigation'
 import * as sessionActions from './store/session';
-import { Spots, SpotDetail } from './components/Spots';
+import { Spots, SpotDetail, Navigation } from './components';
+
 
 function Layout() {
   const dispatch = useDispatch();
@@ -27,12 +27,12 @@ const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
+      // {
+      //   path: '/',
+      //   element: <h1>All Spots:</h1>
+      // },
       {
         path: '/',
-        element: <h1>All Spots:</h1>
-      },
-      {
-        path: '/spots',
         element: <Spots /> // Оборачиваем в JSX
       },
       {

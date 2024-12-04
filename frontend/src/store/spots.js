@@ -24,21 +24,17 @@ export const getSpotById = (spotId) => async (dispatch) => {
     const response = await fetch(`/api/spots/${spotId}`);
 
     if (response.ok) {
-        const data = await response.json();
-        dispatch(loadSingleSpot(data)); // Отправляем данные в редьюсер
+        const spot = await response.json();
+        dispatch(loadSingleSpot(spot)); // Отправляем данные в редьюсер
     }
 }
 
-const initialState = { spots: {}, singleSpot: null };
+const initialState = { spots: [], singleSpot: null };
 
 const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_SPOTS: {
-            const allSpots = {};
-            action.payload.forEach((spot) => {
-                allSpots[spot.id] = spot;
-            });
-            return { ...state, spots: allSpots };
+            return { ...state, spots: action.payload }
         }
         case LOAD_SINGLE_SPOT:
             return { ...state, singleSpot: action.payload } // Обновляем `singleSpot`

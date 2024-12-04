@@ -12,8 +12,7 @@ function Spots() {
     const spots = useSelector((state) => Object.values(state.spots.spots));
 
     useEffect(() => {
-        //Загружаем объекты при монтировании компонента
-        dispatch(getSpots());
+        dispatch(getSpots()); //Загружаем объекты при монтировании компонента
     }, [dispatch]);
 
     return (
@@ -25,7 +24,7 @@ function Spots() {
                         <img src={spot.previewImage} alt={spot.name} />
 
                         {/* Детали под изображением */}
-                        <div className="spot-details">
+                        <div className="spots-details">
                             <div className="spot-title">{spot.name}</div>
                             <div className="spot-location">
                                 {spot.city}, {spot.state}

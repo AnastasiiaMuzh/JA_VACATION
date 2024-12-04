@@ -29,28 +29,28 @@
     object-fit: cover; /* Сохраняем пропорции и обрезаем лишнее */
   }
   
-  .spot-details {
+  .spots-details {
     padding: 10px; /* Отступы внутри блока */
   }
   
-  .spot-details .spot-title {
+  .spots-details .spot-title {
     font-size: 18px;
     font-weight: bold;
     color: #333;
     text-decoration: none;
   }
   
-  .spot-details .spot-title:hover {
+  .spots-details .spot-title:hover {
     color: #ff385c; /* Цвет при наведении */
   }
   
-  .spot-details .spot-location {
+  .spots-details .spot-location {
     font-size: 14px;
     color: #666;
     margin-top: 5px;
   }
   
-  .spot-details .spot-rating {
+  .spots-details .spot-rating {
     display: flex;
     align-items: center;
     font-size: 14px;
@@ -58,7 +58,7 @@
     margin-top: 5px;
   }
   
-  .spot-details .spot-price {
+  .spots-details .spot-price {
     font-size: 16px;
     font-weight: bold;
     color: #333;

@@ -18,3 +18,5 @@ function SpotDetail() {
         </div>
     )
 }
+
+export default SpotDetail;

@@ -14,6 +14,8 @@ function SpotDetail() {
 
     return (
         <div className="spot-detail">
+            <h1>{spot.name}</h1>
+            <p>{spot.description}</p>
 
         </div>
     )

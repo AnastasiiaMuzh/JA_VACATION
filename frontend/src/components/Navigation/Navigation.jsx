@@ -12,7 +12,7 @@ function Navigation({ isLoaded }) {
       <div className='nav-left'>
         <NavLink to="/" className="logo">
           <img src={logo} alt="Logo" className="logo-img" />
-          <span className="logo-text">JAVacation</span> 
+          <span className="logo-text">-JAVacation-</span> 
         </NavLink>
       </div>
       <div className="menu-right">
@@ -21,20 +21,5 @@ function Navigation({ isLoaded }) {
     </nav>
   );
 }
-
-
-//   return (
-//     <ul>
-//       <li>
-//         <NavLink to="/">Home</NavLink>
-//       </li>
-//       {isLoaded && (
-//         <li>
-//           <ProfileButton user={sessionUser} />
-//         </li>
-//       )}
-//     </ul>
-//   );
-// }
 
 export default Navigation;

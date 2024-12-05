@@ -14,6 +14,7 @@ module.exports = {
       {
         spotId: 1,
         url: 'backend/images/appAcademy/aA.png',
+        //url: 'https://travel-curious.com/wp-content/uploads/2022/10/Bishop-Castle-Colorado-3-726x1024.jpg',
         preview: true,
       },
       {
@@ -39,7 +40,7 @@ module.exports = {
       {
         spotId: 2,
         url: 'backend/images/awesom/awesomFront.png',
-        preview: false,
+        preview: true,
       },
       {
         spotId: 2,
@@ -89,7 +90,7 @@ module.exports = {
       {
         spotId: 4,
         url: 'backend/images/amazing/amazingFront.png',
-        preview: false,
+        preview: true,
       },
       {
         spotId: 4,
@@ -114,7 +115,7 @@ module.exports = {
       {
         spotId: 5,
         url: 'backend/images/strange/str.png',
-        preview: false,
+        preview: true,
       },
       {
         spotId: 5,
@@ -139,7 +140,7 @@ module.exports = {
       {
         spotId: 6,
         url: 'backend/images/caps/capsFront.png',
-        preview: false,
+        preview: true,
       },
       {
         spotId: 6,
@@ -164,7 +165,7 @@ module.exports = {
       {
         spotId: 7,
         url: 'backend/images/theWeb/web.png',
-        preview: false,
+        preview: true,
       },
       {
         spotId: 7,
@@ -189,7 +190,7 @@ module.exports = {
       {
         spotId: 8,
         url: 'backend/images/speed/speed.png',
-        preview: false,
+        preview: true,
       },
       {
         spotId: 8,
@@ -214,7 +215,7 @@ module.exports = {
       {
         spotId: 9,
         url: 'backend/images/bearded/bD.png',
-        preview: false,
+        preview: true,
       },
       {
         spotId: 9,
@@ -239,7 +240,7 @@ module.exports = {
       {
         spotId: 10,
         url: 'backend/images/casle/castleFront.png',
-        preview: false,
+        preview: true,
       },
       {
         spotId: 10,

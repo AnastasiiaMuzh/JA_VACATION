@@ -11,6 +11,7 @@ const { environment } = require('./config');
 const isProduction = environment === 'production';
 const app = express(); //Initialize the Express application:
 const { ValidationError } = require('sequelize');
+const path = require('path'); // Добавить этот импорт для работы с путями
 
 //Connect the `morgan` middleware for logging information about requests and responses:
 app.use(morgan('dev'));
@@ -42,6 +43,10 @@ app.use(
         }
     })
 );
+
+//настройкa для статических файлов
+app.use('/backend/images', express.static(path.join(__dirname, 'backend/images')));
+
 
 app.use(routes); // Connect all the routes
 

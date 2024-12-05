@@ -21,25 +21,33 @@ function Spots() {
         <div className="spots-container">
             {spots.map((spot) => (
                 <Link to={`/spots/${spot.id}`} key={spot.id} className="spot-box">
-                    {/*<div title={spot.name}>*/}
-                    <img src={`http://localhost:8000/${spot.previewImage}`} alt={spot.name} />
-                    {/* Детали под изображением */}
+                    {/* Изображение */}
+                    <img
+                        src={`http://localhost:8000/${spot.previewImage}`}
+                        alt={spot.name}
+                    />
+                    {/* Детали */}
                     <div className="spot-details">
-                        <div className="spot-title">{spot.name}</div>
+                        {/* Локация и рейтинг */}
                         <div className="spot-location">
-                            {spot.city}, {spot.state}
+                            <div>
+                                {spot.city}, {spot.state}
+                            </div>
+                            <div className="spot-rating">
+                                <FaStar className="fa-star" />
+                                {spot.avgRating ? parseFloat(spot.avgRating).toFixed(1) : 'New'}
+                            </div>
                         </div>
-                        <div className="spot-rating">
-                            <FaStar className="fa-star" />{' '}
-                            {spot.avgRating ? parseFloat(spot.avgRating).toFixed(1) : 'Naw'}
+                        {/* Цена */}
+                        <div className="spot-price">
+                            <span className="price">${spot.price}</span> <span className="night">night</span>
                         </div>
-                        <div className="spot-price">${spot.price} per night</div>
                     </div>
-                    {/*</div>*/}
                 </Link>
             ))}
         </div>
-    )
+    );
+
 
 }
 

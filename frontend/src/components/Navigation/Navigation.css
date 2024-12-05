@@ -1,76 +1,3 @@
-/*
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
-}
-
-.nav-left {
-    display: flex;
-    align-items: center;
-}
-
-.nav-left .logo {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-}
-
-.nav-left .logo img {
-    width: 40px;
-    /* Размер логотипа 
-    height: auto;
-    margin-right: 10px;
-}
-
-.nav-left .logo span {
-    font-size: 24px;
-    font-weight: bold;
-    color: #ff385c;
-}
-
-.menu-right {
-    display: flex;
-    align-items: center;
-}
-
-.profile-dropdown {
-    position: absolute;
-    right: 20px;
-    top: 50px;
-    background-color: white;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 200px;
-    padding: 10px;
-    z-index: 1000;
-}
-
-.profile-dropdown li {
-    list-style: none;
-    padding: 10px 5px;
-    cursor: pointer;
-}
-
-.profile-dropdown li:hover {
-    background-color: #f7f7f7;
-}
-
-.hidden {
-    display: none;
-}
-
-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-    */
-
     /* --- Основные стили для навигации --- */
 nav {
     display: flex; /* Flexbox для горизонтального расположения элементов */
@@ -85,7 +12,7 @@ nav {
 .nav-left {
     display: flex; /* Flexbox для группировки элементов слева */
     align-items: center; /* Центрирование по вертикали */
-    margin-left: 25px;
+    margin-left: 20px;
 }
 
 .nav-left .logo {
@@ -95,22 +22,24 @@ nav {
 }
 
 .nav-left .logo img {
-    width: 40px; /* Размер логотипа */
+    width: 80px; /* Размер логотипа */
     height: auto; /* Сохраняем пропорции */
-    margin-right: 10px; /* Отступ между логотипом и текстом */
+    margin-bottom: 5px;
 }
 
 .nav-left .logo span {
-    font-size: 20px; /* Размер текста логотипа */
-    font-weight: bold; /* Жирный текст */
-    color: #ff385c; /* Цвет в стиле Airbnb */
+    font-size: 27px; /* Размер текста логотипа */
+    font-weight: bold; 
+    color: #d50a2f; 
+    font-family: fantasy;
+    margin-left: -15px;
 }
 
 /* --- Правая часть навигации --- */
 .menu-right {
     display: flex; /* Flexbox для правой части навигации */
     align-items: center; /* Центрирование элементов по вертикали */
-    margin-right: 25px;
+    margin-right: 20px;
 }
 
 /* Стили для кнопки профиля */

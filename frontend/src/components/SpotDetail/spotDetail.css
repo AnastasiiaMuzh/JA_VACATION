@@ -1,0 +1,156 @@
+/* Общий контейнер для всей страницы */
+.spot-detail-container {
+    display: grid; /* Используем Grid Layout */
+    grid-template-columns: 3fr 2fr; /* Первая колонка 3 части, вторая 1 часть */
+    gap: 20px; /* Расстояние между колонками */
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0 auto; /* Центрируем страницу */
+    max-width: 1350px; /* Ограничиваем ширину */
+}
+
+.spot-header h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    margin-top: 3px;
+}
+
+.spot-header p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: -10px;
+}
+
+/* Секция с изображениями */
+.spot-images {
+    display: grid;
+    grid-template-columns: 2.5fr 2fr; /* Главное изображение слева, остальные справа */
+    gap: 10px;
+    grid-column: 1 / span 2; /* Растягиваем на обе колонки */
+}
+
+.large-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.small-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+}
+
+.small-images img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.small-images img:hover {
+    transform: scale(1.1);
+}
+
+/* Блок информации о владельце */
+.host-info {
+    grid-column: 1 / 2; /* Занимает первую колонку */
+    color: #333;
+}
+
+.host-info .host-name {
+    font-size: 1.6rem; /* Увеличенный размер текста */
+    font-weight: bold; /* Жирный текст */
+    margin-bottom: 10px; /* Отступ снизу */
+    margin-top: -5px;
+}
+
+.host-info .host-description {
+    font-size: 1.3rem; /* Меньший размер текста */
+    color: #555; /* Более светлый цвет */
+    margin-top: 0;
+}
+
+/* Блок цены и кнопка резервирования */
+.priceReserveBtn-box {
+    display: flex; /* Располагаем содержимое горизонтально */
+    justify-content: space-between; /* Распределяем элементы по краям */
+    align-items: center; /* Выравниваем по вертикали */
+    flex-wrap: wrap; /* Позволяем кнопке переноситься на следующую строку */
+    top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    max-width: 300px;
+    margin-left: auto;
+
+    text-align: left; /* Выравниваем текст в начале строки */
+}
+
+.priceReserveBtn-box p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    flex: 1; /* Занимает доступное пространство */
+}
+
+.rating {
+    display: flex;
+    justify-content: center; /* Центрируем рейтинг */
+    align-items: center;
+    gap: 5px;
+}
+
+.rating .fa-star {
+    color: gold;
+}
+
+.priceReserveBtn-box button {
+    display: block;
+    width: 100%;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff5a5f;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.priceReserveBtn-box button:hover {
+    background-color: #e04848;
+}
+
+/* Секция отзывов */
+.reviews {
+    grid-column: 1 / span 2; /* Отзывы растягиваются на обе колонки */
+    margin-top: -35px;
+    
+   
+}
+
+/* .reviews h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.reviews .review {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.reviews .review p {
+    margin: 5px 0;
+} */
+
+.reviews .review strong {
+    color: #333;
+}

@@ -45,7 +45,7 @@ app.use(
 );
 
 //настройкa для статических файлов
-app.use('/backend/images', express.static(path.join(__dirname, 'backend/images')));
+app.use('/backend/images', express.static(path.join(__dirname, 'images')));
 
 
 app.use(routes); // Connect all the routes
@@ -79,10 +79,10 @@ app.use((err, _req, res, _next) => {
     res.status(err.status || 500);
     console.error(err);
     res.json({
-      //title: err.title || 'Server Error',
-      message: err.message,
-      errors: err.errors,
-     // stack: isProduction ? null : err.stack
+        //title: err.title || 'Server Error',
+        message: err.message,
+        errors: err.errors,
+        // stack: isProduction ? null : err.stack
     });
 });
 

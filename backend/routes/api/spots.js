@@ -205,7 +205,8 @@ router.get('/:spotId', async (req, res) => {
         numReviews: numReviews,
         avgStarRating: avgStarRating.toFixed(1),// Round to one decimal place
         SpotImages: spot.SpotImages,
-        Owner: spot.User
+        Owner: spot.User,
+        previewImage: spot.SpotImages.find(img => img.preview)?.url || null //dobavila, chto foto ottobrajalas
     };
 
     return res.json(spotDetails);

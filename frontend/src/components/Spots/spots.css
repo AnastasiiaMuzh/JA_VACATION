@@ -4,6 +4,7 @@
   gap: 25px; /* Расстояние между карточками */
   padding: 50px;
   margin-top: -25px;
+  font-family: Poppins;
 }
 
 .spot-box {

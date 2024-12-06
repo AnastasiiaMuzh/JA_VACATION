@@ -4,7 +4,7 @@
     grid-template-columns: 3fr 2fr; /* Первая колонка 3 части, вторая 1 часть */
     gap: 20px; /* Расстояние между колонками */
     padding: 20px;
-    font-family: Arial, sans-serif;
+    font-family: Poppins;
     line-height: 1.6;
     margin: 0 auto; /* Центрируем страницу */
     max-width: 1350px; /* Ограничиваем ширину */
@@ -131,7 +131,7 @@
 /* Секция отзывов */
 .reviews {
     grid-column: 1 / span 2; /* Отзывы растягиваются на обе колонки */
-    margin-top: -35px;
+    margin-top: -50px;
     
    
 }

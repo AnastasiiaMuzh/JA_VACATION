@@ -119,3 +119,17 @@
         display: none;
         /* Скрываем меню */
     }
+
+    .create-spot-butn {
+        display: inline-block; /* Убедитесь, что кнопка остается inline-block */
+        margin-left: 10px; /* Отступ слева */
+        padding: 10px 15px; /* Внутренние отступы */
+        background-color: #fff; /* Цвет фона */
+        font-size: 16px; /* Размер текста */
+        cursor: pointer; /* Указатель мыши при наведении */
+        text-align: center; /* Выравнивание текста */
+        color: #161c3d; /* Цвет текста */
+        text-decoration: none; /* Убираем подчеркивание */
+  
+      }
+      

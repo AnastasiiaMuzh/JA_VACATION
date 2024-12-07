@@ -86,8 +86,12 @@ router.get('/', async (req, res) => {
             avgRating: spot.dataValues.avgRating
                 ? parseFloat(spot.dataValues.avgRating).toFixed(1)
                 : null,
-
-            previewImage: spot.SpotImages.length > 0 ? spot.SpotImages[0].url : null,
+            // Добавляем префикс к previewImage
+            previewImage: spot.SpotImages.length > 0
+                ? (spot.SpotImages[0].url.startsWith('http')
+                    ? spot.SpotImages[0].url
+                    : `http://localhost:8000/${spot.SpotImages[0].url}`)
+                : null,
         };
     });
 
@@ -97,14 +101,6 @@ router.get('/', async (req, res) => {
         size: limit,
     });
 });
-
-
-
-// // Get all Spots
-// router.get('/', async (req, res) => {
-//     const spots = await Spot.findAll();
-//     return res.json({ Spots: spots });
-// })
 
 //Get all Spots owned by the Current User
 router.get('/current', requireAuth, async (req, res) => {
@@ -117,7 +113,6 @@ router.get('/current', requireAuth, async (req, res) => {
             {
                 model: SpotImage,
                 attributes: ["url"],
-                //as: "SpotImages",
                 where: { preview: true },
                 required: false,
 
@@ -127,8 +122,6 @@ router.get('/current', requireAuth, async (req, res) => {
                 attributes: [],
             },
         ],
-        //group: ["Spot.id", "SpotImage.id"],
-        //subQuery: false,
     });
 
     const result = spots.map((spot) => {
@@ -160,6 +153,7 @@ router.get('/current', requireAuth, async (req, res) => {
     return res.status(200).json({ Spots: result });
 });
 
+
 //Get details of a Spot from an SpotId
 router.get('/:spotId', async (req, res) => {
     const spotId = req.params.spotId;
@@ -171,68 +165,134 @@ router.get('/:spotId', async (req, res) => {
             },
             {
                 model: User,
-                //as: 'Owner', //maybe need to add the user(model) as:owner?
                 attributes: ['id', 'firstName', 'lastName']
             }
         ]
     });
+
     if (!spot) {
         return res.status(404).json({ "message": "Spot couldn't be found" });
-    };
+    }
+
+    // Превращаем в простой объект
+    const spotData = spot.toJSON();
+
+    // Обрабатываем изображения: если url не начинается с http, добавляем префикс
+    spotData.SpotImages = spotData.SpotImages.map(img => ({
+        ...img,
+        url: img.url.startsWith('http') ? img.url : `http://localhost:8000/${img.url}`
+    }));
 
     const reviews = await Review.findAll({
         where: { spotId }
     });
+
     const numReviews = reviews.length;
     const avgStarRating = numReviews > 0
-        ? reviews.reduce((sum, review) => sum + review.stars, 0) / numReviews
+        ? (reviews.reduce((sum, review) => sum + review.stars, 0) / numReviews)
         : 0;
 
+    // Определяем previewImage на основе обновлённого SpotImages
+    const preview = spotData.SpotImages.find(img => img.preview);
+    spotData.previewImage = preview ? preview.url : (spotData.SpotImages[0]?.url || null);
+
     const spotDetails = {
-        id: spot.id,
-        ownerId: spot.ownerId,
-        address: spot.address,
-        city: spot.city,
-        state: spot.state,
-        country: spot.country,
-        lat: spot.lat,
-        lng: spot.lng,
-        name: spot.name,
-        description: spot.description,
-        price: spot.price,
-        createdAt: spot.createdAt,
-        updatedAt: spot.updatedAt,
+        id: spotData.id,
+        ownerId: spotData.ownerId,
+        address: spotData.address,
+        city: spotData.city,
+        state: spotData.state,
+        country: spotData.country,
+        lat: spotData.lat,
+        lng: spotData.lng,
+        name: spotData.name,
+        description: spotData.description,
+        price: spotData.price,
+        createdAt: spotData.createdAt,
+        updatedAt: spotData.updatedAt,
         numReviews: numReviews,
-        avgStarRating: avgStarRating.toFixed(1),// Round to one decimal place
-        SpotImages: spot.SpotImages,
-        Owner: spot.User,
-        previewImage: spot.SpotImages.find(img => img.preview)?.url || null //dobavila, chto foto ottobrajalas
+        avgStarRating: avgStarRating.toFixed(1),
+        SpotImages: spotData.SpotImages,
+        Owner: spotData.User,
+        previewImage: spotData.previewImage
     };
 
     return res.json(spotDetails);
 });
 
+
+//Create a Spot
+// router.post('/', requireAuth, validateSpot, async (req, res) => {
+//     const { address, city, state, country, lat, lng, name, description, price } = req.body;
+//     const ownerId = req.user.id;
+//     const spot = await Spot.create({ ownerId, address, city, state, country, lat, lng, name, description, price });
+
+//     return res.status(201).json({
+//         id: spot.id,
+//         ownerId: spot.ownerId,
+//         address: spot.address,
+//         city: spot.city,
+//         state: spot.state,
+//         country: spot.country,
+//         lat: spot.lat ? parseFloat(spot.lat) : null,
+//         lng: spot.lng ? parseFloat(spot.lng) : null,
+//         name: spot.name,
+//         description: spot.description,
+//         price: spot.price ? parseFloat(spot.price) : null,
+//         createdAt: spot.createdAt,
+//         updatedAt: spot.updatedAt,
+//     });
+// });
+
 //Create a Spot
 router.post('/', requireAuth, validateSpot, async (req, res) => {
-    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+    const { address, city, state, country, lat, lng, name, description, price, SpotImages } = req.body;
     const ownerId = req.user.id;
-    const spot = await Spot.create({ ownerId, address, city, state, country, lat, lng, name, description, price });
 
-    return res.status(201).json({
-        id: spot.id,
-        ownerId: spot.ownerId,
-        address: spot.address,
-        city: spot.city,
-        state: spot.state,
-        country: spot.country,
-        lat: spot.lat ? parseFloat(spot.lat) : null,
-        lng: spot.lng ? parseFloat(spot.lng) : null,
-        name: spot.name,
-        description: spot.description,
-        price: spot.price ? parseFloat(spot.price) : null,
-        createdAt: spot.createdAt,
-        updatedAt: spot.updatedAt,
+    const spot = await Spot.create({  // Cоздаём сам спот
+        ownerId,
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
     });
+
+    // Если в теле запроса есть картинки, добавляем их в базу
+    if (SpotImages && SpotImages.length > 0) {
+        for (const image of SpotImages) {
+            await SpotImage.create({
+                spotId: spot.id,
+                url: image.url,
+                preview: image.preview || false
+            });
+        }
+    }
+
+    // Теперь получаем обновлённые данные о споте вместе с его изображениями
+    const newSpotWithImages = await Spot.findByPk(spot.id, {
+        include: {
+            model: SpotImage,
+            attributes: ['id', 'url', 'preview']
+        }
+    });
+
+    const spotData = newSpotWithImages.toJSON();
+    // Добавляем абсолютный путь к изображениям
+    spotData.SpotImages = spotData.SpotImages.map(img => ({
+        ...img,
+        url: `http://localhost:8000/${img.url}`
+    }));
+
+    const preview = spotData.SpotImages.find(img => img.preview);
+    spotData.previewImage = preview ? preview.url : (spotData.SpotImages[0]?.url || null);
+
+    return res.status(201).json(spotData);
+
 });
 
 // Add an Image to a Spot based on the Spot's id

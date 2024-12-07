@@ -1,3 +1,4 @@
+import { csrfFetch } from './csrf';
 //определили action
 const LOAD_SPOTS = 'spots/LOAD_SPOTS';  //для загрузки всех спотов.
 const LOAD_SINGLE_SPOT = 'spots/LOAD_SINGLE_SPOT'; //для загрузки одного конкретного спота.
@@ -38,11 +39,11 @@ export const getSpotById = (spotId) => async (dispatch) => {
 }
 
 export const createSpot = (spot) => async (dispatch) => {
-    const response = await fetch("/api/spots", {
+    const response = await csrfFetch("/api/spots", {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
+        // headers: {
+        //     "Content-Type": "application/json",
+        // },
         body: JSON.stringify(spot),
     });
     if (response.ok) {

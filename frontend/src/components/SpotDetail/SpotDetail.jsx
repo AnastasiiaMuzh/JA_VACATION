@@ -27,11 +27,11 @@ function SpotDetail() {
             </section>
             <section className="spot-images">
                 <div className="large-image">
-                    <img src={`http://localhost:8000/${spot.previewImage}`} alt={spot.name} />
+                    <img src={spot.previewImage} alt={spot.name} />
                 </div>
                 <div className="small-images">
                     {spot.SpotImages.slice(1).map((img) => (
-                        <img key={img.id} src={`http://localhost:8000/${img.url}`} alt={spot.name} />
+                        <img key={img.id} src={img.url} alt={spot.name} />
                     ))}
                 </div>
             </section>
@@ -40,7 +40,7 @@ function SpotDetail() {
                 <p className="host-description">{spot.description}</p>
             </section>
             <section className="priceReserveBtn-box">
-                <p>${spot.price} / night</p>
+                <p>{spot.price} / night</p>
                 <div className="rating">
                     <FaStar className="fa-star" />
                     <span>{spot.avgStarRating || 'New'}</span>

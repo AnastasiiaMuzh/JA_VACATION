@@ -1,0 +1,141 @@
+/* Основной контейнер формы */
+.form-container {
+    max-width: 700px; /* Устанавливаем ширину */
+    margin: 0 auto; /* Центрируем форму */
+    padding: 20px 30px;
+    background-color: #fff; /* Белый фон формы */
+    font-family: 'Arial', sans-serif;
+    line-height: 1.5;
+}
+
+/* Заголовки */
+.form-container h2 {
+    font-size: 28px; /* Размер заголовка */
+    color: #0a0a0a;
+    margin-top: -2px;
+}
+
+.form-container h3 {
+    font-size: 18px;
+    color: #0b0b0b;
+    margin-bottom: 10px;
+    margin-top: -10px;
+}
+
+/* Подписи */
+.form-container p {
+    font-size: 16px;
+    color: #0f0e0e;
+    margin-top: -10px;
+}
+
+/* Поля ввода */
+.form-container input[type="text"],
+.form-container input[type="number"],
+.form-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 3px;
+    margin-bottom: 10px;
+    border: 1px solid #3d3838;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+    background-color: #c5dcf4; /* Легкий фон */
+}
+
+/* Текстовая область */
+textarea {
+    resize: vertical;
+    height: 100px;
+}
+
+/* Ошибки */
+.error{
+    color: #d93025 !important; /* Красный цвет текста */
+    font-size: 16px; /* Размер текста */
+}
+
+/* Поля с лейблами и ошибками */
+.label-error {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.input-container-down h3 {
+    font-size: 18px;
+    color: #333;
+    font-weight: bold;
+    margin-top: 15px;
+
+}
+
+.input-container-down p {
+    font-size: 16px;
+    color: #272727;
+    margin-bottom: 2px;
+}
+
+
+.label-input-error .error {
+    color: #d93025; /* Цвет текста ошибки */
+    font-size: 15.5px; /* Размер текста ошибки */
+    margin-left: 10px;
+    white-space: nowrap; /* Предотвращаем перенос ошибки */
+}
+
+
+/* Область с полями изображений */
+.preview-img,
+.additional-img {
+    margin-top: 20px;
+}
+
+/* Поле с символом валюты */
+.price-wrapper {
+    position: relative; /* Для позиционирования $ */
+}
+
+.currency-symbol {
+    position: absolute;
+    top: 45%;
+    transform: translateY(60%);
+    font-size: 18px;
+    color: #333;
+    margin-left: -20px;
+}
+
+/* Кнопка */
+.submit-button {
+    display: inline-block; /* Кнопка будет по ширине содержимого */
+    padding: 5px 20px; /* Внутренние отступы */
+    background-color: #fa3c5f; /* Основной цвет кнопки */
+    color: white; /* Цвет текста */
+    border: #0f0e0e;
+    border-radius: 8px; /* Немного скругляем углы */
+    font-size: 20px; /* Размер текста */
+    font-weight: bold; /* Жирный текст */
+    text-align: center; /* Центрирование текста */
+    cursor: pointer; /* Указатель мыши при наведении */
+    margin-top: 20px; /* Отступ сверху */
+    box-shadow: 3px 3px 0px 2px #7c5353; /* Тень кнопки */
+    transition: all 0.2s ease; /* Плавный переход для эффектов */
+    margin-left: 250px;
+}
+
+.submit-button:hover {
+    transform: translate(-1px, -1px); /* Небольшой сдвиг вверх-влево при наведении */
+    box-shadow: 4px 4px 0px 2px #3c0909; /* Немного увеличиваем тень */
+}
+
+.submit-button:active {
+    transform: translate(2px, 2px); /* Сдвиг вниз при нажатии */
+    box-shadow: 2px 2px 0px 1px #552626; /* Уменьшаем тень */
+}
+
+
+
+
+
+

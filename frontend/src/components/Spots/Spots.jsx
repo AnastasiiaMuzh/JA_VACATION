@@ -7,48 +7,47 @@ import './Spots.css';
 
 function Spots() {
     const dispatch = useDispatch();
-
-    // Получаем список объектов из Redux store
     const spots = useSelector((state) => state.spots.spots);
 
     useEffect(() => {
-        dispatch(getSpots()); //Загружаем объекты при монтировании компонента
+        dispatch(getSpots());
     }, [dispatch]);
 
+    if (!spots) {
+        return <div>Loading...</div>;
+    }
 
+    if (spots.length === 0) {
+        return <h2>No spots available</h2>;
+    }
 
     return (
         <div className="spots-container">
-            {spots.map((spot) => (
-                <Link to={`/spots/${spot.id}`} key={spot.id} className="spot-box">
-                    {/* Изображение */}
-                    <img
-                        src={`http://localhost:8000/${spot.previewImage}`}
-                        alt={spot.name}
-                    />
-                    {/* Детали */}
-                    <div className="spot-details">
-                        {/* Локация и рейтинг */}
-                        <div className="spot-location">
-                            <div>
-                                {spot.city}, {spot.state}
+            {spots.map((spot) => {
+                const rating = spot.avgRating ? parseFloat(spot.avgRating).toFixed(1) : 'New';
+                return (
+                    <Link to={`/spots/${spot.id}`} key={spot.id} className="spot-box">
+                        <img
+                            src={spot.previewImage}
+                            alt={spot.name}
+                        />
+                        <div className="spot-details">
+                            <div className="spot-location">
+                                <div>{spot.city}, {spot.state}</div>
+                                <div className="spot-rating">
+                                    <FaStar className="fa-star" />
+                                    {rating}
+                                </div>
                             </div>
-                            <div className="spot-rating">
-                                <FaStar className="fa-star" />
-                                {spot.avgRating ? parseFloat(spot.avgRating).toFixed(1) : 'New'}
+                            <div className="spot-price">
+                                <span className="price">${spot.price}</span> <span className="night">night</span>
                             </div>
                         </div>
-                        {/* Цена */}
-                        <div className="spot-price">
-                            <span className="price">${spot.price}</span> <span className="night">night</span>
-                        </div>
-                    </div>
-                </Link>
-            ))}
+                    </Link>
+                );
+            })}
         </div>
     );
-
-
 }
 
 export default Spots;

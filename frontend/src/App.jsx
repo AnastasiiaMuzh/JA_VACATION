@@ -27,12 +27,12 @@ const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
-      // {
-      //   path: '/',
-      //   element: <h1>All Spots:</h1>
-      // },
       {
         path: '/',
+        element: <Spots />
+      },
+      {
+        path: '/spots',
         element: <Spots /> // Оборачиваем в JSX
       },
       {

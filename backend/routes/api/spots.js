@@ -4,7 +4,7 @@ const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Spot, SpotImage, Review, ReviewImage, Booking } = require('../../db/models');
 const { where } = require('sequelize');
 const { validateReview, validateSpot } = require('../../utils/validation');
-const { Op } = require("sequelize");
+const { Op, fn, col, Sequelize } = require("sequelize");
 
 const router = express.Router();
 
@@ -16,6 +16,7 @@ router.get('/', async (req, res) => {
     const sizeNum = parseInt(size);
 
     const errors = {};
+    // Проверка параметров
     if (isNaN(pageNum) || pageNum < 1) errors.page = "Page must be greater than or equal to 1";
     if (isNaN(sizeNum) || sizeNum < 1 || sizeNum > 20) errors.size = "Size must be between 1 and 20";
     if (maxLat !== undefined && (isNaN(parseFloat(maxLat)) || maxLat > 90)) errors.maxLat = "Maximum latitude is invalid";
@@ -43,10 +44,17 @@ router.get('/', async (req, res) => {
     const limit = Math.min(sizeNum, 20);
     const offset = (pageNum - 1) * limit;
 
+    // Включаем Review со stars, чтобы получить массив отзывов и вычислить средний рейтинг
     const spots = await Spot.findAll({
         where,
         limit,
         offset,
+        attributes: {
+            include: [
+                // Считаем средний рейтинг через AVG
+                [fn('AVG', col('Reviews.stars')), 'avgRating']
+            ]
+        },
         include: [
             {
                 model: SpotImage,
@@ -65,32 +73,33 @@ router.get('/', async (req, res) => {
     });
 
     const result = spots.map((spot) => {
-        const numReviews = spot.Reviews ? spot.Reviews.length : 0;
-        const avgRating = numReviews > 0
-            ? spot.Reviews.reduce((sum, review) => sum + review.stars, 0) / numReviews
-            : 0;
+        const spotJSON = spot.toJSON();
+
+        // spotJSON.avgRating теперь — строка или число, возвращённое AVG.
+        // Если отзывов нет, AVG вернёт null. Если есть дробное число, вы получите точное дробное значение.
+        const avgRatingVal = spotJSON.avgRating !== null ? Number(spotJSON.avgRating) : null;
+
         return {
-            id: spot.id,
-            ownerId: spot.ownerId,
-            address: spot.address,
-            city: spot.city,
-            state: spot.state,
-            country: spot.country,
-            lat: spot.lat ? parseFloat(spot.lat) : null,
-            lng: spot.lng ? parseFloat(spot.lng) : null,
-            name: spot.name,
-            description: spot.description,
-            price: spot.price ? parseFloat(spot.price) : null,
-            createdAt: spot.createdAt,
-            updatedAt: spot.updatedAt,
-            avgRating: spot.dataValues.avgRating
-                ? parseFloat(spot.dataValues.avgRating).toFixed(1)
-                : null,
-            // Добавляем префикс к previewImage
-            previewImage: spot.SpotImages.length > 0
-                ? (spot.SpotImages[0].url.startsWith('http')
-                    ? spot.SpotImages[0].url
-                    : `http://localhost:8000/${spot.SpotImages[0].url}`)
+            id: spotJSON.id,
+            ownerId: spotJSON.ownerId,
+            address: spotJSON.address,
+            city: spotJSON.city,
+            state: spotJSON.state,
+            country: spotJSON.country,
+            lat: spotJSON.lat ? parseFloat(spotJSON.lat) : null,
+            lng: spotJSON.lng ? parseFloat(spotJSON.lng) : null,
+            name: spotJSON.name,
+            description: spotJSON.description,
+            price: spotJSON.price ? parseFloat(spotJSON.price) : null,
+            createdAt: spotJSON.createdAt,
+            updatedAt: spotJSON.updatedAt,
+            // Округляем до 1 знака после запятой, если есть рейтинг
+            avgRating: avgRatingVal !== null ? avgRatingVal.toFixed(1) : "New",
+
+            previewImage: spotJSON.SpotImages && spotJSON.SpotImages.length > 0
+                ? (spotJSON.SpotImages[0].url.startsWith('http')
+                    ? spotJSON.SpotImages[0].url
+                    : `http://localhost:8000/${spotJSON.SpotImages[0].url}`)
                 : null,
         };
     });
@@ -144,8 +153,8 @@ router.get('/current', requireAuth, async (req, res) => {
             createdAt: spot.createdAt,
             updatedAt: spot.updatedAt,
             avgRating: spot.dataValues.avgRating
-                ? parseFloat(spot.dataValues.avgRating).toFixed(1)
-                : null,
+                ? parseFloat(spot.dataValues.avgRating)
+                : null,// ybrala toFixed
 
             previewImage: spot.SpotImages.length > 0 ? spot.SpotImages[0].url : null,
         };
@@ -156,7 +165,9 @@ router.get('/current', requireAuth, async (req, res) => {
 
 //Get details of a Spot from an SpotId
 router.get('/:spotId', async (req, res) => {
-    const spotId = req.params.spotId;
+    const { spotId } = req.params;
+
+    // Ищем спот по ID, сразу подтягивая изображения, владельца и отзывы
     const spot = await Spot.findByPk(spotId, {
         include: [
             {
@@ -166,6 +177,15 @@ router.get('/:spotId', async (req, res) => {
             {
                 model: User,
                 attributes: ['id', 'firstName', 'lastName']
+            },
+            {
+                // Включаем отзывы, чтобы сразу получить их список
+                model: Review,
+                attributes: ['id', 'userId', 'review', 'stars', 'createdAt', 'updatedAt'],
+                include: {
+                    model: User,
+                    attributes: ['id', 'firstName', 'lastName']
+                }
             }
         ]
     });
@@ -174,7 +194,7 @@ router.get('/:spotId', async (req, res) => {
         return res.status(404).json({ "message": "Spot couldn't be found" });
     }
 
-    // Превращаем в простой объект
+    // Превращаем найденный спот в простой объект
     const spotData = spot.toJSON();
 
     // Обрабатываем изображения: если url не начинается с http, добавляем префикс
@@ -183,19 +203,18 @@ router.get('/:spotId', async (req, res) => {
         url: img.url.startsWith('http') ? img.url : `http://localhost:8000/${img.url}`
     }));
 
-    const reviews = await Review.findAll({
-        where: { spotId }
-    });
-
+    // Подсчитываем число отзывов и средний рейтинг
+    const reviews = spotData.Reviews || [];
     const numReviews = reviews.length;
     const avgStarRating = numReviews > 0
         ? (reviews.reduce((sum, review) => sum + review.stars, 0) / numReviews)
-        : 0;
+        : null;
 
-    // Определяем previewImage на основе обновлённого SpotImages
+    // Находим превью-изображение
     const preview = spotData.SpotImages.find(img => img.preview);
     spotData.previewImage = preview ? preview.url : (spotData.SpotImages[0]?.url || null);
 
+    // Формируем итоговый объект деталей спота
     const spotDetails = {
         id: spotData.id,
         ownerId: spotData.ownerId,
@@ -211,10 +230,12 @@ router.get('/:spotId', async (req, res) => {
         createdAt: spotData.createdAt,
         updatedAt: spotData.updatedAt,
         numReviews: numReviews,
-        avgStarRating: avgStarRating.toFixed(1),
+        avgStarRating: avgStarRating !== null ? avgStarRating.toFixed(1) : 0,
         SpotImages: spotData.SpotImages,
         Owner: spotData.User,
-        previewImage: spotData.previewImage
+        previewImage: spotData.previewImage,
+        Reviews: reviews // Возвращаем массив отзывов
+
     };
 
     return res.json(spotDetails);

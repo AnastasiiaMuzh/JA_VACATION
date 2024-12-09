@@ -24,7 +24,7 @@ function Spots() {
     return (
         <div className="spots-container">
             {spots.map((spot) => {
-                const rating = spot.avgRating ? parseFloat(spot.avgRating).toFixed(1) : 'New';
+                const rating = spot.avgRating || 'New';
                 return (
                     <Link to={`/spots/${spot.id}`} key={spot.id} className="spot-box">
                         <img

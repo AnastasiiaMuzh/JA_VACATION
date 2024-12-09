@@ -105,6 +105,7 @@ function CreateFormSpot() {
                     <input placeholder="Country" type="text" value={country} onChange={(e) => setCountry(e.target.value)}
                     />
                 </div>
+
                 <div className="input-container">
                     <div className="label-input-error">
                         <label>Street Address</label>
@@ -113,29 +114,44 @@ function CreateFormSpot() {
                     <input placeholder="Address" type="text" value={address} onChange={(e) => setAddress(e.target.value)}
                     />
                 </div>
-                <div className="input-container">
-                    <div className="label-input-error">
-                        <label>City</label>
-                        {errors.city && <span className="error">{errors.city}</span>}
+                <div className="input-city-state">
+                    <div className="city-group">
+                        <div className="label-with-error">
+                            <label>City</label>
+                            {errors.city && <span className="error-inline">{errors.city}</span>}
+                        </div>
+                        <input
+                            placeholder="City"
+                            type="text"
+                            value={city}
+                            onChange={(e) => setCity(e.target.value)}
+                        />
                     </div>
-                    <input placeholder="City" type="text" value={city} onChange={(e) => setCity(e.target.value)}
-                    />
-                </div>
-                <div className="input-container">
-                    <div className="label-input-error">
-                        <label>State</label>
-                        {errors.state && <span className="error">{errors.state}</span>}
+                    <span className="comma">,</span>
+                    <div className="state-group">
+                        <div className="label-with-error">
+                            <label>State</label>
+                            {errors.state && <span className="error-inline">{errors.state}</span>}
+                        </div>
+                        <input
+                            placeholder="State"
+                            type="text"
+                            value={state}
+                            onChange={(e) => setState(e.target.value)}
+                        />
                     </div>
-                    <input placeholder="State" type="text" value={state} onChange={(e) => setState(e.target.value)}
-                    />
                 </div>
+
+
+
                 <div className="input-container-down">
                     <h3>Describe your place to guests</h3>
                     <p>Mention the best features of your space, any special amenities like fast
                         wifi or parking, and what you love about the neighborhood.</p>
+                    {errors.description && <p className="error">{errors.description}</p>}
                     <textarea placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)}
                     />
-                    {errors.description && <p className="error">{errors.description}</p>}
+
                 </div>
 
                 <div className="input-container-down">
@@ -143,43 +159,41 @@ function CreateFormSpot() {
                         <h3>Create a title for your spot</h3>
                         <p>Catch guests&apos; attention with a spot title that highlights what makes your place special.</p>
                     </div>
-                    <input placeholder="Name of your spot" type="text" value={name} onChange={(e) => setName(e.target.value)} />
                     {errors.name && <span className="error">{errors.name}</span>}
+                    <input placeholder="Name of your spot" type="text" value={name} onChange={(e) => setName(e.target.value)} />
+
                 </div>
                 <div className="input-container-down">
                     <div className="price-wrapper">
                         <h3>Set a base price for your spot</h3>
                         <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
                         <span className="currency-symbol">$</span>
+                        {errors.price && <p className="error">{errors.price}</p>}
                         <input className="price-field" placeholder="Price per night (USD)" type="number" value={price} onChange={(e) => setPrice(e.target.value)}
                         />
                     </div>
-                    {errors.price && <p className="error">{errors.price}</p>}
                 </div>
                 <div className="input-container-down">
                     <h3>Liven up your spot with photos</h3>
                     <p>Submit a link to at least one photo to publish your spot.</p>
                     <div className="image-container">
                         <div className="image-url-container">
-                            <input
-                                placeholder="Preview Image URL"
-                                type="text"
-                                value={previewImage}
-                                onChange={(e) => setPreviewImage(e.target.value)}
-                            />
                             {errors.previewImage && <p className="error">{errors.previewImage}</p>}
+                            <input placeholder="Preview Image URL" type="text" value={previewImage} onChange={(e) => setPreviewImage(e.target.value)}
+                            />
                         </div>
                         {imageUrls.map((url, index) => (
                             <div key={index} className="image-url-container">
+                                {errors[`image${index}`] && (
+                                    <p className="error">{errors[`image${index}`]}</p>
+                                )}
                                 <input
                                     placeholder="Image URL"
                                     type="text"
                                     value={url}
                                     onChange={(e) => updateImageUrl(index, e.target.value)}
                                 />
-                                {errors[`image${index}`] && (
-                                    <p className="error">{errors[`image${index}`]}</p>
-                                )}
+
                             </div>
                         ))}
                     </div>

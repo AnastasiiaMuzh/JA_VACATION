@@ -3,7 +3,7 @@ import { getSpotById } from '../../store/spots';
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { FaStar } from 'react-icons/fa';
-import './spotDetail.css'
+import './spotDetail.css';
 
 function SpotDetail() {
     const dispatch = useDispatch();
@@ -30,41 +30,61 @@ function SpotDetail() {
                     <img src={spot.previewImage} alt={spot.name} />
                 </div>
                 <div className="small-images">
-                    {spot.SpotImages.slice(1).map((img) => (
+                    {spot.SpotImages?.slice(1).map((img) => (
                         <img key={img.id} src={img.url} alt={spot.name} />
                     ))}
                 </div>
             </section>
             <section className="host-info">
-                <p className="host-name">Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</p>
+                <p className="host-name">Hosted by {spot.Owner?.firstName} {spot.Owner?.lastName}</p>
                 <p className="host-description">{spot.description}</p>
             </section>
-            <section className="priceReserveBtn-box">
-                <p>{spot.price} / night</p>
-                <div className="rating">
+            <div className="priceReserveBtn-box">
+                <p>${spot.price} <span className="night">night</span></p>
+                <div className="rating-line">
                     <FaStar className="fa-star" />
-                    <span>{spot.avgStarRating || 'New'}</span>
-                    {spot.numReviews > 0 && (
-                        <span> · {spot.numReviews} {spot.numReviews === 1 ? 'review' : 'reviews'}</span>
-                    )}
+                    <span className="rating-value">{spot.avgStarRating}</span>
+                    <span className="dot">·</span>
+                    <span className="review-count">
+                        {spot.numReviews} {spot.numReviews === 1 ? 'review' : 'reviews'}
+                    </span>
                 </div>
-                <button onClick={() => alert('Feature coming soon!')}>Reserve</button>
-            </section>
-            <section className="reviews">
-                <h2>reviews</h2>
-                {spot.Reviews?.length > 0 ? (
-                    spot.Reviews.map((review) => (
-                        <div key={review.id} className="review">
-                            <p><strong>{review.User.firstName}</strong> {new Date(review.createdAt).toLocaleString('en-US', { month: 'long', year: 'numeric' })}</p>
-                            <p>{review.comment}</p>
-                        </div>
-                    ))
-                ) : (
-                    <p>Be the first to post a review!</p>
-                )}
-            </section>
+                <button onClick={() => alert("Feature Coming Soon...")}>
+                    Reserve
+                </button>
+            </div>
+            <div className="reviews-container">
+                <section className="reviews">
+                    {spot.numReviews > 0 ? (
+                        <>
+                            <div className="reviews-header">
+                                <FaStar className="fa-star" />
+                                <span className="rating-value">{spot.avgStarRating}</span>
+                                <span className="dot">·</span>
+                                <span className="review-count">
+                                    {spot.numReviews} {spot.numReviews === 1 ? 'review' : 'reviews'}
+                                </span>
+                            </div>
+                            <div className="reviews-list">
+                                {spot.Reviews.map((review) => (
+                                    <div key={review.id} className="review">
+                                        <strong>{review.User.firstName}</strong>
+                                        <p className="date">
+                                            {new Date(review.createdAt).toLocaleString('en-US', { month: 'long', year: 'numeric' })}
+                                        </p>
+                                        <p>{review.review}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </>
+                    ) : (
+                        <p>Be the first to post a review!</p>
+                    )}
+                </section>
+
+            </div>
         </div>
-    )
+    );
 }
 
 export default SpotDetail;

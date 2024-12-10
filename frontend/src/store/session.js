@@ -28,8 +28,8 @@ const removeUser = () => ({
 
 //Thunk restoreUser
 export const restoreUser = () => async (dispatch) => {
-    const response = await csrfFetch('/api/session'); // Делаем запрос на сервер
-    const data = await response.json(); // Получаем данные пользователя
+    const response = await csrfFetch('/api/session');
+    const data = await response.json();
     //if (data.user) {
     dispatch(setUser(data.user)); // Обновляем Redux Store, если пользователь найден
     //}
@@ -50,24 +50,45 @@ export const login = (user) => async (dispatch) => {
 };
 
 //signup Thunk
+// export const signup = (user) => async (dispatch) => {
+//     const { username, firstName, lastName, email, password } = user;
+//     const response = await csrfFetch("/api/users", {
+//         method: "POST",
+//         body: JSON.stringify({
+//             username,
+//             firstName,
+//             lastName,
+//             email,
+//             password,
+//         }),
+//     });
+//     const data = await response.json();
+//     dispatch(setUser(data.user)); // Устанавливаем пользователя в Redux Store
+//     return response;
+// };
+
 export const signup = (user) => async (dispatch) => {
     const { username, firstName, lastName, email, password } = user;
-    console.log("Signup payload:", user); // Логируем перед отправкой
-
-    const response = await csrfFetch("/api/users", {
-        method: "POST",
-        body: JSON.stringify({
-            username,
-            firstName,
-            lastName,
-            email,
-            password,
-        }),
-    });
-    const data = await response.json();
-    dispatch(setUser(data.user)); // Устанавливаем пользователя в Redux Store
-    return response;
+    try {
+        const response = await csrfFetch("/api/users", {
+            method: "POST",
+            body: JSON.stringify({
+                username,
+                firstName,
+                lastName,
+                email,
+                password,
+            }),
+        });
+        const data = await response.json();
+        dispatch(setUser(data.user)); // Устанавливаем пользователя в Redux Store
+        return data;
+    } catch (error) {
+        // Предполагаем, что error.data содержит серверные ошибки
+        throw error.data;
+    }
 };
+
 
 //logout Thunk:
 export const logout = () => async (dispatch) => {

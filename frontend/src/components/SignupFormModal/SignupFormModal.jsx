@@ -1,117 +1,271 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from "../../store/session";
-import { useModal } from '../../context/Modal';
-// import './SignupForm.css';
+import { useModal } from "../../context/Modal";
+import "./SignupFormModal.css";
+
+// function SignupFormModal() {
+//   const dispatch = useDispatch();
+//   const { closeModal } = useModal();
+
+//   const [formData, setFormData] = useState({
+//     email: "",
+//     username: "",
+//     firstName: "",
+//     lastName: "",
+//     password: "",
+//     confirmPassword: "",
+//   });
+//   const [errors, setErrors] = useState({});
+//   const [isLoading, setIsLoading] = useState(false);
+
+//   // Простая валидация для полей
+//   const validate = () => {
+//     const newErrors = {};
+
+//     if (!formData.email.includes("@")) {
+//       newErrors.email = "Email должен быть корректным.";
+//     }
+//     if (formData.username.length < 4) {
+//       newErrors.username = "Имя пользователя должно быть не менее 4 символов.";
+//     }
+//     if (!formData.firstName) {
+//       newErrors.firstName = "Имя обязательно.";
+//     }
+//     if (!formData.lastName) {
+//       newErrors.lastName = "Фамилия обязательна.";
+//     }
+//     if (formData.password.length < 6) {
+//       newErrors.password = "Пароль должен быть не менее 6 символов.";
+//     }
+//     if (formData.password !== formData.confirmPassword) {
+//       newErrors.confirmPassword = "Пароли должны совпадать.";
+//     }
+
+//     setErrors(newErrors);
+//     return Object.keys(newErrors).length === 0; // true, если ошибок нет
+//   };
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setFormData((prev) => ({ ...prev, [name]: value }));
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     if (!validate()) return; // Проверяем, есть ли ошибки
+
+//     setIsLoading(true);
+//     try {
+//       await dispatch(sessionActions.signup(formData));
+//       closeModal();
+//     } catch (err) {
+//       setErrors(err.errors || { general: "Произошла ошибка. Попробуйте снова." });
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };
+
+//   const isDisabled =
+//     Object.values(formData).some((value) => !value) || isLoading;
+
+//   return (
+//     <div className="signup-form-container">
+//       <h1>Регистрация</h1>
+//       <form onSubmit={handleSubmit} noValidate>
+//         <label>
+//           Email
+//           <input
+//             type="text"
+//             name="email"
+//             value={formData.email}
+//             onChange={handleChange}
+//             required
+//           />
+//           {errors.email && <p className="error-message">{errors.email}</p>}
+//         </label>
+
+//         <label>
+//           Имя пользователя
+//           <input
+//             type="text"
+//             name="username"
+//             value={formData.username}
+//             onChange={handleChange}
+//             required
+//           />
+//           {errors.username && <p className="error-message">{errors.username}</p>}
+//         </label>
+
+//         <label>
+//           Имя
+//           <input
+//             type="text"
+//             name="firstName"
+//             value={formData.firstName}
+//             onChange={handleChange}
+//             required
+//           />
+//           {errors.firstName && <p className="error-message">{errors.firstName}</p>}
+//         </label>
+
+//         <label>
+//           Фамилия
+//           <input
+//             type="text"
+//             name="lastName"
+//             value={formData.lastName}
+//             onChange={handleChange}
+//             required
+//           />
+//           {errors.lastName && <p className="error-message">{errors.lastName}</p>}
+//         </label>
+
+//         <label>
+//           Пароль
+//           <input
+//             type="password"
+//             name="password"
+//             value={formData.password}
+//             onChange={handleChange}
+//             required
+//           />
+//           {errors.password && <p className="error-message">{errors.password}</p>}
+//         </label>
+
+//         <label>
+//           Подтвердите пароль
+//           <input
+//             type="password"
+//             name="confirmPassword"
+//             value={formData.confirmPassword}
+//             onChange={handleChange}
+//             required
+//           />
+//           {errors.confirmPassword && (
+//             <p className="error-message">{errors.confirmPassword}</p>
+//           )}
+//         </label>
+
+//         {errors.general && <p className="error-message">{errors.general}</p>}
+
+//         <button type="submit" disabled={isDisabled}>
+//           {isLoading ? "Регистрация..." : "Зарегистрироваться"}
+//         </button>
+//       </form>
+//     </div>
+//   );
+// }
+
+// export default SignupFormModal;
+
+
 
 function SignupFormModal() {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
-  //const [isDisabled, setIsDisabled] = useState(true);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (password === confirmPassword) {
-      setErrors({});
-      return dispatch(
-        sessionActions.signup({
-          email,
-          username,
-          firstName,
-          lastName,
-          password,
-        })
-      )
-        .then(closeModal)
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data?.errors) {
-            setErrors(data.errors);
+  const [formData, setFormData] = useState({
+    email: "",
+    username: "",
+    firstName: "",
+    lastName: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  const validateField = (name, value) => {
+    const fieldErrors = { ...errors };
+    if (!value) {
+      fieldErrors[name] = `${name[0].toUpperCase() + name.slice(1)} is required.`;
+    } else {
+      switch (name) {
+        case "email":
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+            fieldErrors[name] = "Please provide a valid email.";
+          } else {
+            delete fieldErrors[name];
           }
-        });
+          break;
+        case "username":
+          if (value.length < 4) {
+            fieldErrors[name] = "Username must be at least 4 characters.";
+          } else {
+            delete fieldErrors[name];
+          }
+          break;
+        case "password":
+          if (value.length < 6) {
+            fieldErrors[name] = "Password must be at least 6 characters.";
+          } else {
+            delete fieldErrors[name];
+          }
+          break;
+        case "confirmPassword":
+          if (value !== formData.password) {
+            fieldErrors[name] = "Passwords do not match.";
+          } else {
+            delete fieldErrors[name];
+          }
+          break;
+        default:
+          delete fieldErrors[name];
+      }
     }
-    return setErrors({
-      confirmPassword:
-        "Confirm Password field must be the same as the Password field",
-    });
+    setErrors(fieldErrors);
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    validateField(name, value);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (Object.values(errors).some((err) => err)) return;
+
+    setIsLoading(true);
+    try {
+      await dispatch(sessionActions.signup(formData));
+      closeModal();
+    } catch (err) {
+      setErrors(err.errors || { general: "An unexpected error occurred." });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const isDisabled =
+    Object.values(formData).some((val) => !val) ||
+    Object.values(errors).some((err) => err) ||
+    isLoading;
+
   return (
-    <>
+    <div className="signup-form-container">
       <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Username
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </label>
-        {errors.username && <p>{errors.username}</p>}
-        <label>
-          First Name
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-        </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
-        <label>
-          Last Name
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-          />
-        </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.password && <p>{errors.password}</p>}
-        <label>
-          Confirm Password
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.confirmPassword && (
-          <p>{errors.confirmPassword}</p>
-        )}
-        <button type="submit">Sign Up</button>
+      <form onSubmit={handleSubmit} noValidate>
+        {["firstName", "lastName", "email", "username", , "password", "confirmPassword"].map((field) => (
+          <label key={field}>
+            {field[0].toUpperCase() + field.slice(1).replace("Name", " Name")}
+            <input
+              type={field.includes("password") ? "password" : "text"}
+              name={field}
+              value={formData[field]}
+              onChange={handleChange}
+              required
+            />
+            {errors[field] && <p className="error-message">{errors[field]}</p>}
+          </label>
+        ))}
+        {errors.general && <p className="error-message">{errors.general}</p>}
+        <button type="submit" disabled={isDisabled}>
+          {isLoading ? "Signing Up..." : "Sign Up"}
+        </button>
       </form>
-    </>
+    </div>
   );
 }
 

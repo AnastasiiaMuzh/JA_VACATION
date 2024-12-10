@@ -1,0 +1,20 @@
+.signup-form-container {
+    width: 100%;
+    max-width: 400%;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.signup-form-container h1 {
+    text-align: center;
+}
+
+.signup-form-container label {
+    width: 425px;
+}
+
+.signup-form-container button {
+    width: 393px;
+}

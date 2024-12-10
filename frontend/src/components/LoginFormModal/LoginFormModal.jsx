@@ -60,7 +60,6 @@ function LoginFormModal() {
     };
 
 
-
     return (
         <div className='login-form-container'>
             <h1>Log In</h1>

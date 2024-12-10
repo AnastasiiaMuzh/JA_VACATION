@@ -141,9 +141,6 @@ function CreateFormSpot() {
                         />
                     </div>
                 </div>
-
-
-
                 <div className="input-container-down">
                     <h3>Describe your place to guests</h3>
                     <p>Mention the best features of your space, any special amenities like fast
@@ -151,9 +148,7 @@ function CreateFormSpot() {
                     {errors.description && <p className="error">{errors.description}</p>}
                     <textarea placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)}
                     />
-
                 </div>
-
                 <div className="input-container-down">
                     <div className="label-input-error">
                         <h3>Create a title for your spot</h3>

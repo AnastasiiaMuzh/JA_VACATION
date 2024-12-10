@@ -1,0 +1,104 @@
+.login-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    box-sizing: border-box; /* Учитываем padding в общей ширине */
+    margin-top: -10px;
+}
+
+
+h1{
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    margin-right: 25px;
+}
+
+form {
+    width: 100%;
+    /* padding: 10px 10px; */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-size: 1rem;
+    color: #333;
+}
+
+input {
+    width: 91%;
+    height: 25px;
+    background-color: aliceblue;
+    margin-top: 5px;
+
+}
+
+input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+button {
+    padding: 10px;
+    width: 93%;
+    background-color: #ff5a5f;
+    font-size: medium;
+    color: white;
+    border-radius: 5px;
+    border-color: black;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}   
+
+button:disabled {
+    background-color: #ddd;
+    color: #333;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* button:hover:enabled {
+    background-color: #e04848;
+} */
+
+.login-error {
+    color: #e04848;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.error-message {
+    color: #ff5a5f;
+    font-size: 0.9rem; 
+    margin-bottom: 5px; /* Отступ снизу */
+    margin-top: 5px;
+    text-align: start; /* Центрируем текст */
+    font-weight: bold; /* Жирный текст */
+    
+}
+
+.demo-user-btn {
+    text-decoration: underline; /* Подчеркивание текста */
+    cursor: pointer; /* Указатель при наведении */
+    color: #004b6b; /* Цвет текста */
+    font-size: 1rem; /* Размер шрифта */
+    
+    padding: 0; /* Убираем лишние отступы */
+    margin-top: 15px;
+    margin-left: 90px;
+    margin-bottom: 15px;
+
+}
+
+.demo-user-btn:hover {
+    color: #0080b4; /* Изменение цвета при наведении */
+}
+

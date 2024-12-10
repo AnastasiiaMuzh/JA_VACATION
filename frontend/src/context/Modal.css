@@ -11,14 +11,26 @@
 
 #modal-background {
     position: fixed;
-    top: 0;
+    top: 0px;
     right: 0;
     left: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(5, 5, 5, 0.7);
 }
 
 #modal-content {
-    position: absolute;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: white;
+    border-radius: 10px;
+    /* padding: 20px; */
+    min-width: 300px;
+    max-width: 400px;
+    min-height: 300px;
+    max-height: 600px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+
+

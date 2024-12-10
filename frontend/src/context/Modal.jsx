@@ -2,12 +2,16 @@ import { useRef, createContext, useState, useContext } from 'react';
 import ReactDOM from 'react-dom';
 import './Modal.css';
 
-const ModalContext = createContext();
+const ModalContext = createContext(); //Это как "диспетчер" модального окна. Он отвечает за то, чтобы:
+/*Это "хранилище" для данных о модальном окне:
+Что показывать в модальном окне (modalContent).
+Как закрывать модальное окно (closeModal).
+*/
 
-export function ModalProvider({ children }) {
+export function ModalProvider({ children }) { //Это "обёртка", которая создаёт контекст для модального окна.
     const modalRef = useRef(); //modalRef используется для получения ссылки на реальный DOM-элемент <div>, куда мы будем рендерить наше модальное окно.
-    const [modalContent, setModalContent] = useState(null);
-    const [onModalClose, setOnModalClose] = useState(null);
+    const [modalContent, setModalContent] = useState(null); //хранит содержимое модального окна (например, форму логина).
+    const [onModalClose, setOnModalClose] = useState(null); // закрывает модальное окно.
 
     const closeModal = () => {
         setModalContent(null);

@@ -171,7 +171,7 @@ p.error {
     /* Кнопка будет по ширине содержимого */
     padding: 5px 20px;
     /* Внутренние отступы */
-    background-color: #fa3c5f;
+    background-color: #e04848;
     /* Основной цвет кнопки */
     color: white;
     /* Цвет текста */
@@ -192,7 +192,8 @@ p.error {
     /* Тень кнопки */
     transition: all 0.2s ease;
     /* Плавный переход для эффектов */
-    margin-left: 250px;
+    margin-left: 235px;
+    width: 200px;
 }
 
 .submit-button:hover {

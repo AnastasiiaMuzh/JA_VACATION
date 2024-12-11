@@ -10,12 +10,17 @@ const handleValidationErrors = (req, res, next) => {
     const errors = {};
     validationErrors
       .array()
-      .forEach(error => errors[error.param] = error.msg);
+      .forEach(error => errors[error.path] = error.msg);
 
-    return res.status(400).json({
-      message: "Validation error",
-      errors
-    });
+    const err = Error("Bad Request");
+    err.errors = {
+      "credential": "Email or username is required",
+      "password": "Password is required",
+      "username": "Username is required"
+    }
+    err.status = 400;
+    //err.title = "Bad request.";
+    next(err);
   }
   next();
 };
@@ -70,7 +75,7 @@ const validateUserBody = (req, res, next) => {
   if (!firstName || firstName.trim() === '') {
     error.firstName = "First Name is required";
   }
-  if (!lastName || lastName.trim() === '') {
+  if(!lastName || lastName.trim() === '') {
     error.lastName = "Last Name is required";
   }
   if (Object.keys(error).length > 0) {
@@ -86,7 +91,7 @@ module.exports = {
   handleValidationErrors,
   validateReview,
   validateSpot,
-  //validateUserBody
+  validateUserBody
   //validateQueryParams
 
 };

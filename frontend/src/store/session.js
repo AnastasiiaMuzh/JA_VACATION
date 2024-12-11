@@ -39,14 +39,20 @@ export const restoreUser = () => async (dispatch) => {
 
 //Thunk для входа (login)
 export const login = (user) => async (dispatch) => {
-    const { credential, password } = user;
-    const response = await csrfFetch("/api/session", {
-        method: "POST",
-        body: JSON.stringify({ credential, password }),
+    const response = await csrfFetch('/api/session', {
+        method: 'POST',
+        
+        body: JSON.stringify(user),
     });
+
+    if (!response.ok) {
+        const data = await response.json();
+        throw data; // Это позволит блокам catch поймать ошибку
+    }
+
     const data = await response.json();
     dispatch(setUser(data.user));
-    return response;
+    return data;
 };
 
 //signup Thunk
@@ -67,6 +73,8 @@ export const login = (user) => async (dispatch) => {
 //     return response;
 // };
 
+
+//signup Thunk
 export const signup = (user) => async (dispatch) => {
     const { username, firstName, lastName, email, password } = user;
     try {

@@ -22,6 +22,8 @@ module.exports = {
           model: "Spots",
           key: "id",
         },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
       },
       userId: {
         allowNull: false,
@@ -30,6 +32,8 @@ module.exports = {
           model: "Users",
           key: "id",
         },
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
       },
       review: {
         allowNull: false,

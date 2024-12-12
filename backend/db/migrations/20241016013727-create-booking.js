@@ -23,6 +23,7 @@ module.exports = {
           key: "id",
         },
         onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       userId: {
         allowNull: false,
@@ -32,6 +33,7 @@ module.exports = {
           key: "id",
         },
         onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
       startDate: {
         allowNull: true,

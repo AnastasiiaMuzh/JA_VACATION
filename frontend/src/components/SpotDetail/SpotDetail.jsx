@@ -4,11 +4,24 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { FaStar } from 'react-icons/fa';
 import './spotDetail.css';
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+// import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import ReviewsFormModal from "../ReviewsFormModal/ReviewsFormModal";
+
 
 function SpotDetail() {
     const dispatch = useDispatch();
     const { spotId } = useParams();
-    const spot = useSelector((state) => state.spots.singleSpot); // Получаем данные о singleSpot
+    // Получаю текущего пользователя, текущий спот и отзывы из состояния Redux
+    const spot = useSelector((state) => state.spots.singleSpot);
+    const currentUser = useSelector((state) => state.session.user);
+    const reviews = useSelector((state) => state.reviews.reviews || []);
+
+    // Условие показа кнопки
+    const isOwner = currentUser?.id === spot?.ownerId;
+    const PostedReview = reviews.some((review) => review.userId === currentUser?.id);
+    const canPostedReview = currentUser && !isOwner && !PostedReview;
+
 
     useEffect(() => {
         dispatch(getSpotById(spotId)); // Загружаем данные о Spot
@@ -64,6 +77,14 @@ function SpotDetail() {
                                 <span className="review-count">
                                     {spot.numReviews} {spot.numReviews === 1 ? 'review' : 'reviews'}
                                 </span>
+                            </div>
+                            <div className="post-review-btn">
+                                {canPostedReview && (
+                                    <OpenModalButton
+                                        modalComponent={<ReviewsFormModal spotId={spotId} />}
+                                        buttonText="Post Your Review"
+                                    />
+                                )}
                             </div>
                             <div className="reviews-list">
                                 {spot.Reviews.map((review) => (

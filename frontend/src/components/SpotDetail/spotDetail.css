@@ -217,17 +217,17 @@
     color: #111;
 }
 
-/* Текст отзыва */
-/* .reviews-list .review p {
-    font-size: 1rem;
-    color: #333;
-    line-height: 1.4;
-} */
-
 .reviews-list .review .date {
-    font-size: 0.9rem;
+    font-size: 0.rem;
     color: #888;
     margin-bottom: -10px;
     margin-top: 5px;
+}
+
+.post-review-btn {
+    width: 180px;
+   height: 20px;
+    margin-bottom: 50px;
+    
 }
 

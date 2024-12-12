@@ -16,10 +16,7 @@ function Spots() {
     if (!spots) {
         return <div>Loading...</div>;
     }
-
-    if (spots.length === 0) {
-        return <h2>No spots available</h2>;
-    }
+    
 
     return (
         <div className="spots-container">

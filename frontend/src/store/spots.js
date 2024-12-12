@@ -61,6 +61,8 @@ const initialState = { spots: [], singleSpot: null };
 const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_SPOTS: {
+            console.log("Updating single spot in state:", action.payload);
+
             return { ...state, spots: action.payload }
         }
         case LOAD_SINGLE_SPOT: {

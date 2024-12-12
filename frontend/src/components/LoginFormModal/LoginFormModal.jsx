@@ -3,7 +3,6 @@ import * as sessionActions from '../../store/session';
 import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal';
 import './LoginFormModal.css';
-import { restoreCSRF } from '../../store/csrf';
 
 function LoginFormModal() {
     const dispatch = useDispatch();
@@ -13,10 +12,6 @@ function LoginFormModal() {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState({});
     const [isDisabled, setIsDisabled] = useState(true);
-
-    // useEffect(() => { 
-    //     restoreCSRF(); // Инициализируем CSRF токен при монтировании компонента
-    // }, []);
 
     //  Валидация входных данных
     const validateLogin = (username, password) => {
@@ -49,7 +44,7 @@ function LoginFormModal() {
             if (err.data && err.data.errors) {
                 setErrors(err.data.errors);
             } else {
-                setErrors({ credential: "An unexpected error occurred." });
+                setErrors({ credential: "An unexpected error..." });
             }
         }
     };
@@ -69,7 +64,7 @@ function LoginFormModal() {
             if (err.data && err.data.errors) {
                 setErrors(err.data.errors);
             } else {
-                setErrors({ credential: "An unexpected error occurred." });
+                setErrors({ credential: "An unexpected error..." });
             }
         }
     };

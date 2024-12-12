@@ -4,6 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { getSpots } from "../../store/spots";
 import { removeSpot } from "../../store/spots";
 //mport { useModal } from "../../context/Modal";
+import { FaStar } from 'react-icons/fa';
+import './ManageSpots.css';
+
 
 
 const ManageSpots = () => {
@@ -43,12 +46,17 @@ const ManageSpots = () => {
                         spotOwner.map((spot) => (
                             <div key={spot.id} className="spot-title">
                                 <img src={spot.previewImage} alt={spot.name} />
+                                <div className="city-rating">
                                 <p>{spot.city}, {spot.state}</p>
-                                <p>${spot.price} night</p>
-                                <p>★ {spot.avgRating || "New"}</p>
+                                <p>
+                                <FaStar className="fa-star" />
+                                    {spot.avgRating || "New"}
+                                </p>
+                                </div>
+                                <p className="price">${spot.price} night</p>
                                 <div className="spots-btns">
-                                    <button onClick={() => navigate(`/spots/${spot.id}/edit`)}>Update</button>
-                                    <button onClick={() => handleDeleteBtn(spot.id)}>Delete</button>
+                                    <button className="update" onClick={() => navigate(`/spots/${spot.id}/edit`)}>Update</button>
+                                    <button className="delete" onClick={() => handleDeleteBtn(spot.id)}>Delete</button>
                                 </div>
                             </div>
                         ))

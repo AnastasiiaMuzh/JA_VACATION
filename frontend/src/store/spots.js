@@ -52,11 +52,11 @@ export const createSpot = (spot) => async (dispatch) => {
     });
     if (response.ok) {
         const newSpot = await response.json();
-        dispatch(addSpot(newSpot));
+        dispatch(addSpotAction(newSpot));
         return newSpot;
     } else {
         const errors = await response.json();
-        return errors; 
+        return errors;
     }
 }
 

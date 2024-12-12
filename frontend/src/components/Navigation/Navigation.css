@@ -1,14 +1,10 @@
     /* --- Основные стили для навигации --- */
     nav {
         display: flex;
-        /* Flexbox для горизонтального расположения элементов */
         justify-content: space-between;
-        /* Распределяем элементы по краям */
         align-items: center;
-        /* Центрируем элементы по вертикали */
         padding: 5px 20px;
-        /* Отступы для внутреннего пространства */
-        background-color: #fff;
+        background-color: #f4e9e9;
         /* Белый фон для навигации */
         border-bottom: 1px solid #ddd;
         /* Тонкая граница снизу */
@@ -124,11 +120,11 @@
         display: inline-block; /* Убедитесь, что кнопка остается inline-block */
         margin-left: 10px; /* Отступ слева */
         padding: 10px 15px; /* Внутренние отступы */
-        background-color: #fff; /* Цвет фона */
-        font-size: 16px; /* Размер текста */
+        background-color: #f4e9e9; /* Цвет фона */
+        font-size: 18px; /* Размер текста */
         cursor: pointer; /* Указатель мыши при наведении */
         text-align: center; /* Выравнивание текста */
-        color: #161c3d; /* Цвет текста */
+        color: #0a1032; /* Цвет текста */
         text-decoration: none; /* Убираем подчеркивание */
   
       }

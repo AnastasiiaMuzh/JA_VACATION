@@ -1,0 +1,171 @@
+.manage-container {
+    padding: 50px;
+    max-width: 2820px;
+    margin-top: -35px;
+}
+
+.header-spot h1 {
+    font-size: 2rem;
+}
+
+.new-spot-btn {
+    text-align: start; /* Центрирование */
+    margin-top: -10px;
+}
+
+.new-spot-btn button {
+    text-align: center;
+    cursor: pointer;
+    width: 175px;
+    height: 30px;
+    font-size: 15px;
+    color: white;
+    border-radius: 6px; /* Закругленные углы */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Легкая тень */
+    transition: background-color 0.3s, transform 0.2s ease;
+    padding: 3px 0; /* Внутренний отступ сверху/снизу */
+    line-height: 1; /* Высота строки, чтобы текст поднимался */
+}
+
+.new-spot-btn button:hover {
+    background-color: #d50f0f; /* Темно-красный при наведении */
+    transform: translateY(-2px); /* Поднятие при наведении */
+}
+
+.new-spot-btn button:active {
+    transform: translateY(0); /* Возвращение на место при клике */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Уменьшенная тень */
+}
+
+.spot-img {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    justify-content: center;
+    margin-top: 50px;
+    /* grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr; */
+}
+
+
+.spot-title {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s ease-in-out;
+    background-color: #f4e9e9;
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+.city-rating {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-right: 5px;
+    
+}
+
+.price {
+    margin-top: 5px;
+    padding: 0 20px;
+}
+
+.cit-rating .fa-star {
+    color: gold; /* Цвет звезды */
+    margin-right: 5px; /* Отступ справа для текста */
+    font-size: 1.2rem; /* Размер звезды */
+    vertical-align: middle; /* Выравнивание с текстом */
+}
+
+
+.spot-title:hover {
+    transform: scale(1.03); /* Увеличение стало сильнее */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3); /* Больше тени и насыщенность */
+}
+
+.spot-title img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+}
+
+/* .spot-title:hover img {
+    transform: scale(1.05); /* Лёгкое увеличение при наведении 
+} */
+
+.spot-title p {
+    display: flex;
+    font-size: 1.5rem;
+    color: black;
+    justify-content: start;
+}
+
+.cit-rating {
+display:flex;
+width: 100%;
+justify-content: space-between;
+}
+
+.price {
+    margin-top: 5px;
+}
+
+.spots-btns {
+    display: flex;
+    justify-content: flex-start;
+    gap: 40px;
+    padding: 0 20px;
+    
+}
+
+
+.spots-btns button {
+    border-radius: 5px;
+    /* width: 160px;
+    height: 40px; */
+    color: white;
+    width: 140px; /* Уменьшена ширина кнопок */
+    height: 35px;
+    color: white;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: transform 0.2s, background-color 0.3s;
+    padding: 3px 0; /* Внутренний отступ сверху/снизу */
+    line-height: 1; /* Высота строки, чтобы текст поднимался */
+    
+    
+}
+
+
+.spots-btns button:nth-child(1) {
+   
+    transform: scale(1.05); /* Увеличение стало сильнее */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.spots-btns button:nth-child(1):hover {
+    background-color: #d50f0f; /* Более тёмный красный при наведении */
+    transform: translateY(-2px)
+}
+
+.spots-btns .update {
+    transform: scale(1.09); /* Увеличение стало сильнее */
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.spots-btns .delete:hover {
+    background-color: #d50f0f; /* Более тёмный красный при наведении */
+    transform: translateY(-2px)
+}
+
+button {
+    box-shadow:  0 6px 20px rgba(0, 0, 0, 0.1); /* Вторая, более длинная тень */
+               
+}
+
+
+
+

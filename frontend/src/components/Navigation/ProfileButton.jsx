@@ -6,6 +6,7 @@ import * as sessionActions from '../../store/session';
 import LoginFormModal from '../LoginFormModal/LoginFormModal';
 import SignupFormModal from '../SignupFormModal/SignupFormModal';
 import OpenModalMenuItem from './OpenModalMenuItem';
+import { NavLink } from 'react-router-dom';
 
 
 function ProfileButton({ user }) {
@@ -46,19 +47,23 @@ function ProfileButton({ user }) {
     <>
       {/*Button profile*/}
       <button className="profile-button" onClick={toggleMenu}>
-        <FaBars className='menu-icon'/> {/**icon menu*/}
+        <FaBars className='menu-icon' /> {/**icon menu*/}
         <FaUserCircle className='user-icon' /> {/**icon user*/}
       </button>
       {/**dropdown menu*/}
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li> {/**Maybe put Hello, {user.user}?? */}
+            <li>Hello, {user.username}</li> {/**Maybe put Hello, {user.user}?? */}
             <li>{user.firstName} {user.lastName}</li>
             <li>{user.email}</li>
             <li>
+              <NavLink to="/spots/current"> Manage Spots</NavLink>
+            </li>
+            <li>
               <button onClick={logout}>Log Out</button>
             </li>
+            
           </>
         ) : (
           <>

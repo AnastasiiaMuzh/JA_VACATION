@@ -1,31 +1,38 @@
 import { csrfFetch } from './csrf';
-//определили action
-const LOAD_SPOTS = 'spots/LOAD_SPOTS';  //для загрузки всех спотов.
-const LOAD_SINGLE_SPOT = 'spots/LOAD_SINGLE_SPOT'; //для загрузки одного конкретного спота.
-const ADD_NEW_SPOT = 'spots/ADD_NEW_SPOT'; // для добавления нового спота.
+// Action type
+const LOAD_SPOTS = 'spots/LOAD_SPOTS';
+const LOAD_SINGLE_SPOT = 'spots/LOAD_SINGLE_SPOT';
+const ADD_NEW_SPOT = 'spots/ADD_NEW_SPOT';
+const REMOVE_SPOT = 'spotREMOVE_SPOT'
 
-const loadSpots = (spots) => ({
+// Action creator
+const loadSpotsAction = (spots) => ({
     type: LOAD_SPOTS,
     payload: spots,
 })
 
-const loadSingleSpot = (spot) => ({
+const loadSingleSpotAction = (spot) => ({
     type: LOAD_SINGLE_SPOT,
     payload: spot,
 })
 
-const addSpot = (spot) => ({
+const addSpotAction = (spot) => ({
     type: ADD_NEW_SPOT,
     payload: spot,
 })
 
+const removeSpotAction = (spotId) => ({
+    type: REMOVE_SPOT,
+    payload: spotId,
+})
 
+// Thunk
 export const getSpots = () => async (dispatch) => {
     const response = await fetch('/api/spots');
 
     if (response.ok) {
         const data = await response.json();
-        dispatch(loadSpots(data.Spots));
+        dispatch(loadSpotsAction(data.Spots));
     }
 }
 
@@ -34,16 +41,13 @@ export const getSpotById = (spotId) => async (dispatch) => {
 
     if (response.ok) {
         const spot = await response.json();
-        dispatch(loadSingleSpot(spot)); // Отправляем данные в редьюсер
+        dispatch(loadSingleSpotAction(spot)); // Отправляем данные в редьюсер
     }
 }
 
 export const createSpot = (spot) => async (dispatch) => {
     const response = await csrfFetch("/api/spots", {
         method: "POST",
-        // headers: {
-        //     "Content-Type": "application/json",
-        // },
         body: JSON.stringify(spot),
     });
     if (response.ok) {
@@ -52,7 +56,16 @@ export const createSpot = (spot) => async (dispatch) => {
         return newSpot;
     } else {
         const errors = await response.json();
-        return errors; // Возвращаем ошибки
+        return errors; 
+    }
+}
+
+export const removeSpot = (spotId) => async (dispatch) => {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
+        method: "DELETE",
+    })
+    if (response.ok) {
+        dispatch(removeSpotAction(spotId));
     }
 }
 
@@ -68,14 +81,21 @@ const spotsReducer = (state = initialState, action) => {
         case LOAD_SINGLE_SPOT: {
             return { ...state, singleSpot: action.payload } // Обновляем `singleSpot`
         }
-        case ADD_NEW_SPOT:
+        case ADD_NEW_SPOT: {
             return {
                 ...state,
-                spots: [...state.spots, action.spot],
+                spots: [...state.spots, action.payload],
             };
+        }
+        case REMOVE_SPOT: {
+            // Удаляем спот из массива spots
+            const filteredSpots = state.spots.filter((spot) => spot.id !== action.payload);
+            return { ...state, spots: filteredSpots };
+        }
         default:
             return state;
     }
+
 }
 
 

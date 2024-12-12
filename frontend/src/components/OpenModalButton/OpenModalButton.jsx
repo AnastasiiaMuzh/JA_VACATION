@@ -14,12 +14,6 @@ function OpenModalButton({ //Это кнопка, которая открыва�
         if (typeof onButtonClick === "function") onButtonClick();
     };
 
-    // const onClick = () => {
-    //     if (typeof onButtonClick === 'function') onButtonClick();
-    //     setModalContent(modalComponent);
-    //     if (typeof onModalClose === 'function') setOnModalClose(onModalClose);
-    // };
-
     return <button onClick={onClick}>{buttonText}</button>;
 }
 

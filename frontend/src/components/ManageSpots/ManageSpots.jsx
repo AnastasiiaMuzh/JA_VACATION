@@ -9,6 +9,7 @@ import './ManageSpots.css';
 
 
 
+
 const ManageSpots = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();

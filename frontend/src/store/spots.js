@@ -29,9 +29,9 @@ const removeSpotAction = (spotId) => ({
 // Thunk
 export const getSpots = () => async (dispatch) => {
     const response = await fetch('/api/spots');
-
     if (response.ok) {
         const data = await response.json();
+        console.log("Data from Psots",data);
         dispatch(loadSpotsAction(data.Spots));
     }
 }
@@ -61,7 +61,7 @@ export const createSpot = (spot) => async (dispatch) => {
 }
 
 export const removeSpot = (spotId) => async (dispatch) => {
-    const response = await csrfFetch(`/api/spots/${spotId}`, {
+    const response = await csrfFetch(`/spots/:spotId/edit`, {
         method: "DELETE",
     })
     if (response.ok) {

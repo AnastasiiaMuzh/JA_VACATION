@@ -52,7 +52,9 @@ router.get('/', async (req, res) => {
         attributes: {
             include: [
                 // Считаем средний рейтинг через AVG
-                [fn('AVG', col('Reviews.stars')), 'avgRating']
+                [fn('AVG', col('Reviews.stars')), 'avgRating'],
+                // Считаем количество отзывов через COUNT
+                [fn('COUNT', col('Reviews.id')), 'numReviews']
             ]
         },
         include: [
@@ -79,6 +81,9 @@ router.get('/', async (req, res) => {
         // Если отзывов нет, AVG вернёт null. Если есть дробное число, вы получите точное дробное значение.
         const avgRatingVal = spotJSON.avgRating !== null ? Number(spotJSON.avgRating) : null;
 
+        // Добавляем поле numReviews (оно уже подсчитано в запросе)
+        const numReviewsVal = spotJSON.numReviews !== null ? Number(spotJSON.numReviews) : 0;
+
         return {
             id: spotJSON.id,
             ownerId: spotJSON.ownerId,
@@ -95,7 +100,7 @@ router.get('/', async (req, res) => {
             updatedAt: spotJSON.updatedAt,
             // Округляем до 1 знака после запятой, если есть рейтинг
             avgRating: avgRatingVal !== null ? avgRatingVal.toFixed(1) : "New",
-
+            numReviews: numReviewsVal, // Добавляем количество отзывов
             previewImage: spotJSON.SpotImages && spotJSON.SpotImages.length > 0
                 ? (spotJSON.SpotImages[0].url.startsWith('http')
                     ? spotJSON.SpotImages[0].url

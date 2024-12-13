@@ -11,8 +11,8 @@ function Spots() {
 
     useEffect(() => {
         dispatch(getSpots());
+        console.log(spots);
     }, [dispatch]);
-
     if (!spots) {
         return <div>Loading...</div>;
     }
@@ -22,6 +22,7 @@ function Spots() {
         <div className="spots-container">
             {spots.map((spot) => {
                 const rating = spot.avgRating || 'New';
+                const numReviews = spot.numReviews || 0;
                 return (
                     <Link to={`/spots/${spot.id}`} key={spot.id} className="spot-box">
                         <img
@@ -33,7 +34,7 @@ function Spots() {
                                 <div>{spot.city}, {spot.state}</div>
                                 <div className="spot-rating">
                                     <FaStar className="fa-star" />
-                                    {rating}
+                                    {rating} · {numReviews} {numReviews === 1 ? 'review' : 'reviews'}
                                 </div>
                             </div>
                             <div className="spot-price">

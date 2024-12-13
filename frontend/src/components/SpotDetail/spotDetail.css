@@ -27,21 +27,35 @@
 .spot-images {
     display: grid;
     grid-template-columns: 2.5fr 2fr;
-    gap: 10px;
+    gap: 20px;
     grid-column: 1 / span 2;
+    cursor: pointer;
+    
 }
 
 .large-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    
+}
+
+.large-image img:hover {
+    transform: scale(1.1);
+    transition: transform 0.6s ease;
 }
 
 .small-images {
+    width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.5fr 1.5fr;
     grid-template-rows: 1fr 1fr;
-    gap: 10px;
+    gap: 20px;
+    
 }
 
 .small-images img {
@@ -50,7 +64,7 @@
     object-fit: cover;
     border-radius: 5px;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: transform 0.5s ease;
 }
 
 .small-images img:hover {
@@ -59,7 +73,8 @@
 
 /* Информация о хозяине спота */
 .host-info {
-    grid-column: 1 / 2; /* Левая колонка */
+    grid-column: 1 / 2;
+    /* Левая колонка */
     color: #0d0d0d;
 }
 
@@ -85,7 +100,8 @@
     padding: 15px;
     border: 1.5px solid #434040;
     border-radius: 10px;
-    background-color: #f9f9f9;
+    background-color: #f4e9e9;
+    ;
     max-width: 300px;
     margin-left: auto;
     text-align: left;
@@ -110,7 +126,8 @@
 .rating-line {
     display: flex;
     align-items: center;
-    gap: 1px; /* Уменьшили отступы между элементами */
+    gap: 1px;
+    /* Уменьшили отступы между элементами */
     color: #000;
     margin-right: 20px;
 }
@@ -130,7 +147,8 @@
     display: block;
     width: 100%;
     padding: 10px 20px;
-    border: 2px solid #000;;
+    border: 2px solid #000;
+    ;
     border-radius: 5px;
     background-color: #ff5a5f;
     color: white;
@@ -161,7 +179,8 @@
     color: #333;
     font-weight: bold;
     /* border-top: 0.5px solid #ccc; */
-    padding-top: 30px; /* Если есть border, это может улучшить вид */
+    padding-top: 30px;
+    /* Если есть border, это может улучшить вид */
 }
 
 /* Заголовок с рейтингом и количеством отзывов */
@@ -181,6 +200,10 @@
     margin-bottom: 3px;
 }
 
+/* .reviews {
+    background-color: #f4e9e9;
+} */
+
 .reviews-header .rating-value {
     font-weight: bold;
 }
@@ -198,7 +221,8 @@
 .reviews-list {
     display: flex;
     flex-direction: column;
-    gap: 15px; /* Расстояние между отзывами */
+    gap: 15px;
+    
 }
 
 /* Отдельный отзыв */
@@ -206,7 +230,8 @@
     padding: 15px;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    background-color: #f5f8f9;
+    background-color: #f4e9e9;
+    margin-top: -5px;
 }
 
 /* Имя пользователя */
@@ -226,8 +251,11 @@
 
 .post-review-btn {
     width: 180px;
-   height: 20px;
+    height: 20px;
     margin-bottom: 50px;
-    
+
 }
 
+.reviews {
+    margin-top: -25px;
+}

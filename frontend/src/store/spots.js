@@ -3,7 +3,7 @@ import { csrfFetch } from './csrf';
 const LOAD_SPOTS = 'spots/LOAD_SPOTS';
 const LOAD_SINGLE_SPOT = 'spots/LOAD_SINGLE_SPOT';
 const ADD_NEW_SPOT = 'spots/ADD_NEW_SPOT';
-const REMOVE_SPOT = 'spotREMOVE_SPOT'
+const REMOVE_SPOT = 'spots/REMOVE_SPOT'
 
 // Action creator
 const loadSpotsAction = (spots) => ({
@@ -74,8 +74,6 @@ const initialState = { spots: [], singleSpot: null };
 const spotsReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_SPOTS: {
-            console.log("Updating single spot in state:", action.payload);
-
             return { ...state, spots: action.payload }
         }
         case LOAD_SINGLE_SPOT: {

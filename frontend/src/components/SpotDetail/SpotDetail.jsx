@@ -12,10 +12,12 @@ import ReviewsFormModal from "../ReviewsFormModal/ReviewsFormModal";
 function SpotDetail() {
     const dispatch = useDispatch();
     const { spotId } = useParams();
+
     // Получаю текущего пользователя, текущий спот и отзывы из состояния Redux
     const spot = useSelector((state) => state.spots.singleSpot);
     const currentUser = useSelector((state) => state.session.user);
     const reviews = useSelector((state) => state.reviews.reviews || []);
+    // const reviews = useSelector((state) => Object.values(state.reviews));
 
     // Условие показа кнопки
     const isOwner = currentUser?.id === spot?.ownerId;

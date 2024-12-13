@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getSpots } from "../../store/spots";
 import { removeSpot } from "../../store/spots";
-//mport { useModal } from "../../context/Modal";
+//import { useModal } from "../../context/Modal";
 import { FaStar } from "react-icons/fa";
 import "./ManageSpots.css";
 

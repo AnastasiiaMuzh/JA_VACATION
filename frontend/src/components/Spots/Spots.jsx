@@ -11,7 +11,7 @@ function Spots() {
 
     useEffect(() => {
         dispatch(getSpots());
-        console.log(spots);
+        // console.log(spots);
     }, [dispatch]);
     if (!spots) {
         return <div>Loading...</div>;

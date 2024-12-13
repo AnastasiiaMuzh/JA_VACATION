@@ -271,55 +271,77 @@ router.get('/:spotId', async (req, res) => {
 // });
 
 //Create a Spot
+// Create a Spot
 router.post('/', requireAuth, validateSpot, async (req, res) => {
-    const { address, city, state, country, lat, lng, name, description, price, SpotImages } = req.body;
-    const ownerId = req.user.id;
+    try {
+        const { address, city, state, country, lat, lng, name, description, price, SpotImages } = req.body;
+        const ownerId = req.user.id;
 
-    const spot = await Spot.create({  // Cоздаём сам спот
-        ownerId,
-        address,
-        city,
-        state,
-        country,
-        lat,
-        lng,
-        name,
-        description,
-        price
-    });
+        const spot = await Spot.create({
+            ownerId,
+            address,
+            city,
+            state,
+            country,
+            lat,
+            lng,
+            name,
+            description,
+            price
+        });
 
-    // Если в теле запроса есть картинки, добавляем их в базу
-    if (SpotImages && SpotImages.length > 0) {
-        for (const image of SpotImages) {
-            await SpotImage.create({
-                spotId: spot.id,
-                url: image.url,
-                preview: image.preview || false
-            });
+        // Если в теле запроса есть картинки, добавляем их в базу
+        if (SpotImages && Array.isArray(SpotImages)) {
+            for (const image of SpotImages) {
+                if (image.url) {
+                    try {
+                        await SpotImage.create({
+                            spotId: spot.id,
+                            url: image.url,
+                            preview: image.preview || false, // По умолчанию preview = false
+                        });
+                    } catch (error) {
+                        if (error.name === 'SequelizeUniqueConstraintError') {
+                            console.log(`Image URL ${image.url} already exists.`);
+                            continue; // Пропускаем дубликаты
+                        }
+                        throw error; // Прокидываем другие ошибки
+                    }
+                }
+            }
         }
+
+        // Загружаем созданный спот с изображениями
+        const newSpotWithImages = await Spot.findByPk(spot.id, {
+            include: {
+                model: SpotImage,
+                attributes: ['id', 'url', 'preview']
+            }
+        });
+
+        const spotData = newSpotWithImages.toJSON();
+        // Добавляем абсолютный путь к изображениям
+        spotData.SpotImages = spotData.SpotImages.map(img => ({
+            ...img,
+            url: `http://localhost:8000/${img.url}`
+        }));
+
+        const preview = spotData.SpotImages.find(img => img.preview);
+        spotData.previewImage = preview ? preview.url : (spotData.SpotImages[0]?.url || null);
+
+        // Удаляем ненужные поля перед отправкой
+        delete spotData.createdAt;
+        delete spotData.updatedAt;
+
+        return res.status(201).json(spotData);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'An unexpected error occurred.' });
     }
-
-    // Теперь получаем обновлённые данные о споте вместе с его изображениями
-    const newSpotWithImages = await Spot.findByPk(spot.id, {
-        include: {
-            model: SpotImage,
-            attributes: ['id', 'url', 'preview']
-        }
-    });
-
-    const spotData = newSpotWithImages.toJSON();
-    // Добавляем абсолютный путь к изображениям
-    spotData.SpotImages = spotData.SpotImages.map(img => ({
-        ...img,
-        url: `http://localhost:8000/${img.url}`
-    }));
-
-    const preview = spotData.SpotImages.find(img => img.preview);
-    spotData.previewImage = preview ? preview.url : (spotData.SpotImages[0]?.url || null);
-
-    return res.status(201).json(spotData);
-
 });
+
+
+
 
 // Add an Image to a Spot based on the Spot's id
 router.post('/:spotId/images', requireAuth, async (req, res) => {

@@ -35,12 +35,36 @@ const updateSpotAction = (spot) => ({
 // Thunk
 export const getSpots = () => async (dispatch) => {
     const response = await fetch('/api/spots');
+
     if (response.ok) {
         const data = await response.json();
-        console.log("Data from Psots",data);
         dispatch(loadSpotsAction(data.Spots));
     }
 }
+// export const getSpots = () => async (dispatch) => {
+//     const response = await fetch('/api/spots');
+//     if (response.ok) {
+//         const data = await response.json();
+//         console.log("Data from Psots",data);
+//         dispatch(loadSpotsAction(data.Spots));
+//     }
+// }
+// export const getSpots = () => async (dispatch) => {
+//     try {
+//         const response = await fetch('/api/spots');
+//         if (response.ok) {
+//             const data = await response.json();
+//             console.log("Data from Spots:", data);
+//             dispatch(loadSpotsAction(data.Spots));
+//         } else {
+//             const errors = await response.json();
+//             console.error("Error fetching spots:", errors);
+//         }
+//     } catch (err) {
+//         console.error("Error in getSpots Thunk:", err);
+//     }
+// };
+
 
 export const getSpotById = (spotId) => async (dispatch) => {
     const response = await csrfFetch(`/api/spots/${spotId}`);
@@ -66,6 +90,34 @@ export const createSpot = (spot) => async (dispatch) => {
     }
 }
 
+// export const createSpot = (spot) => async (dispatch) => {
+//     console.log("Creating spot with data:", spot); // Логируем данные формы
+
+//     try {
+//         const response = await csrfFetch("/api/spots", {
+//             method: "POST",
+//             headers: {
+//                 "Content-Type": "application/json",
+//             },
+//             body: JSON.stringify(spot),
+//         });
+
+//         if (response.ok) {
+//             const newSpot = await response.json();
+//             console.log("Spot created successfully:", newSpot);
+//             dispatch(addSpotAction(newSpot));
+//             return newSpot;
+//         } else {
+//             const errors = await response.json();
+//             console.error("Error creating spot:", errors);
+//             return errors;
+//         }
+//     } catch (err) {
+//         console.error("Error in createSpot Thunk:", err);
+//     }
+// };
+
+
 export const editSpot = (spotId, spotData) => async (dispatch) => {
     const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: "PUT",
@@ -82,7 +134,7 @@ export const editSpot = (spotId, spotData) => async (dispatch) => {
 }
 
 export const removeSpot = (spotId) => async (dispatch) => {
-    const response = await csrfFetch(`/spots/:spotId/edit`, {
+    const response = await csrfFetch(`/api/spots/${spotId}`, {
         method: "DELETE",
     })
     if (response.ok) {

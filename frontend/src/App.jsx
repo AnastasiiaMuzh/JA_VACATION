@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import * as sessionActions from './store/session';
-import { Spots, SpotDetail, Navigation, CreateFormSpot, ManageSpots } from './components';
+import { Spots, SpotDetail, Navigation, CreateFormSpot, ManageSpots, UpdateSpot } from './components';
 
 
 function Layout() {
@@ -46,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: '/spots/current',
         element: <ManageSpots />
+      },
+      {
+        path: '/spots/:spotId/edit',
+        element: <UpdateSpot />
       }
     
     ]

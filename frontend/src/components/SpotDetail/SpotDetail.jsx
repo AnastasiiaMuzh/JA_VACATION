@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { FaStar } from "react-icons/fa";
 import "./spotDetail.css";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
-// import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import ReviewsFormModal from "../ReviewsFormModal/ReviewsFormModal";
 import DeleteReviewModal from "../DeleteReviewModal/DeleteReviewModal";
 

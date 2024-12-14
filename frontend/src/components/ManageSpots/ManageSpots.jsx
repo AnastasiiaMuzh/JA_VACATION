@@ -45,7 +45,6 @@ const ManageSpots = () => {
                 >
                   <img src={spot.previewImage} alt={spot.name} />
                 </div>
-                {/* <img src={spot.previewImage} alt={spot.name} /> */}
                 <div className="city-rating">
                   <p>
                     {spot.city}, {spot.state}

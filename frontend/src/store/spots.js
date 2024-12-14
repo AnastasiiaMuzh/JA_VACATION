@@ -41,29 +41,6 @@ export const getSpots = () => async (dispatch) => {
         dispatch(loadSpotsAction(data.Spots));
     }
 }
-// export const getSpots = () => async (dispatch) => {
-//     const response = await fetch('/api/spots');
-//     if (response.ok) {
-//         const data = await response.json();
-//         console.log("Data from Psots",data);
-//         dispatch(loadSpotsAction(data.Spots));
-//     }
-// }
-// export const getSpots = () => async (dispatch) => {
-//     try {
-//         const response = await fetch('/api/spots');
-//         if (response.ok) {
-//             const data = await response.json();
-//             console.log("Data from Spots:", data);
-//             dispatch(loadSpotsAction(data.Spots));
-//         } else {
-//             const errors = await response.json();
-//             console.error("Error fetching spots:", errors);
-//         }
-//     } catch (err) {
-//         console.error("Error in getSpots Thunk:", err);
-//     }
-// };
 
 
 export const getSpotById = (spotId) => async (dispatch) => {

@@ -54,10 +54,6 @@ function ProfileButton({ user }) {
             <li>Hello, {user.username}</li>{" "}
             {/**Maybe put Hello, {user.user}?? */}
             <li>
-              {user.firstName} {user.lastName}
-            </li>
-            <li>{user.email}</li>
-            <li>
               <NavLink to="/spots/current"> Manage Spots</NavLink>
             </li>
             <li>

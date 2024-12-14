@@ -21,20 +21,29 @@ function Spots() {
     return (
         <div className="spots-container">
             {spots.map((spot) => {
-                const rating = spot.avgRating || 'New';
-                const numReviews = spot.numReviews || 0;
+                const hasReviews = spot.numReviews > 0;
+                const rating = hasReviews
+                ? parseFloat(spot.avgRating).toFixed(1)
+                : 'New';
+                const reviewCount = spot.numReviews;
+                const reviewText = reviewCount === 1 ? 'review' : 'reviews';
+
                 return (
                     <Link to={`/spots/${spot.id}`} key={spot.id} className="spot-box" title={spot.name}>
-                        <img
-                            src={spot.previewImage}
-                            alt={spot.name}
-                        />
+                        <img src={spot.previewImage} alt={spot.name} />
+                        {/* <div className='tooltip'>{spot.name}</div> */}
                         <div className="spot-details">
                             <div className="spot-location">
                                 <div>{spot.city}, {spot.state}</div>
                                 <div className="spot-rating">
                                     <FaStar className="fa-star" />
-                                    {rating} · {numReviews} {numReviews === 1 ? 'review' : 'reviews'}
+                                    {hasReviews ? (
+                                        <>
+                                        {rating} · {reviewCount} {reviewText}
+                                        </>
+                                    ) : (
+                                        <>New</>
+                                    )}
                                 </div>
                             </div>
                             <div className="spot-price">

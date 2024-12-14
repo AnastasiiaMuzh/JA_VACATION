@@ -38,11 +38,8 @@ const ManageSpots = () => {
         <div className="spot-img">
           {spotOwner.length > 0 ? (
             spotOwner.map((spot) => (
-              <div key={spot.id} className="spot-title">
-                <div
-                  className="spot-img-container"
-                  onClick={() => navigate(`/spots/${spot.id}`)}
-                >
+              <div key={spot.id} className="spot-title" onClick={() => navigate(`/spots/${spot.id}`)}>
+                <div className="spot-img-container" >
                   <img src={spot.previewImage} alt={spot.name} />
                 </div>
                 <div className="city-rating">

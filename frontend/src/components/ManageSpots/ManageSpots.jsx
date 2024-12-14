@@ -2,16 +2,16 @@ import { useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getSpots } from "../../store/spots";
-import { removeSpot } from "../../store/spots";
-//import { useModal } from "../../context/Modal";
+import DeleteFormModal from "../DeleteFormModal/DeleteFormModal";
 import { FaStar } from "react-icons/fa";
 import "./ManageSpots.css";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+
 
 const ManageSpots = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  //const { openModal } = useModal();
-
+  
   const curUser = useSelector((state) => state.session.user);
   const spotsObjects = useSelector((state) => state.spots.spots); //объект всех спотов
   const allSpots = useMemo(() => Object.values(spotsObjects), [spotsObjects]); // Преобразуем объект в массив
@@ -20,16 +20,12 @@ const ManageSpots = () => {
     dispatch(getSpots());
   }, [dispatch]);
 
-  const handleNewSpotBtn = (e) => {
-    e.preventDefault();
-    navigate("/spots/new");
-  };
 
-  const handleDeleteBtn = (spotId) => {
-    dispatch(removeSpot(spotId));
-  };
+  const handleNewSpotBtn = () => navigate("/spots/new");
+
 
   const spotOwner = allSpots?.filter((spot) => spot.ownerId === curUser?.id);
+
   if (!curUser || !spotOwner) <div>Loading...</div>;
 
   return (
@@ -43,8 +39,11 @@ const ManageSpots = () => {
           {spotOwner.length > 0 ? (
             spotOwner.map((spot) => (
               <div key={spot.id} className="spot-title">
-                <div className="spot-img-container" onClick={() => navigate(`/spots/${spot.id}`)} >
-                    <img src={spot.previewImage} alt={spot.name}/>
+                <div
+                  className="spot-img-container"
+                  onClick={() => navigate(`/spots/${spot.id}`)}
+                >
+                  <img src={spot.previewImage} alt={spot.name} />
                 </div>
                 {/* <img src={spot.previewImage} alt={spot.name} /> */}
                 <div className="city-rating">
@@ -64,11 +63,9 @@ const ManageSpots = () => {
                   >
                     Update
                   </button>
-                  <button
-                    className="delete"
-                    onClick={() => handleDeleteBtn(spot.id)}
-                  >
-                    Delete
+                  <button>
+                    <OpenModalButton modalComponent={<DeleteFormModal spotId={spot.id} />}
+                    buttonText="Delete" />
                   </button>
                 </div>
               </div>

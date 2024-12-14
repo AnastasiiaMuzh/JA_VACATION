@@ -90,11 +90,11 @@ function SignupFormModal() {
     <div className="signup-form-container">
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit} noValidate>
-        {["firstName", "lastName", "email", "username",  "password", "confirmPassword"].map((field) => (
+        {["firstName", "lastName", "email", "username",  "password", "confirm Password"].map((field) => (
           <label key={field}>
             {field[0].toUpperCase() + field.slice(1).replace("Name", " Name")}
             <input
-              type={field.includes("password") ? "password" : "text"}
+              type={field.includes("password") ? "password" : "password"}
               name={field}
               value={formData[field]}
               onChange={handleChange}

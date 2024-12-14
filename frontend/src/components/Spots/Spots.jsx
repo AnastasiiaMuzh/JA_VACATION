@@ -24,7 +24,7 @@ function Spots() {
                 const rating = spot.avgRating || 'New';
                 const numReviews = spot.numReviews || 0;
                 return (
-                    <Link to={`/spots/${spot.id}`} key={spot.id} className="spot-box">
+                    <Link to={`/spots/${spot.id}`} key={spot.id} className="spot-box" title={spot.name}>
                         <img
                             src={spot.previewImage}
                             alt={spot.name}

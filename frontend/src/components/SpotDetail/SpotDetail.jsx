@@ -118,7 +118,7 @@ function SpotDetail() {
 
           {/* Кнопка "Post Your Review" если можно оставить отзыв */}
           <div className="post-review-btn">
-            {canPostedReview && (
+            {canPostedReview && !isOwner && !PostedReview && (
               <OpenModalButton
                 modalComponent={<ReviewsFormModal spotId={spotId} />}
                 buttonText="Post Your Review"

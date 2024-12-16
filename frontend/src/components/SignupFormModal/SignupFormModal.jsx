@@ -94,7 +94,7 @@ function SignupFormModal() {
           <label key={field}>
             {field[0].toUpperCase() + field.slice(1).replace("Name", " Name")}
             <input
-              type={field.includes("password" || "confirmPassword") ? "password" : "text"}
+              type={field.includes("password") || field.includes("confirmPassword") ? "password" : "text"}
               name={field}
               value={formData[field]}
               onChange={handleChange}

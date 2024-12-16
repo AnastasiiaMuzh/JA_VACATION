@@ -68,7 +68,7 @@ const ManageSpots = () => {
                     modalComponent={<DeleteFormModal spotId={spot.id} />}
                     buttonText="Delete"
                     className="delete"
-                    onButtonClick={(e) => e.stopPropagation()}
+                    // onButtonClick={(e) => e.stopPropagation()}
                   />
                 </div>
               </div>

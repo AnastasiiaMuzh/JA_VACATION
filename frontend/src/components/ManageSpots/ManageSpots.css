@@ -111,8 +111,8 @@ justify-content: space-between;
     display: flex; 
     justify-content: space-around;
     align-items: center; 
-    gap: 20px; 
-    margin-top: 10px; 
+    gap: 20px; /* Отступ между кнопками */
+    margin-top: 10px; /* Добавим небольшой верхний отступ */
   }
   
   .spots-btns button, .spots-btns .delete {

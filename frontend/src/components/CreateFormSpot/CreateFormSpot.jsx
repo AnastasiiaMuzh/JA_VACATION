@@ -146,7 +146,7 @@ function CreateFormSpot() {
                     <p>Mention the best features of your space, any special amenities like fast
                         wifi or parking, and what you love about the neighborhood.</p>
                     {errors.description && <p className="error">{errors.description}</p>}
-                    <textarea placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)}
+                    <textarea placeholder="Please write at least 30 characters" value={description} onChange={(e) => setDescription(e.target.value)}
                     />
                 </div>
                 <div className="input-container-down">

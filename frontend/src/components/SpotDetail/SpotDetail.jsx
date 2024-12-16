@@ -36,7 +36,7 @@ function SpotDetail() {
   // Может ли пользователь оставить отзыв
   const canPostedReview = currentUser && !isOwner && !PostedReview;
 
-  // Проверяем, есть ли данные, иначе показываем "Loading..."
+  // Проверяем, есть ли данные, иначе показываем "Loading..."компонент не дождётся загрузки данных и может некорректно отработать.
   // if (!spot) {
   //   return <div>Loading...</div>;
   // }

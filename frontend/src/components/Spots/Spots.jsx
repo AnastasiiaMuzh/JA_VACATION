@@ -13,7 +13,7 @@ function Spots() {
         dispatch(getSpots());
         // console.log(spots);
     }, [dispatch]);
-    if (!spots) {
+    if (!spots.length) {
         return <div>Loading...</div>;
     }
     

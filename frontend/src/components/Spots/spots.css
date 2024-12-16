@@ -62,18 +62,20 @@
 .spot-price {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 5px;
 }
 
 .spot-price .price {
   font-weight: bold; 
   color: rgb(32, 46, 55);
   margin-left: 5px;
+  font-size: larger;
 }
 
 .spot-price .night {
   font-weight: normal;
   color:  rgb(32, 46, 55);
+  margin-bottom: -5px;
   
 }
 

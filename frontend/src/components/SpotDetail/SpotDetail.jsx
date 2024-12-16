@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getSpotById } from "../../store/spots";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 import "./spotDetail.css";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
@@ -11,12 +11,20 @@ import DeleteReviewModal from "../DeleteReviewModal/DeleteReviewModal";
 function SpotDetail() {
   const dispatch = useDispatch();
   const { spotId } = useParams();
+  const [loading, setLoading] = useState(true);
 
   // Получаю текущего пользователя, текущий спот и отзывы из состояния Redux
   const spot = useSelector((state) => state.spots.singleSpot);
   const currentUser = useSelector((state) => state.session.user);
   // const reviews = useSelector((state) => state.reviews.reviews || []);
   // const reviews = useSelector((state) => Object.values(state.reviews));
+
+  useEffect(() => {
+    setLoading(true);
+    dispatch(getSpotById(spotId)).finally(() => setLoading(false)); // Загружаем данные о Spot
+  }, [dispatch, spotId]);
+
+  if (loading) return <p className="loading-message">Loading spot details...</p>;
 
   // Условие показа кнопки
   const isOwner = currentUser?.id === spot?.ownerId;
@@ -28,14 +36,10 @@ function SpotDetail() {
   // Может ли пользователь оставить отзыв
   const canPostedReview = currentUser && !isOwner && !PostedReview;
 
-  useEffect(() => {
-    dispatch(getSpotById(spotId)); // Загружаем данные о Spot
-  }, [dispatch, spotId]);
-
   // Проверяем, есть ли данные, иначе показываем "Loading..."
-  if (!spot) {
-    return <div>Loading...</div>;
-  }
+  // if (!spot) {
+  //   return <div>Loading...</div>;
+  // }
 
   // Логика вывода рейтинга:
   // Если кол-во отзывов > 0, показываем средний рейтинг с одним знаком после запятой
@@ -100,7 +104,7 @@ function SpotDetail() {
       </div>
 
       <div className="reviews-container">
-      <hr className="divider" />
+        <hr className="divider" />
         <section className="reviews">
           <div className="reviews-header">
             <FaStar className="fa-star" />
@@ -154,7 +158,6 @@ function SpotDetail() {
                         className="action-btn"
                       />
                     </div>
-                    
                   )}
                 </div>
               ))}

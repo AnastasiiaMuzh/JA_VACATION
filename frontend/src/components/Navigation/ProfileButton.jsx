@@ -17,20 +17,22 @@ function ProfileButton({ user }) {
     setShowMenu(!showMenu);
   };
 
+  const closeMenu = () => setShowMenu(false);
+
   useEffect(() => {
     if (!showMenu) return;
 
     const closeMenuOnOutsideClick = (e) => {
       if (!ulRef.current.contains(e.target)) {
-        setShowMenu(false);
+        closeMenu();
       }
     };
 
     document.addEventListener("click", closeMenuOnOutsideClick);
-    return () => document.removeEventListener("click", closeMenu);
+    return () => document.removeEventListener("click", closeMenuOnOutsideClick);
   }, [showMenu]);
 
-  const closeMenu = () => setShowMenu(false);
+  
 
   const logout = (e) => {
     e.preventDefault();
@@ -52,9 +54,10 @@ function ProfileButton({ user }) {
         {user ? (
           <>
             <li>Hello, {user.username} !</li>{" "}
+            <li>{user.email}</li>
             {/**Maybe put Hello, {user.user}?? */}
             <li className="manage-link">
-              <NavLink to="/spots/current"> Manage Spots</NavLink>
+              <NavLink to="/spots/current" onClick={closeMenu}> Manage Spots</NavLink>
             </li>
             <li>
               <button onClick={logout}>Log Out</button>

@@ -59,16 +59,22 @@
   margin-top: -1px;
 }
 
+.spot-price {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .spot-price .price {
   font-weight: bold; 
-  margin-left: -20px;
   color: rgb(32, 46, 55);
+  margin-left: 5px;
 }
 
 .spot-price .night {
   font-weight: normal;
   color:  rgb(32, 46, 55);
-  margin-left: -20px; 
+  
 }
 
 /* Медиа-запросы для адаптивности */

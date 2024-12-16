@@ -12,7 +12,7 @@ module.exports = {
     await queryInterface.bulkInsert(options, [
       // Reviews for Spot 1 - App Academy
       {
-        spotId: 1,
+        spotId: 2,
         userId: 1,
         review: "Fantastic spot, learned a lot!",
         stars: 5,
@@ -49,7 +49,7 @@ module.exports = {
         stars: 5,
       },
       {
-        spotId: 2,
+        spotId: 3,
         userId: 2,
         review: "Had a great time, would come again.",
         stars: 4,
@@ -86,7 +86,7 @@ module.exports = {
         stars: 5,
       },
       {
-        spotId: 3,
+        spotId: 5,
         userId: 3,
         review: "Loved the atmosphere, very cozy.",
         stars: 4,
@@ -125,7 +125,7 @@ module.exports = {
         stars: 4,
       },
       {
-        spotId: 4,
+        spotId: 1,
         userId: 4,
         review: "Super friendly staff.",
         stars: 5,
@@ -163,7 +163,7 @@ module.exports = {
         stars: 4,
       },
       {
-        spotId: 5,
+        spotId: 3,
         userId: 5,
         review: "Very strange but enjoyable.",
         stars: 4,
@@ -195,7 +195,7 @@ module.exports = {
         stars: 4,
       },
       {
-        spotId: 6,
+        spotId: 4,
         userId: 5,
         review: "Amazing decor and ambiance.",
         stars: 5,
@@ -209,7 +209,7 @@ module.exports = {
         stars: 5,
       },
       {
-        spotId: 7,
+        spotId: 5,
         userId: 2,
         review: "Cool but a bit spooky.",
         stars: 4,
@@ -241,7 +241,7 @@ module.exports = {
         stars: 5,
       },
       {
-        spotId: 8,
+        spotId: 10,
         userId: 2,
         review: "Zoomed right through my expectations.",
         stars: 4,
@@ -267,7 +267,7 @@ module.exports = {
 
       // Reviews for Spot 9 - Bearded Palace
       {
-        spotId: 9,
+        spotId: 8,
         userId: 1,
         review: "The palace of beards, what more could you want?",
         stars: 5,
@@ -311,7 +311,7 @@ module.exports = {
         stars: 5,
       },
       {
-        spotId: 10,
+        spotId: 9,
         userId: 3,
         review: "Great place, moose-themed and fun.",
         stars: 4,

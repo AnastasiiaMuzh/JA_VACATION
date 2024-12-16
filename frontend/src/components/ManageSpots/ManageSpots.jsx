@@ -29,9 +29,9 @@ const ManageSpots = () => {
     <div className="manage-container">
       <section className="header-spot">
         <h1>Manage Your Spots</h1>
-        <div className="new-spot-btn">
+        {/* <div className="new-spot-btn">
           <button onClick={handleNewSpotBtn}>Create a New Spot</button>
-        </div>
+        </div> */}
         <div className="spot-img">
           {spotOwner.length > 0 ? (
             spotOwner.map((spot) => (
@@ -54,7 +54,10 @@ const ManageSpots = () => {
                 </div>
                 <p className="price">${spot.price} night</p>
 
-                <div className="spots-btns" onClick={(e) => e.stopPropagation()}>
+                <div
+                  className="spots-btns"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <button
                     className="update"
                     onClick={(e) => {
@@ -74,10 +77,15 @@ const ManageSpots = () => {
               </div>
             ))
           ) : (
-            <p>
-              No spots yet. Click &quot;Create a New Spot to add your first
-              spot!
-            </p>
+            <>
+              <div className="new-spot-btn">
+                <button onClick={handleNewSpotBtn}>Create a New Spot</button>
+              </div>
+              <p>
+                No spots yet. Click &quot;Create a New Spot to add your first
+                spot!
+              </p>
+            </>
           )}
         </div>
       </section>

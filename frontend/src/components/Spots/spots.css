@@ -1,7 +1,7 @@
 .spots-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 карточки в ряд  ili repeat(auto-fit, minmax(250px, 1fr));*/
-  gap: 25px; /* Расстояние между карточками */
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 25px; 
   padding: 80px;
   margin-top: -30px;
   font-family: Poppins;

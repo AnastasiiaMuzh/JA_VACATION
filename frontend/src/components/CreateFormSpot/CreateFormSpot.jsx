@@ -43,24 +43,22 @@ function CreateFormSpot() {
         if (!description || description.length < 30) validationErrors.description = "Description needs a minimum of 30 characters";
         if (!name) validationErrors.name = "Name is required";
         if (!price || price <= 0) validationErrors.price = "Price must be greater than 0";
-        if (!previewImage) {
+
+        if (!previewImage) {  // Валидация PrevewImage
             validationErrors.previewImage = "Preview image is required.";
         } else if (!previewImage.endsWith('.jpg') && !previewImage.endsWith('.jpeg') && !previewImage.endsWith('.png')) {
-            validationErrors.previewImage = "Preview image must end in .png, .jpg, or .jpeg.";
+            validationErrors.previewImage = "Image URL must end in .png, .jpg, or .jpeg.";
         }
 
-        // Валидация Image URLs
-        const hasValidImageUrl = imageUrls.some(
-            (url) => url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.png')
+        // Валидация остальных изображений (необязательно)
+        const invalidUrls = imageUrls.filter(
+            (url) => url && !url.endsWith('.jpg') && !url.endsWith('.jpeg') && !url.endsWith('.png')
         );
 
-        if (!hasValidImageUrl) {
-            const firstEmptyIndex = imageUrls.findIndex((url) => !url);
-            if (firstEmptyIndex !== -1) {
-                validationErrors[`image${firstEmptyIndex}`] = `Image URL must end in .png, .jpg, or .jpeg.`;
-            } else {
-                validationErrors = "Image URL must end in .png, .jpg, or .jpeg.";
-            }
+        if (invalidUrls.length > 0) {
+            invalidUrls.forEach((url, index) => {
+                validationErrors[`image${index}`] = "Image URL must end in .png, .jpg, or .jpeg.";
+            });
         }
 
         if (Object.keys(validationErrors).length > 0) {

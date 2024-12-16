@@ -1,261 +1,295 @@
 /* Контейнер всей страницы с деталями спота */
 .spot-detail-container {
-    display: grid;
-    grid-template-columns: 3fr 2fr;
-    gap: 20px;
-    padding: 20px;
-    /* font-family: Poppins, sans-serif; */
-    line-height: 1.6;
-    margin: 0 auto;
-    max-width: 1550px;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 20px;
+  padding: 20px;
+  line-height: 1.6;
+  margin: 0 auto;
+  max-width: 1300px;
+  color: rgb(42, 60, 71);
 }
+
+/*transform: scale(1.05); /* Зум при наведении */
 
 /* Заголовок спота */
 .spot-header h1 {
-    font-size: 2rem;
-    margin: 3px 0 10px 0;
+  font-size: 2rem;
 }
 
 .spot-header p {
-    font-size: 1.5rem;
-    color: #141414;
-    margin-bottom: -5px;
-    margin-top: -5px;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  margin-top: -13px;
 }
 
 /* Блок с изображениями спота */
 .spot-images {
-    display: grid;
-    grid-template-columns: 2.5fr 2fr;
-    gap: 20px;
-    grid-column: 1 / span 2;
-    cursor: pointer;
-    
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  grid-column: 1 / span 2;
+  cursor: pointer;
 }
 
 .large-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    cursor: pointer;
-    
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 1px solid rgb(36, 49, 58);
+  border-radius: 8px;
+  position: relative; /* Для теней и эффекта */
+  cursor: pointer;
+  overflow: hidden; /* Чтобы не выходило за края */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Плавность увеличения и тени */
+  box-shadow: 0 8px 16px rgba(0, 0, 255, 0.15); /* Легкая тень по умолчанию */
 }
 
 .large-image img:hover {
-    transform: scale(1.1);
-    transition: transform 0.6s ease;
+  transform: scale(1.03);
+  box-shadow: 0 12px 24px rgba(0, 0, 255, 0.25);
 }
 
 .small-images {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1.5fr 1.5fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 20px;
-    
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.5fr 1.5fr;
+  grid-template-rows: 1.5fr 1.5fr;
+  gap: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 255, 0.15); /* Легкая тень по умолчанию */
 }
 
 .small-images img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: transform 0.5s ease;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  border: 1px solid rgba(0, 0, 128, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 255, 0.1);
+  cursor: pointer;
 }
 
 .small-images img:hover {
-    transform: scale(1.1);
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 255, 0.2);
 }
 
 /* Информация о хозяине спота */
 .host-info {
-    grid-column: 1 / 2;
-    /* Левая колонка */
-    color: #0d0d0d;
+  grid-column: 1 / 2;
+  color: rgb(42, 60, 71);
 }
 
 .host-info .host-name {
-    font-size: 1.6rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-    margin-top: -5px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  /* margin-bottom:  -5px; */
 }
 
 .host-info .host-description {
-    font-size: 1.3rem;
-    color: #111111;
-    margin-top: 0;
+  font-size: 1.4rem;
+  margin-top: -4px;
 }
 
 /* Блок цены и кнопки резервирования */
 .priceReserveBtn-box {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    padding: 15px;
-    border: 1.5px solid #434040;
-    border-radius: 10px;
-    background-color: #f4e9e9;
-    ;
-    max-width: 300px;
-    margin-left: auto;
-    text-align: left;
-
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 6px;
+  border: 1.2px solid #9da7ba;
+  border-radius: 10px;
+  background-color:  rgb(240, 247, 252);
+  max-width: 290px;
+  margin-left: auto;
+  text-align: left;
 }
 
 .priceReserveBtn-box p {
-    font-size: 1.4rem;
-    /* margin: 5px 0 10px 0; */
-    margin: 0;
-    margin-left: 20px;
-    margin-bottom: 5px;
+  font-size: 1.4rem;
+  margin: 0 0 5px 20px;
 }
 
 .priceReserveBtn-box p .night {
-    font-size: 16px;
-    font-weight: normal;
-    color: #121212;
-    margin-left: -3px;
+  font-size: 16px;
+  font-weight: normal;
+  color: rgb(42, 60, 71);
+  margin-left: 2px;
 }
 
 .rating-line {
-    display: flex;
-    align-items: center;
-    gap: 1px;
-    /* Уменьшили отступы между элементами */
-    color: #000;
-    margin-right: 20px;
-}
-
-.rating .fa-star {
-    color: gold;
-    font-size: 25px;
-    margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  margin-right: 20px;
 }
 
 .priceReserveBtn-box .dot {
-    margin-left: 5px;
-    margin-right: 5px;
+  margin: 0 5px;
 }
 
+/* Стиль для кнопки резервирования */
 .priceReserveBtn-box button {
-    display: block;
-    width: 100%;
-    padding: 10px 20px;
-    border: 2px solid #000;
-    ;
-    border-radius: 5px;
-    background-color: #ff5a5f;
-    color: white;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
+  border: 2px solid #000;
+  border-radius: 5px;
+  background-color: #ff5a5f;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .priceReserveBtn-box button:hover {
-    background-color: #e04848;
+    background-color: #5b93c4;
+    box-shadow: 0 4px 8px rgba(0, 0, 255, 0.2);
 }
 
 /* Контейнер отзывов */
 .reviews-container {
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
-    margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  margin-top: 20px;
 }
 
+.divider {
+  border: none;
+  border-top: 2px solid #ddd;
+  margin: 20px 0;
+  opacity: 0.5;
+}
 /* Заголовок секции отзывов */
-.reviews-header {
-    display: flex;
-    align-items: center;
-    font-size: 1.2rem;
-    gap: 5px;
-    color: #333;
-    font-weight: bold;
-    /* border-top: 0.5px solid #ccc; */
-    padding-top: 30px;
-    /* Если есть border, это может улучшить вид */
-}
 
-/* Заголовок с рейтингом и количеством отзывов */
 .reviews-header {
-    display: flex;
-    align-items: center;
-    font-size: 1.2rem;
-    color: #1b1a1a;
-    margin-bottom: 10px;
-    gap: 5px;
-    margin-top: -10px;
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  color: #1b1a1a;
+  font-weight: bold;
+  margin-bottom: 10px;
+  gap: 5px;
+
 }
 
 .reviews-header .fa-star {
-    color: gold;
-    font-size: 24px;
-    margin-bottom: 3px;
+  color: gold;
+  font-size: 24px;
+  margin-bottom: 3px;
 }
 
-/* .reviews {
-    background-color: #f4e9e9;
-} */
-
 .reviews-header .rating-value {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .reviews-header .dot {
-    margin: 0 5px;
+  margin: 0 5px;
 }
 
 .reviews-header .review-count {
-    color: #201e1e;
-    font-weight: bold;
+  color: rgb(42, 60, 71);
+  font-weight: bold;
 }
 
 /* Список отзывов */
 .reviews-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 /* Отдельный отзыв */
 .reviews-list .review {
-    padding: 15px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    background-color: #f4e9e9;
-    margin-top: -5px;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: rgb(240, 247, 252);
 }
 
 /* Имя пользователя */
 .reviews-list .review strong {
-    display: block;
-    font-weight: bold;
-    font-size: 1.1rem;
-    color: #111;
+  display: block;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: rgb(42, 60, 71);
 }
 
 .reviews-list .review .date {
-    font-size: 0.rem;
-    color: #888;
-    margin-bottom: -10px;
-    margin-top: 5px;
+  font-size: 0.9rem;
+  color: rgb(42, 60, 71);
+  margin-top: 5px;
 }
 
+/* стиль для кнопок (Post review, Delete) */
 .post-review-btn {
-    width: 180px;
-    height: 20px;
-    margin-bottom: 50px;
+  width: 160px;
+  height: auto;
+  margin-bottom: 50px;
+}
+
+.post-review-btn button {
+    font-size: 0.85rem;
+    padding: 6px 10px;
+    cursor: pointer;
 
 }
 
-.reviews {
-    margin-top: -25px;
+.post-review-btn button:hover {
+    background-color: #5b93c4;
+    box-shadow: 0 4px 8px rgba(0, 0, 255, 0.2);
+}
+
+.delete-btn-container {
+    width: 160px;
+    height: auto;
+  }
+  
+  .delete-btn-container button {
+      font-size: 0.85rem;
+      padding: 6px 10px;
+      cursor: pointer;
+  
+  }
+  
+  .delete-btn-container button:hover {
+      background-color: #5b93c4;
+      box-shadow: 0 4px 8px rgba(0, 0, 255, 0.2);
+  }
+
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 1024px) {
+  .spot-detail-container {
+    grid-template-columns: repeat(3, 1fr); /* 3 карточки в ряд */
+    gap: 20px; /* Уменьшаем отступы между карточками */
+  }
+}
+
+/* Медиа-запрос для 3 карточек на экранах от 768px до 480px */
+@media (max-width: 768px) {
+  .spot-detail-container {
+    grid-template-columns: repeat(2, 1fr); /* 3 карточки в ряд */
+    gap: 15px; /* Уменьшаем отступы ещё сильнее */
+  }
+
+  .spot-detail-container {
+    height: 200px; /* Уменьшаем высоту изображений */
+  }
+
+  .spot-detail-container {
+    font-size: 16px; /* Уменьшаем размер текста */
+  }
+}
+
+/* Медиа-запрос для 1 карточки на мобильных устройствах */
+@media (max-width: 480px) {
+  .spot-detail-container {
+    grid-template-columns: 1fr; /* 1 карточка в ряд */
+  }
 }

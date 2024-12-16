@@ -1,0 +1,67 @@
+/* Контейнер модального окна */
+.delete-modal-container {
+  background-color: rgb(240, 247, 252);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  text-align: center;
+  width: 400px; /* Задаем фиксированную ширину */
+  margin: 0 auto; /* Центрируем по горизонтали */
+}
+
+/* Заголовок */
+.delete-modal-container h2 {
+  font-size: 2.1rem;
+  margin-bottom: 10px;
+  color: rgb(42, 60, 71);
+}
+
+/* Текст подтверждения */
+.delete-modal-container p {
+  font-size: 1.3rem;
+  color: #555;
+  margin-top: -15px;
+  line-height: 1.4; /* Делаем текст более читаемым */
+  word-wrap: break-word; /* Перенос слов при необходимости */
+}
+
+/* Контейнер кнопок */
+.delete-modal-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Кнопки */
+.delete-modal-btn button {
+  width: 100%; /* Растягиваем кнопки на всю ширину */
+  height: 45px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Кнопка Yes */
+.delete-yes-btn {
+  background-color: #ff5a5f;
+}
+
+.delete-yes-btn:hover {
+  background-color: #df2121;
+  transform: translateY(-2px);
+}
+
+/* Кнопка No */
+.delete-no-btn {
+  background-color: #4a67f5;
+}
+
+.delete-no-btn:hover {
+  background-color: #3b50d3;
+  transform: translateY(-2px);
+}

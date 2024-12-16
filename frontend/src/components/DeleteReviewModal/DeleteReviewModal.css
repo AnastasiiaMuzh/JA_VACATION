@@ -1,0 +1,43 @@
+/* Заголовок */
+.modal-container {
+  background-color: rgb(240, 247, 252);
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  text-align: center;
+}
+
+/* Заголовок */
+.modal-container h2 {
+  font-size: 2.1rem;
+  margin-top: 15px;
+  color: rgb(42, 60, 71);
+}
+
+/* Текст подтверждения */
+.modal-container p {
+  font-size: 1.5rem;
+  color: #555;
+  margin-bottom: 20px;
+  margin-top: -10px;
+}
+
+/* Контейнер кнопок */
+.modal-btn {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* width: 100%; */
+}
+
+.yes-btn:hover {
+    background-color: #df2121; /* Цвет при наведении */
+  }
+
+  .no-btn {
+    background-color: rgb(64, 64, 241);
+  }
+
+  .no-btn:hover {
+    background-color: blue;
+  }

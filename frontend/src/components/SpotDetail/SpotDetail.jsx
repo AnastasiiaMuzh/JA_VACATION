@@ -21,7 +21,7 @@ function SpotDetail() {
   // Условие показа кнопки
   const isOwner = currentUser?.id === spot?.ownerId;
   // Определяем, оставлял ли текущий пользователь уже отзыв
-  const PostedReview = spot?.Reviews.some(
+  const PostedReview = spot?.Reviews?.some(
     (review) => review.userId === currentUser?.id
   );
 
@@ -44,10 +44,10 @@ function SpotDetail() {
   const rating = hasReviews ? parseFloat(spot.avgStarRating).toFixed(1) : "New";
 
   // Логика отображения "Review"/"Reviews"
-  const reviewText = spot.numReviews === 1 ? "Review" : "Reviews";
+  const reviewText = spot.numReviews === 1 ? "review" : "reviews";
 
   // Логика отображения "Review"/"Reviews"
-  const sortedReviews = spot.Reviews
+  const sortedReviews = spot?.Reviews
     ? [...spot.Reviews].sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
       )
@@ -100,6 +100,7 @@ function SpotDetail() {
       </div>
 
       <div className="reviews-container">
+      <hr className="divider" />
         <section className="reviews">
           <div className="reviews-header">
             <FaStar className="fa-star" />
@@ -122,6 +123,7 @@ function SpotDetail() {
               <OpenModalButton
                 modalComponent={<ReviewsFormModal spotId={spotId} />}
                 buttonText="Post Your Review"
+                // className="action-btn"
               />
             )}
           </div>
@@ -140,7 +142,7 @@ function SpotDetail() {
                   </p>
                   <p>{review.review}</p>
                   {review.userId === currentUser?.id && (
-                    <div>
+                    <div className="delete-btn-container">
                       <OpenModalButton
                         modalComponent={
                           <DeleteReviewModal
@@ -149,8 +151,10 @@ function SpotDetail() {
                           />
                         }
                         buttonText="Delete"
+                        className="action-btn"
                       />
                     </div>
+                    
                   )}
                 </div>
               ))}

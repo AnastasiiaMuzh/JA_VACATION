@@ -7,11 +7,10 @@ import { FaStar } from "react-icons/fa";
 import "./ManageSpots.css";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 
-
 const ManageSpots = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const curUser = useSelector((state) => state.session.user);
   const spotsObjects = useSelector((state) => state.spots.spots); //объект всех спотов
   const allSpots = useMemo(() => Object.values(spotsObjects), [spotsObjects]); // Преобразуем объект в массив
@@ -20,9 +19,7 @@ const ManageSpots = () => {
     dispatch(getSpots());
   }, [dispatch]);
 
-
   const handleNewSpotBtn = () => navigate("/spots/new");
-
 
   const spotOwner = allSpots?.filter((spot) => spot.ownerId === curUser?.id);
 
@@ -38,8 +35,12 @@ const ManageSpots = () => {
         <div className="spot-img">
           {spotOwner.length > 0 ? (
             spotOwner.map((spot) => (
-              <div key={spot.id} className="spot-title" onClick={() => navigate(`/spots/${spot.id}`)}>
-                <div className="spot-img-container" >
+              <div
+                key={spot.id}
+                className="spot-title"
+                onClick={() => navigate(`/spots/${spot.id}`)}
+              >
+                <div className="spot-img-container">
                   <img src={spot.previewImage} alt={spot.name} />
                 </div>
                 <div className="city-rating">
@@ -52,17 +53,23 @@ const ManageSpots = () => {
                   </p>
                 </div>
                 <p className="price">${spot.price} night</p>
-                <div className="spots-btns">
+
+                <div className="spots-btns" onClick={(e) => e.stopPropagation()}>
                   <button
                     className="update"
-                    onClick={() => navigate(`/spots/${spot.id}/edit`)}
+                    onClick={(e) => {
+                      e.stopPropagation(); // Останавливаем всплытие
+                      navigate(`/spots/${spot.id}/edit`);
+                    }}
                   >
                     Update
                   </button>
-                  <button>
-                    <OpenModalButton modalComponent={<DeleteFormModal spotId={spot.id} />}
-                    buttonText="Delete" />
-                  </button>
+                  <OpenModalButton
+                    modalComponent={<DeleteFormModal spotId={spot.id} />}
+                    buttonText="Delete"
+                    className="delete"
+                    onButtonClick={(e) => e.stopPropagation()}
+                  />
                 </div>
               </div>
             ))

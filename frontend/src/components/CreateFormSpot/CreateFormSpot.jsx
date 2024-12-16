@@ -46,18 +46,23 @@ function CreateFormSpot() {
         if (!previewImage) {
             validationErrors.previewImage = "Preview image is required.";
         } else if (!previewImage.endsWith('.jpg') && !previewImage.endsWith('.jpeg') && !previewImage.endsWith('.png')) {
-            validationErrors.previewImage = "Image URL must end in .png, .jpg, or .jpeg";
+            validationErrors.previewImage = "Preview image must end in .png, .jpg, or .jpeg.";
         }
 
-         // Проверка дополнительных фотографий (необязательные)
-         imageUrls.forEach((url, index) => {
-            if (url && !url.endsWith('.jpg') && !url.endsWith('.jpeg') && !url.endsWith('.png')) {
-                validationErrors[`image${index}`] = "Image must and in .png, .jpg, or .jpeg";
+        // Валидация Image URLs
+        const hasValidImageUrl = imageUrls.some(
+            (url) => url.endsWith('.jpg') || url.endsWith('.jpeg') || url.endsWith('.png')
+        );
+
+        if (!hasValidImageUrl) {
+            const firstEmptyIndex = imageUrls.findIndex((url) => !url);
+            if (firstEmptyIndex !== -1) {
+                validationErrors[`image${firstEmptyIndex}`] = `Image URL must end in .png, .jpg, or .jpeg.`;
+            } else {
+                validationErrors = "Image URL must end in .png, .jpg, or .jpeg.";
             }
-         })
+        }
 
-
-        // Если есть ошибки, показываем их и выходим
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
             return;
@@ -75,6 +80,8 @@ function CreateFormSpot() {
                 { url: previewImage, preview: true },
                 ...imageUrls.filter((url) => url).map((url) => ({ url, preview: false })),
             ],
+            lat: 40.7128,    // временно поставьте какое-то значение
+            lng: -74.0060,   // временно поставьте какое-то значение
         };
 
         const createdSpot = await dispatch(createSpot(newSpot));
@@ -139,9 +146,7 @@ function CreateFormSpot() {
                     <p>Mention the best features of your space, any special amenities like fast
                         wifi or parking, and what you love about the neighborhood.</p>
                     {errors.description && <p className="error">{errors.description}</p>}
-                    <textarea placeholder="Please write at least 30 characters" 
-                    value={description} 
-                    onChange={(e) => setDescription(e.target.value)}
+                    <textarea placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)}
                     />
                 </div>
                 <div className="input-container-down">

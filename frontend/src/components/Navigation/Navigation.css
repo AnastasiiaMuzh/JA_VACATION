@@ -3,19 +3,16 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 5px 20px;
-        background-color: #f4e9e9;
-        /* Белый фон для навигации */
-        border-bottom: 1px solid #ddd;
-        /* Тонкая граница снизу */
+        padding: 8px 50px;
+        background-color: rgb(238, 244, 248);
+        /* background-color: #f4e9e9; */
+        border-radius: 8px;
     }
 
     /* --- Логотип (левая часть навигации) --- */
     .nav-left {
         display: flex;
-        /* Flexbox для группировки элементов слева */
         align-items: center;
-        /* Центрирование по вертикали */
     }
 
     .nav-left .logo {
@@ -25,15 +22,17 @@
     }
 
     .nav-left .logo img {
-        width: 90px;
+        width: 100px;
         height: auto;
         margin-bottom: 5px;
+       
     }
 
     .nav-left .logo span {
-        font-size: 27px;
+        font-size: 29px;
         font-weight: bold;
-        color: #d50a2f;
+        color: #cf1436;
+        /* color: rgb(42, 60, 71); */
         font-family: fantasy;
         margin-left: -15px;
     }
@@ -50,9 +49,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        border-radius: 30px;
+        background-color: rgb(218, 227, 232);
+        border: 1px solid rgb(207, 221, 230);
+        border-radius: 29px;
         padding: 5px 15px;
         cursor: pointer;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -65,21 +64,23 @@
     /* Полоски меню */
     .menu-icon {
         font-size: 20px;
-        color: #747079;
+        /* color:#ab112d; */
+        color: rgb(95, 125, 143);
         margin-left: 10px;
     }
 
     /* Иконка пользователя */
     .user-icon {
-        font-size: 45px;
-        color: #747079;
+        font-size: 40px;
+        /* color:#b60f2e; */
+        color: rgb(99, 124, 140);
         margin-left: 15px;
     }
 
 
     /* Эффект наведения на кнопку */
     .profile-button:hover {
-        background-color: #f7f7f7;
+        background-color:#c7dbed;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
 
@@ -88,14 +89,15 @@
     .profile-dropdown {
         position: absolute;
         right: 20px;
-        top: 50px;
-        background-color: white;
+        top: 70px;
+        background-color: rgb(238, 244, 248);
         border: 1px solid #ddd;
         border-radius: 4px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         width: 200px;
-        padding: 10px;
+        padding: 9px;
         z-index: 1000;
+        margin-right: -10px;
     }
 
     /* --- Элементы внутри меню --- */
@@ -103,28 +105,44 @@
         list-style: none;
         padding: 10px 5px;
         cursor: pointer;
+        color: #2f343b;
+        font-size: larger;
+        
     }
+
 
     /* --- Эффект наведения на элементы меню --- */
     .profile-dropdown li:hover {
-        background-color: #f7f7f7;
+        
+        text-decoration: underline; /* Эффект при наведении, если нужно */
     }
 
     /* --- Скрытие меню, когда оно не активно --- */
     .hidden {
         display: none;
-        /* Скрываем меню */
     }
+
+    .manage-link a {
+        color: #2f343b; /* Тот же цвет, что и у Hello, Dima! */
+        text-decoration: none; /* Убирает подчеркивание */
+        font-size: 21px;
+    }
+    
+    .manage-link a:hover {
+        text-decoration: underline; /* Эффект при наведении, если нужно */
+        color: #2f343b; /* Подтверждение цвета при наведении */
+    }
+    
 
     .create-spot-butn {
         display: inline-block; /* Убедитесь, что кнопка остается inline-block */
-        margin-left: 10px; /* Отступ слева */
+        margin-right: 20PX;
         padding: 10px 15px; /* Внутренние отступы */
-        background-color: #f4e9e9; /* Цвет фона */
-        font-size: 18px; /* Размер текста */
+        font-size: 20px; /* Размер текста */
         cursor: pointer; /* Указатель мыши при наведении */
         text-align: center; /* Выравнивание текста */
-        color: #0a1032; /* Цвет текста */
+        /*color: #8b1027;  Цвет текста */
+        color: rgb(32, 46, 55);
         text-decoration: none; /* Убираем подчеркивание */
   
       }

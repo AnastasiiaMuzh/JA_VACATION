@@ -27,15 +27,16 @@
 .spot-images {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 15px;
   grid-column: 1 / span 2;
   cursor: pointer;
 }
 
 .large-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 99%;
+  /* height: 90%; */
+  height: 450px; /* Фиксированная высота для больших фото */
+  object-fit: cover; /* Сохраняем пропорции, обрезаем лишнее */
   border: 1px solid rgb(36, 49, 58);
   border-radius: 8px;
   position: relative; /* Для теней и эффекта */
@@ -51,23 +52,36 @@
 }
 
 .small-images {
-  width: 100%;
+  /* width: 100%;
+  height: 140px;
   display: grid;
   grid-template-columns: 1.5fr 1.5fr;
-  grid-template-rows: 1.5fr 1.5fr;
-  gap: 20px;
-  box-shadow: 0 8px 16px rgba(0, 0, 255, 0.15); /* Легкая тень по умолчанию */
+  grid-template-rows: 1.5fr 1.5fr; */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 столбца */
+  grid-template-rows: repeat(2, 1fr);   /* 2 строки */
+  gap: 15px;
+  /* width: 100%; 
+  height: 450px;  */
+ align-items: stretch;
 }
 
 .small-images img {
-  width: 100%;
+  /* width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 5px;
   border: 1px solid rgba(0, 0, 128, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 10px rgba(0, 0, 255, 0.1);
-  cursor: pointer;
+  cursor: pointer; */
+  width: 100%; /* Растягиваем по ширине */
+  height: 210px; /* Растягиваем по высоте */
+  object-fit: cover; /* Заполняет контейнер, обрезая лишнее */
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 128, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 255, 0.1);
 }
 
 .small-images img:hover {
@@ -79,6 +93,7 @@
 .host-info {
   grid-column: 1 / 2;
   color: rgb(42, 60, 71);
+  margin-top: -15px;
 }
 
 .host-info .host-name {
@@ -106,6 +121,7 @@
   max-width: 290px;
   margin-left: auto;
   text-align: left;
+  margin-top: -5px;
 }
 
 .priceReserveBtn-box p {
@@ -162,8 +178,10 @@
 .divider {
   border: none;
   border-top: 2px solid #ddd;
-  margin: 20px 0;
+  margin: 25px 0;
   opacity: 0.5;
+  margin-top: -5px;
+  width: 900px;
 }
 /* Заголовок секции отзывов */
 
@@ -293,3 +311,4 @@
     grid-template-columns: 1fr; /* 1 карточка в ряд */
   }
 }
+/*Убедитесь, что текст внутри SpotDetail не выходит за рамки. Для этого можно использовать overflow: hidden; или text-overflow: ellipsis*/

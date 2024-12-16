@@ -6,6 +6,7 @@
 
 .header-spot h1 {
     font-size: 2rem;
+    margin-left: 55px;
 }
 
 .new-spot-btn {
@@ -40,9 +41,11 @@
 .spot-img {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
+    gap: 20px;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 40px;
+    margin-left: 55px;
+    margin-right: 50px;
 }
 
 
@@ -68,7 +71,8 @@
 
 .price {
     margin-top: 5px;
-    padding: 0 20px;
+    margin-left: 20px;
+    margin-top: 15px;
 }
 
 .cit-rating .fa-star {
@@ -109,10 +113,11 @@ justify-content: space-between;
 
 .spots-btns {
     display: flex; 
-    justify-content: space-around;
     align-items: center; 
     gap: 20px; /* Отступ между кнопками */
     margin-top: 10px; /* Добавим небольшой верхний отступ */
+    margin-left: 20px;
+    
   }
   
   .spots-btns button, .spots-btns .delete {

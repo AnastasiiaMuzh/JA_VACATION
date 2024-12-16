@@ -1,6 +1,6 @@
 /* Основной контейнер формы */
 .form-container {
-    max-width: 700px;
+    max-width: 600px;
     /* Устанавливаем ширину */
     margin: 0 auto;
     /* Центрируем форму */
@@ -47,6 +47,10 @@
     box-sizing: border-box;
     background-color: #c5dcf4;
     /* Легкий фон */
+}
+
+.form-container price {
+    width: 50px;
 }
 
 /* Текстовая область */
@@ -229,3 +233,16 @@ p.error {
     margin-top: -13px;
     margin-left: 5px;
 }
+
+.price-field {
+    width: 100px; /* Уменьшенная фиксированная ширина */
+    max-width: 570px; /* Ограничение ширины */
+    padding: 8px; /* Уменьшенные отступы */
+    border: 1px solid #3d3838; /* Граница */
+    border-radius: 4px; /* Скругление углов */
+    font-size: 14px; /* Размер шрифта */
+    background-color: #c5dcf4; /* Цвет фона */
+    margin-left: 25px; /* Небольшой отступ слева */
+    box-sizing: border-box; /* Включаем padding в общую ширину */
+}
+

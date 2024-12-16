@@ -1,4 +1,4 @@
-import { getSpots, removeSpot } from "../../store/spots";
+import { removeSpot } from "../../store/spots";
 import { useModal } from "../../context/Modal";
 import { useDispatch } from "react-redux";
 import "./DeleteFormModal.css";

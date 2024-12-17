@@ -46,7 +46,7 @@ function SignupFormModal() {
             delete fieldErrors[name];
           }
           break;
-        case "confirm Password":
+        case "confirmPassword":
           if (value !== formData.password) {
             fieldErrors[name] = "Passwords do not match.";
           } else {
@@ -92,7 +92,9 @@ function SignupFormModal() {
       <form onSubmit={handleSubmit} noValidate>
         {["firstName", "lastName", "email", "username",  "password", "confirmPassword"].map((field) => (
           <label key={field}>
-            {field[0].toUpperCase() + field.slice(1).replace("Name", " Name")}
+            {field === "confirmPassword"
+            ? "Confirm Password"
+            : field[0].toUpperCase() + field.slice(1).replace("Name", " Name")}
             <input
               type={field.includes("password") || field.includes("confirmPassword") ? "password" : "text"}
               name={field}

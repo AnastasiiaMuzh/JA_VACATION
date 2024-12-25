@@ -112,7 +112,7 @@ router.get('/', async (req, res) => {
                 ? (
                     spotJSON.SpotImages[0].url.startsWith('http')
                       ? spotJSON.SpotImages[0].url
-                      : `${baseUrl}/${spotJSON.SpotImages[0].url}` // <-- COMMENT: Заменили 'http://localhost:8000' на baseUrl
+                      : `${baseUrl}/${spotJSON.SpotImages[0].url}` // Заменилa 'http://localhost:8000' на baseUrl
                   )
 
 
@@ -220,7 +220,9 @@ router.get('/:spotId', async (req, res) => {
     // Обрабатываем изображения: если url не начинается с http, добавляем префикс
     spotData.SpotImages = spotData.SpotImages.map(img => ({
         ...img,
-        url: img.url.startsWith('http') ? img.url : `http://localhost:8000/${img.url}`
+        url: img.url.startsWith('http') 
+            ? img.url
+            : `${baseUrl}/${img.url}` // ЗАМЕНИЛA на baseUrl
     }));
 
     // Подсчитываем число отзывов и средний рейтинг
@@ -262,30 +264,7 @@ router.get('/:spotId', async (req, res) => {
 });
 
 
-//Create a Spot
-// router.post('/', requireAuth, validateSpot, async (req, res) => {
-//     const { address, city, state, country, lat, lng, name, description, price } = req.body;
-//     const ownerId = req.user.id;
-//     const spot = await Spot.create({ ownerId, address, city, state, country, lat, lng, name, description, price });
 
-//     return res.status(201).json({
-//         id: spot.id,
-//         ownerId: spot.ownerId,
-//         address: spot.address,
-//         city: spot.city,
-//         state: spot.state,
-//         country: spot.country,
-//         lat: spot.lat ? parseFloat(spot.lat) : null,
-//         lng: spot.lng ? parseFloat(spot.lng) : null,
-//         name: spot.name,
-//         description: spot.description,
-//         price: spot.price ? parseFloat(spot.price) : null,
-//         createdAt: spot.createdAt,
-//         updatedAt: spot.updatedAt,
-//     });
-// });
-
-//Create a Spot
 // Create a Spot
 router.post('/', requireAuth, validateSpot, async (req, res) => {
     try {
@@ -335,10 +314,11 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
         });
 
         const spotData = newSpotWithImages.toJSON();
-        // Добавляем абсолютный путь к изображениям
         spotData.SpotImages = spotData.SpotImages.map(img => ({
             ...img,
-            url: `http://localhost:8000/${img.url}`
+            url: img.url.startsWith('http')
+              ? img.url
+              : `${baseUrl}/${img.url}`  // <-- ЗАМЕНИЛA
         }));
 
         const preview = spotData.SpotImages.find(img => img.preview);

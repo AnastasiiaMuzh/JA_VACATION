@@ -29,9 +29,6 @@ const ManageSpots = () => {
     <div className="manage-container">
       <section className="header-spot">
         <h1>Manage Your Spots</h1>
-        {/* <div className="new-spot-btn">
-          <button onClick={handleNewSpotBtn}>Create a New Spot</button>
-        </div> */}
         <div className="spot-img">
           {spotOwner.length > 0 ? (
             spotOwner.map((spot) => (
@@ -71,7 +68,6 @@ const ManageSpots = () => {
                     modalComponent={<DeleteFormModal spotId={spot.id} />}
                     buttonText="Delete"
                     className="delete"
-                    // onButtonClick={(e) => e.stopPropagation()}
                   />
                 </div>
               </div>

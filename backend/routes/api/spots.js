@@ -114,12 +114,6 @@ router.get('/', async (req, res) => {
                       ? spotJSON.SpotImages[0].url
                       : `${baseUrl}/${spotJSON.SpotImages[0].url}` // Заменилa 'http://localhost:8000' на baseUrl
                   )
-
-
-            // previewImage: spotJSON.SpotImages && spotJSON.SpotImages.length > 0
-            //     ? (spotJSON.SpotImages[0].url.startsWith('http')
-            //         ? spotJSON.SpotImages[0].url
-            //         : `http://localhost:8000/${spotJSON.SpotImages[0].url}`)
                 : null,
         };
     });

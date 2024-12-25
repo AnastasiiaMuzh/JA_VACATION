@@ -31,7 +31,6 @@ function Spots() {
                 return (
                     <Link to={`/spots/${spot.id}`} key={spot.id} className="spot-box" title={spot.name}>
                         <img src={spot.previewImage} alt={spot.name} />
-                        {/* <div className='tooltip'>{spot.name}</div> */}
                         <div className="spot-details">
                             <div className="spot-location">
                                 <div>{spot.city}, {spot.state}</div>

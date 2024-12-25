@@ -16,8 +16,6 @@ function SpotDetail() {
   // Получаю текущего пользователя, текущий спот и отзывы из состояния Redux
   const spot = useSelector((state) => state.spots.singleSpot);
   const currentUser = useSelector((state) => state.session.user);
-  // const reviews = useSelector((state) => state.reviews.reviews || []);
-  // const reviews = useSelector((state) => Object.values(state.reviews));
 
   useEffect(() => {
     setLoading(true);
@@ -35,11 +33,6 @@ function SpotDetail() {
 
   // Может ли пользователь оставить отзыв
   const canPostedReview = currentUser && !isOwner && !PostedReview;
-
-  // Проверяем, есть ли данные, иначе показываем "Loading..."компонент не дождётся загрузки данных и может некорректно отработать.
-  // if (!spot) {
-  //   return <div>Loading...</div>;
-  // }
 
   // Логика вывода рейтинга:
   // Если кол-во отзывов > 0, показываем средний рейтинг с одним знаком после запятой

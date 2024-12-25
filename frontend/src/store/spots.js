@@ -67,33 +67,6 @@ export const createSpot = (spot) => async (dispatch) => {
     }
 }
 
-// export const createSpot = (spot) => async (dispatch) => {
-//     console.log("Creating spot with data:", spot); // Логируем данные формы
-
-//     try {
-//         const response = await csrfFetch("/api/spots", {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json",
-//             },
-//             body: JSON.stringify(spot),
-//         });
-
-//         if (response.ok) {
-//             const newSpot = await response.json();
-//             console.log("Spot created successfully:", newSpot);
-//             dispatch(addSpotAction(newSpot));
-//             return newSpot;
-//         } else {
-//             const errors = await response.json();
-//             console.error("Error creating spot:", errors);
-//             return errors;
-//         }
-//     } catch (err) {
-//         console.error("Error in createSpot Thunk:", err);
-//     }
-// };
-
 
 export const editSpot = (spotId, spotData) => async (dispatch) => {
     const response = await csrfFetch(`/api/spots/${spotId}`, {

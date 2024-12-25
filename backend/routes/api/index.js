@@ -86,7 +86,7 @@ router.delete('/review-images/:imageId', requireAuth, async (req, res) => {
 
   const image =  await ReviewImage.findOne({ 
     where: { id: imageId }, //find image by its Id
-    include: { //// include the Spot model to find the relationship between the image and the spot
+    include: { // include the Spot model to find the relationship between the image and the spot
       model: Review,
       attributes: ['userId'] // retrieve only the ownerId of the spot associated with the image
     }

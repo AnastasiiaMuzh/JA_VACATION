@@ -55,24 +55,6 @@ export const login = (user) => async (dispatch) => {
     return data;
 };
 
-//signup Thunk
-// export const signup = (user) => async (dispatch) => {
-//     const { username, firstName, lastName, email, password } = user;
-//     const response = await csrfFetch("/api/users", {
-//         method: "POST",
-//         body: JSON.stringify({
-//             username,
-//             firstName,
-//             lastName,
-//             email,
-//             password,
-//         }),
-//     });
-//     const data = await response.json();
-//     dispatch(setUser(data.user)); // Устанавливаем пользователя в Redux Store
-//     return response;
-// };
-
 
 //signup Thunk
 export const signup = (user) => async (dispatch) => {

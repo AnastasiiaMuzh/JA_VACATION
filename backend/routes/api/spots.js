@@ -5,6 +5,8 @@ const { User, Spot, SpotImage, Review, ReviewImage, Booking } = require('../../d
 const { where } = require('sequelize');
 const { validateReview, validateSpot } = require('../../utils/validation');
 const { Op, fn, col, Sequelize } = require("sequelize");
+const { baseUrl } = require('../../config');
+
 
 const router = express.Router();
 
@@ -101,10 +103,23 @@ router.get('/', async (req, res) => {
             // Округляем до 1 знака после запятой, если есть рейтинг
             avgRating: avgRatingVal !== null ? avgRatingVal.toFixed(1) : "New",
             numReviews: numReviewsVal, // Добавляем количество отзывов
+
+            // previewImage:
+            //  1) Если начинается с 'http', то оставляем как есть
+            //  2) Иначе добавляем baseUrl + "/" перед относительным путём
+            //     (baseUrl у нас из .env — http://localhost:8000 или https://... на проде)
             previewImage: spotJSON.SpotImages && spotJSON.SpotImages.length > 0
-                ? (spotJSON.SpotImages[0].url.startsWith('https')
-                    ? spotJSON.SpotImages[0].url
-                    : `https://localhost:8000/${spotJSON.SpotImages[0].url}`)
+                ? (
+                    spotJSON.SpotImages[0].url.startsWith('http')
+                      ? spotJSON.SpotImages[0].url
+                      : `${baseUrl}/${spotJSON.SpotImages[0].url}` // <-- COMMENT: Заменили 'http://localhost:8000' на baseUrl
+                  )
+
+
+            // previewImage: spotJSON.SpotImages && spotJSON.SpotImages.length > 0
+            //     ? (spotJSON.SpotImages[0].url.startsWith('http')
+            //         ? spotJSON.SpotImages[0].url
+            //         : `http://localhost:8000/${spotJSON.SpotImages[0].url}`)
                 : null,
         };
     });
@@ -205,7 +220,7 @@ router.get('/:spotId', async (req, res) => {
     // Обрабатываем изображения: если url не начинается с http, добавляем префикс
     spotData.SpotImages = spotData.SpotImages.map(img => ({
         ...img,
-        url: img.url.startsWith('https') ? img.url : `https://localhost:8000/${img.url}`
+        url: img.url.startsWith('http') ? img.url : `http://localhost:8000/${img.url}`
     }));
 
     // Подсчитываем число отзывов и средний рейтинг
@@ -323,7 +338,7 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
         // Добавляем абсолютный путь к изображениям
         spotData.SpotImages = spotData.SpotImages.map(img => ({
             ...img,
-            url: `https://localhost:8000/${img.url}`
+            url: `http://localhost:8000/${img.url}`
         }));
 
         const preview = spotData.SpotImages.find(img => img.preview);
